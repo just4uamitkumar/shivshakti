@@ -1,0 +1,374 @@
+@import "variables";
+@import "colors";
+@import "mixins";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/*--------| HTML, Body |---------*/
+html {
+  font-size: 14px;
+  line-height: 1.33;
+  font-family: $SodoSans;
+  color: $primary-text;
+}
+
+.fulHeight {
+  height: 100vh;
+}
+
+/*--------| Alignment |---------*/
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+/*--------| Text Decoration |---------*/
+.underline {
+  text-decoration: underline;
+}
+
+/*--------| Headings |---------*/
+h1.MuiTypography-root {
+  font-size: 3rem;
+  line-height: 1.27;
+  color: $secondary-text;
+  font-family: $SodoSansSemiBold;
+}
+
+h2.MuiTypography-root {
+  font-size: 1.8rem;
+}
+
+h3.MuiTypography-root {
+  font-size: 1.5rem;
+  line-height: 1.266;
+}
+
+h4.MuiTypography-root {
+  font-size: 1.3rem;
+  line-height: 1.27;
+  color: $secondary-text;
+  font-family: $SodoSansSemiBold;
+}
+
+h5.MuiTypography-root {
+  font-size: 1.1rem;
+}
+
+.MuiTypography-body2 {
+  font-size: 0.9rem;
+}
+
+/*--------| Spacing |---------*/
+.p-1 {
+  padding: $grid-1x;
+}
+
+.p-2 {
+  padding: $grid-2x;
+}
+
+.p-3 {
+  padding: $grid-3x;
+}
+
+.p-4 {
+  padding: $grid-4x;
+}
+.pt-1 {
+  padding-top: $grid-1x;
+}
+
+.pt-2 {
+  padding-top: $grid-2x;
+}
+
+.pt-3 {
+  padding-top: $grid-3x;
+}
+
+.pt-4 {
+  padding-top: $grid-4x;
+}
+
+.pb-1 {
+  padding-bottom: $grid-1x;
+}
+
+.pb-2 {
+  padding-bottom: $grid-2x;
+}
+
+.pb-3 {
+  padding-bottom: $grid-3x;
+}
+
+.pb-4 {
+  padding-bottom: $grid-4x;
+}
+
+.py-1 {
+  padding-top: $grid-1x;
+  padding-bottom: $grid-1x;
+}
+
+.py-2 {
+  padding-top: $grid-2x;
+  padding-bottom: $grid-2x;
+}
+
+.py-3 {
+  padding-top: $grid-3x;
+  padding-bottom: $grid-3x;
+}
+
+.py-4 {
+  padding-top: $grid-4x;
+  padding-bottom: $grid-4x;
+}
+
+.py-5 {
+  padding-top: $grid-5x;
+  padding-bottom: $grid-5x;
+}
+
+.pl-1 {
+  padding-left: $grid-1x;
+}
+
+.pl-2 {
+  padding-left: $grid-2x;
+}
+
+.pl-3 {
+  padding-left: $grid-3x;
+}
+
+.pl-4 {
+  padding-left: $grid-4x;
+}
+
+.pr-1 {
+  padding-right: $grid-1x;
+}
+
+.pr-2 {
+  padding-right: $grid-2x;
+}
+
+.pr-3 {
+  padding-right: $grid-3x;
+}
+
+.pr-4 {
+  padding-right: $grid-4x;
+}
+
+.mt-1 {
+  margin-top: $grid-1x;
+}
+
+.mt-2 {
+  margin-top: $grid-2x;
+}
+
+.mt-3 {
+  margin-top: $grid-3x;
+}
+
+.mt-4 {
+  margin-top: $grid-4x;
+}
+
+.mb-1 {
+  margin-bottom: $grid-1x;
+}
+
+.mb-2 {
+  margin-bottom: $grid-2x;
+}
+
+.mb-3 {
+  margin-bottom: $grid-3x;
+}
+
+.mb-4 {
+  margin-bottom: $grid-4x;
+}
+
+.ml-1 {
+  margin-left: $grid-1x;
+}
+
+.ml-2 {
+  margin-left: $grid-2x;
+}
+
+.ml-3 {
+  margin-left: $grid-3x;
+}
+
+.ml-4 {
+  margin-left: $grid-4x;
+}
+
+.mr-1 {
+  margin-right: $grid-1x;
+}
+
+.mr-2 {
+  margin-right: $grid-2x;
+}
+
+.mr-3 {
+  margin-right: $grid-3x;
+}
+
+.mr-4 {
+  margin-right: $grid-4x;
+}
+
+/*-------| Color Classes |--------*/
+.white {
+  color: $white;
+}
+
+.black {
+  color: $black;
+}
+
+.black100 {
+  color: $black100;
+}
+
+.black200 {
+  color: $black200;
+}
+
+.black500 {
+  color: $black500;
+}
+
+.green {
+  color: $green;
+}
+
+.primary-text {
+  color: $primary-text;
+}
+
+.primary-text-hover {
+  color: $primary-text-hover;
+}
+
+/*-------| Fonts Classes |--------*/
+.MuiTypography-root {
+  &.light-font {
+    font-family: $SodoSansLight;
+  }
+
+  &.regular-font {
+    font-family: $SodoSans;
+  }
+
+  &.semi-bold-font {
+    font-family: $SodoSansSemiBold;
+  }
+
+  &.bold-font {
+    font-family: $SodoSansBold;
+  }
+}
+
+/*-------| Button Classes |--------*/
+.MuiButtonBase-root {
+  &.MuiButton-root {
+    font-size: 1rem;
+    @include roundCorner(0);
+    align-items: center;
+    padding: calc($half-grid + 2px) $grid-2x;
+    font-family: $SodoSansSemiBold;
+    transition: 0.5s;
+
+    &.primary-btn {
+      background-color: $primary;
+      color: $white;
+      .MuiButton-startIcon {
+        .MuiSvgIcon-root {
+          font-size: 1.9rem;
+        }
+      }
+
+      &:hover {
+        background-color: $primary-hover;
+      }
+
+    }
+
+    &.secondary-btn {
+      background-color: transparent;
+      border: 1px solid $white;
+      color: $white;
+
+      &:hover {
+        background-color: $white;
+        color: $primary;
+      }
+    }
+
+     &.success-btn {
+      background-color: $success;
+      color: $success-text;
+
+      &:hover {
+        background-color: $success-hover;
+      }
+    }
+
+    &.cancel-btn {
+      background-color: transparent;
+      border: 1px solid $error;
+      color: $error;
+
+      &:hover {
+        background-color: $error;
+        color: $white;
+      }
+    }
+
+    // &.close-btn {
+    //   @include roundCorner($grid-4x);
+    //   color: $primary-text;
+    //   font-family: $SodoSansSemiBold;
+    //   text-transform: none;
+    //   text-decoration: underline;
+    // }
+
+   
+
+    &.warning-btn {
+      background-color: $warning;
+      color: $warning-text;
+
+      &:hover {
+        background-color: $warning-hover;
+      }
+    }
+
+    &.error-btn {
+      background-color: $error;
+      color: $error-text;
+
+      &:hover {
+        color:$white;
+        background-color: $error-hover;
+      }
+    }
+  }
+}

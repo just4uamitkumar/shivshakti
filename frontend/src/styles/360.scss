@@ -1,0 +1,15 @@
+/*--------| HTML, Body |---------*/
+html {
+  font-size: 14px;
+}
+
+/*-------| Main |--------*/
+.container {
+    width:$container;
+    margin:0 auto;
+}
+
+/*-------| Main |--------*/
+main {
+  padding: calc($grid-2x + 4px) 0 0;
+}

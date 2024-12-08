@@ -1,0 +1,26 @@
+@media only screen and (min-width: $breakpoint-sm-mobile) {
+  @import "360";
+}
+
+@media only screen and (min-width: $breakpoint-mobile) {
+  @import "480";
+}
+
+@media only screen and (min-width: $breakpoint-tablet) {
+  @import "768";
+}
+
+
+
+@media only screen and (min-width: $breakpoint-sm-desktop) {
+  @import "900";
+}
+
+
+
+@media only screen and (min-width: $breakpoint-normal-desktop) {}
+
+
+@media only screen and (min-width: $breakpoint-large-desktop) {
+  @import "1536";
+}
