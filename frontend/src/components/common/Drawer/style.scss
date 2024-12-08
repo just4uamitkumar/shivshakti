@@ -1,0 +1,154 @@
+@import "../../../styles/variables.scss";
+@import "../../../styles/colors";
+@import "../../../styles/mixins";
+
+
+.drawer {
+  &.bottom {
+    .MuiDrawer-paper {
+      @include roundCorner($grid-1x $grid-1x 0 0);
+      padding: $grid-1x;
+
+      .drawer-scroll{
+        height: 77vh;
+        width:100%;
+      }
+
+      .close {
+        color: $black;
+      }
+
+      .drawer-title {
+        color: $primary-text;
+        font-family: $SodoSansSemiBold;
+        margin-bottom: $grid-2x;
+
+        &.current-title{
+          margin-bottom: calc($grid-1x/2);
+        }
+      }
+    }
+
+    .Step {
+      margin: $grid-1x 0 calc($grid-1x + 2px);
+      font-family: $SodoSans;
+      color: $primary-text;
+      &:before {
+        font-family: $SodoSans;
+        color: $primary;
+        @include roundCorner(50%);
+        width: calc($grid-3x + 2px);
+        height: calc($grid-2x + 4px);
+        display: inline-block;
+        text-align: center;
+        font-size: 1.071rem;
+        margin-right: calc($grid-1x - 2px);
+        padding: calc($grid-1x - 2px) 0 0;
+        border: 1px solid $primary;
+      }
+  
+      &.active {
+        font-family: $SodoSansSemiBold;
+        &:before {
+          background-color: $secondary-focus;
+          border: 0;
+          color: $white;
+        }
+      }
+  
+      &.completed {
+        color: $primary;
+        &:before {
+          background-color: $green750;
+          border-color: $secondary-hover;
+          color: $secondary-hover;
+        }
+      }
+  
+      &.Step1 {
+        &:before {
+          content: "1";
+        }
+      }
+  
+      &.Step2 {
+        &:before {
+          content: "2";
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $breakpoint-sm-mobile) {
+  .drawer {
+    &.bottom{
+
+      .MuiDrawer-paper {
+        padding: $grid-2x;
+      }
+    }    
+  }
+}
+
+
+@media only screen and (min-width: $breakpoint-mobile) {
+  .drawer {
+    &.bottom{
+
+      .MuiDrawer-paper {
+        padding: $grid-2x;
+      }
+
+      .Step {
+        &:before {
+          width: calc($grid-3x + 4px);
+          height: calc($grid-3x - 1px);
+          padding: calc($grid-1x - 3px) 0 0;
+          margin-right: calc($grid-1x - 2px);
+        }     
+      }
+    }    
+  }
+}
+
+@media only screen and (min-width: $breakpoint-sm-desktop) {
+  .drawer {
+    &.bottom{
+      .MuiDrawer-paper {
+        height: 91vh;
+        padding: 0;
+      }
+
+      .Step {
+        &:before {
+          width: $grid-4x;
+          height: calc($grid-3x + 1px);
+          padding-top: calc($grid-1x - 1px);
+          margin-right: $grid-1x;
+        }     
+      }
+    }    
+  }  
+}
+
+
+@media only screen and (min-width: $breakpoint-normal-desktop) {
+  .drawer {
+    
+    &.bottom{
+      .MuiDrawer-paper {
+        height: 89vh;
+      }
+      .Step {
+        font-size: 1.11rem;
+        &:before {
+          width: calc($grid-4x + 4px);
+          height: calc($grid-3x + 5px);
+          padding-top: calc($grid-1x - 1px);
+          font-size: 1.11rem;
+        }     
+      }
+    }    
+  }  
+}
