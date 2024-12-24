@@ -1,0 +1,21 @@
+@import "../../../styles/variables.scss";
+@import "../../../styles/colors";
+
+/*-------| Images | ---------*/
+$homeBanner: "../../../styles/assets/images/web/shivbanner.png";
+$shivBanner: "../../../styles/assets/images/web/shivBanner2.png";
+
+.eventSection {
+  background-color: $tertiary;
+  padding: $grid-2x 0;
+  h1 {
+    color: $error-text;
+    text-shadow: 1px 3px 2px $white;
+  }
+}
+
+@media only screen and (min-width: $breakpoint-normal-desktop) {
+  .eventSection {
+    padding: $grid-4x 0;
+  }
+}

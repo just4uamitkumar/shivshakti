@@ -2,13 +2,14 @@
 $breakpoint-sm-mobile: 360px;
 $breakpoint-mobile: 480px;
 $breakpoint-tablet: 768px;
-$breakpoint-sm-desktop: 1024px;
-$breakpoint-normal-desktop: 1366px;
+$breakpoint-sm-desktop: 900px;
+$breakpoint-normal-desktop: 1200px;
+$breakpoint-normal-desktop2: 1366px;
 $breakpoint-large-desktop: 1536px;
 
 /*-------| Spacing | ---------*/
 $default-grid: 8px;
-$half-grid: $default-grid  / 2;
+$half-grid: calc($default-grid / 2);
 $grid-1x: $default-grid * 1;
 $grid-2x: $default-grid * 2;
 $grid-3x: $default-grid * 3;
@@ -22,15 +23,14 @@ $grid-10x: $default-grid * 10;
 
 /*-------| Container Width | ---------*/
 $container: 1170px;
+$container-lg: 1400px;
 
+/*-------| Images | ---------*/
+$headerImg: "../styles/assets/images/sbux/LogoWaterMark.png";
+$logoImg: "../styles/assets/images/sbux/logo.png";
+$backgroundBg: "../styles/assets/images/sbux/background-bg2.png";
 
 /*-------| Font-Family | ---------*/
-$SodoSansThin: "SoDo Sans Thin", sans-serif;
-$SodoSansThinItalic: "SoDo Sans Thin Italic", sans-serif;
-
-$SodoSansLight: "SoDo Sans Light", sans-serif;
-$SodoSansLightItalic: "SoDo Sans Light Italic", sans-serif;
-
 $SodoSans: "SoDo Sans", sans-serif;
 $SodoSansItalic: "SoDo Sans Italic", sans-serif;
 
@@ -39,6 +39,3 @@ $SodoSansSemiBoldItlic: "SoDo Sans Semi Bold Italic", sans-serif;
 
 $SodoSansBold: "SoDo Sans Bold", sans-serif;
 $SodoSansBoldItalic: "SoDo Sans Bold Italic", sans-serif;
-
-$SodoSansBlack: "SoDo Sans Black", sans-serif;
-$SodoSansBlackItalic: "SoDo Sans Black Italic", sans-serif;

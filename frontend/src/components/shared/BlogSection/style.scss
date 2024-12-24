@@ -1,0 +1,36 @@
+@import "../../../styles/variables.scss";
+@import "../../../styles/colors";
+@import "../../../styles/mixins";
+
+.blogSection {
+  .blogTile {
+    @include boxShadow(0 0 4px $grey700);
+
+    .textWrapper {
+      padding: $grid-1x;
+    }
+    h4 {
+      margin-bottom: $grid-1x;
+    }
+  }
+  .imgWarpper {
+    margin-bottom: $grid-1x;
+  }
+}
+
+@media only screen and (min-width: $breakpoint-sm-desktop) {
+  .blogSection {
+    .blogTile {
+      @include boxShadow(none);
+      .textWrapper {
+        padding: 0;
+      }
+      h4 {
+        margin-bottom: $grid-2x;
+      }
+    }
+    .imgWarpper {
+      margin-bottom: $grid-2x;
+    }
+  }
+}

@@ -6,75 +6,9 @@ main {
   padding: calc($grid-2x + 4px) 0 0;
 }
 
-/*-------| Sidebar |--------*/
-.codeColumn {
-  min-height: 500px;
-  background-color: $secondary;
+.container{
+  width: 100%;
+  margin:0 auto;
 }
 
-/*-------| Warning Bar |--------*/
-.warningBar {
-  background-color: $warning;
-  font-family: $SodoSansSemiBold;
-  font-size: 1.2rem;
-  color: $white;
-}
 
-/*-------| Info Bar |--------*/
-.infoBar {
-  background-color: $warning;
-  font-family: $SodoSansSemiBold;
-  font-size: 1.2rem;
-  color: $white;
-}
-
-/*-------| Snackbar |--------*/
-.snack-bar {
-  background-color: $white;
-
-  .MuiAlert-colorError {
-    padding: $half-grid calc($grid-1x + $half-grid);
-  }
-
-  &.error {
-    border: 2px solid $error-text;
-    .MuiAlert-icon {
-      svg {
-        color: $error-text;
-      }
-    }
-    h2 {
-      color: $error-text;
-    }
-    button {
-      svg {
-        color: $secondary-text;
-      }
-    }
-
-    .MuiAlert-colorError {
-      background-color: transparent;
-    }
-  }
-
-  &.success {
-    border: 2px solid $success;
-    .MuiAlert-icon {
-      svg {
-        color: $success;
-      }
-    }
-    h2 {
-      color: $success;
-    }
-    button {
-      svg {
-        color: $success;
-      }
-    }
-
-    .MuiAlert-colorSuccess {
-      background-color: $green700;
-    }
-  }
-}

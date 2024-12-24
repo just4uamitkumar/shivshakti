@@ -1,9 +1,10 @@
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import { CloseRounded } from "@mui/icons-material";
-import { Box, Grid } from "@mui/material";
+import { Box } from "@mui/material";
 import TypoGraphy from "../Typography";
 import SimpleBar from "simplebar-react";
+import Grid from "@mui/material/Grid2";
 import "simplebar-react/dist/simplebar.min.css";
 import "./style.scss";
 import useViewportWidth from "../../../utils/useViewportWidth";
