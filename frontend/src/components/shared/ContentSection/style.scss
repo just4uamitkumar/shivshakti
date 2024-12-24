@@ -1,0 +1,16 @@
+@import "../../../styles/variables.scss";
+@import "../../../styles/colors";
+@import "../../../styles/mixins";
+
+.contentSection {
+  .blockA{
+    @include boxShadow(0 0 4px $black700);
+    .imgWarpA{
+      img{
+        width: 100%;
+      }
+    }
+
+  }
+  
+}

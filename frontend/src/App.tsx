@@ -1,35 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import ContentSection from "./components/shared/ContentSection";
+import EventSection from "./components/shared/EventSection";
+import Footer from "./components/shared/Footer";
+import Header from "./components/shared/Header";
+import HomeBanner from "./components/shared/HomeBanner";
+import Grid from "@mui/material/Grid2";
+import WaySection from "./components/shared/WaySection";
+import BlogSection from "./components/shared/BlogSection";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App: React.FC = () => {
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <Header />
+      <HomeBanner />
+      <EventSection />
+      <Grid className={"contentWraper pt-4  pb-4"}>
+        <Grid className="container" container>
+          <ContentSection />
+        </Grid>
+      </Grid>
+      <WaySection />
+      <Grid className={"contentWraper pt-4  pb-4"}>
+        <Grid className="container" container>
+          <BlogSection />
+        </Grid>
+      </Grid>
 
-export default App
+      <Footer />
+    </>
+  );
+};
+
+export default App;

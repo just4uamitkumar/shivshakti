@@ -1,15 +1,52 @@
+@import "variables";
+@import "colors";
+@import "mixins";
+
 /*--------| HTML, Body |---------*/
 html {
-  font-size: 14px;
+  font-size: 13px;
 }
 
 /*-------| Main |--------*/
 .container {
-    width:$container;
-    margin:0 auto;
+  max-width: 96%;
 }
 
-/*-------| Main |--------*/
-main {
-  padding: calc($grid-2x + 4px) 0 0;
+/*-------| Button Classes |--------*/
+.MuiButtonBase-root {
+  &.MuiButton-root {
+    font-size: 1rem;
+    align-items: center;
+    font-family: $SodoSans;
+    text-transform: uppercase;
+    @include roundCorner(0);
+    @include boxShadow(none);
+
+    &:hover {
+      @include boxShadow(none);
+    }
+
+    &.primary-btn {
+      background-color: $primary;
+      color: $white;
+      padding: calc($half-grid + 2px) $grid-2x;
+
+      &:hover {
+        background-color: $primary-hover;
+      }
+    }
+
+    &.secondary-btn {
+      border-color: $white;
+      border-width: 1px;
+      border-style: solid;
+      background-color: transparent;
+      color: $white;
+      padding: calc($half-grid + 2px) $grid-2x;
+      &:hover {
+        background-color: $white;
+        color: $primary;
+      }
+    }
+  }
 }
