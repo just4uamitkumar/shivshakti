@@ -24,5 +24,9 @@ html {
     &.secondary-btn {
       padding: $grid-1x $grid-3x;
     }
+
+    &.cancel-btn {
+      padding: $grid-1x $grid-3x;
+    }
   }
 }

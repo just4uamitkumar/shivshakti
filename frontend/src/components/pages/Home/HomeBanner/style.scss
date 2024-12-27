@@ -1,7 +1,8 @@
-@import "../../../styles/variables.scss";
-@import "../../../styles/colors";
+@import "../../../../styles/variables.scss";
+@import "../../../../styles/colors.scss";
+@import "../../../../styles/mixins.scss";
 
-$shivBanner: "../../../styles/assets/images/web/shivBanner2.png";
+$shivBanner: "../../../../styles/assets/images/web/shivBanner2.png";
 
 .homeBanner {
   background-image: url($shivBanner);

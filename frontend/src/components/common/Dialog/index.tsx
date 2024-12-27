@@ -16,7 +16,7 @@ interface Props extends DialogProps {
   children?: React.ReactNode;
   confirmText?: string;
   cancelText?: string;
-  onConfirm?: any;
+  onConfirm?:  () => void;
   onCancel?: () => void;
   dialogClass?: string;
   titleClass?: string;
@@ -59,11 +59,11 @@ const CustomDialog: React.FC<Props> = ({
       }
       <DialogContent className={contentClass}>{children}</DialogContent>
       <DialogActions>
-        <Button onClick={onCancel} className={cancelBtnClass} disabled={loading}>
-          {cancelText}
-        </Button>
         <Button onClick={onConfirm} className={confirmBtnClass} disabled={loading}>
           {confirmText}
+        </Button>
+        <Button onClick={onCancel} className={cancelBtnClass} disabled={loading}>
+          {cancelText}
         </Button>
       </DialogActions>
     </Dialog>

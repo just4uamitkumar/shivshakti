@@ -46,7 +46,11 @@ header {
 .mobile-nav {
   .MuiPaper-root {
     width: calc(10 * $grid-3x);
-    padding-top: $grid-2x;
+
+    .nav-header{
+      background-color: $tertiary;
+      padding: $grid-1x;
+    }
 
     nav {
       ul {

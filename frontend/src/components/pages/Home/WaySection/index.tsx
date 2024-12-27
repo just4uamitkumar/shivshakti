@@ -1,9 +1,9 @@
 import Grid from "@mui/material/Grid2";
 import "./style.scss";
-import TypoGraphy from "../../common/Typography";
+import TypoGraphy from "../../../common/Typography";
 import { Stack } from "@mui/material";
-import temple1 from "../../../styles/assets/images/system/Somnath1.png";
-import Button from "../../common/Button";
+import temple1 from "../../../../styles/assets/images/system/Somnath1.png";
+import Button from "../../../common/Button";
 
 const WaySection: React.FC = () => {
   return (
