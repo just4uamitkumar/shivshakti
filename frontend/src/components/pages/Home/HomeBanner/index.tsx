@@ -1,9 +1,9 @@
 import Grid from "@mui/material/Grid2";
 import "./style.scss";
 import { Stack } from "@mui/material";
-import Button from "../../common/Button";
-import useViewportWidth from "../../../utils/useViewportWidth";
-import { smallDesktop } from "../../GlobalConstants";
+import Button from "../../../common/Button";
+import useViewportWidth from "../../../../utils/useViewportWidth";
+import { smallDesktop } from "../../../GlobalConstants";
 
 const HomeBanner: React.FC = () => {
   const windowWidth = useViewportWidth();

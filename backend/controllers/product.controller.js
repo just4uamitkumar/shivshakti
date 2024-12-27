@@ -3,7 +3,7 @@ import Product from "../models/product.model.js";
 import { catchAsyncError } from "../middleware/catchAsyncError.js";
 import ErrorHandler from "../utils/errorHandler.js";
 
-export const getProducts = catchAsyncError(async (req, res) => {
+export const getProducts = catchAsyncError(async (req, res, next) => {
   try {
     const products = await Product.find({});
     res.status(200).json({ success: true, data: products });
@@ -13,7 +13,7 @@ export const getProducts = catchAsyncError(async (req, res) => {
   }
 });
 
-export const createProduct = catchAsyncError(async (req, res) => {
+export const createProduct = catchAsyncError(async (req, res, next) => {
   const product = req.body; // user will send this data
 
   if (!product.name || !product.price || !product.image) {
@@ -31,7 +31,7 @@ export const createProduct = catchAsyncError(async (req, res) => {
   }
 });
 
-export const updateProduct = catchAsyncError(async (req, res) => {
+export const updateProduct = catchAsyncError(async (req, res, next) => {
   const { id } = req.params;
 
   const product = req.body;
@@ -50,7 +50,7 @@ export const updateProduct = catchAsyncError(async (req, res) => {
   }
 });
 
-export const deleteProduct = catchAsyncError(async (req, res) => {
+export const deleteProduct = catchAsyncError(async (req, res, next) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {

@@ -26,15 +26,14 @@
     }
 
     .MuiDialogActions-root {
-      flex-direction: column-reverse;
+      flex-direction: "row";
       padding: $grid-2x $grid-1x calc($grid-1x/2);
 
       button {
         width: 100%;
         font-size: 1.1rem;
-        margin: 0 0 calc($grid-1x - 4px);
+        margin: 0 calc($grid-1x - 4px) calc($grid-1x - 4px);
         padding: $grid-1x 0;
-        @include roundCorner($grid-2x);
       }
     }
   }

@@ -1,8 +1,8 @@
 import Grid from "@mui/material/Grid2";
 import "./style.scss";
-import TypoGraphy from "../../common/Typography";
 import { Stack } from "@mui/material";
-import mahadevImg from "../../../styles/assets/images/web/MahadevImg.jpg";
+import mahadevImg from "../../../../styles/assets/images/web/MahadevImg.jpg";
+import TypoGraphy from "../../../common/Typography";
 
 const ContentSection: React.FC = () => {
   return (

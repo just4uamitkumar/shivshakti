@@ -1,6 +1,6 @@
 import Grid from "@mui/material/Grid2";
 import "./style.scss";
-import TypoGraphy from "../../common/Typography";
+import TypoGraphy from "../../../common/Typography";
 
 const EventSection: React.FC = () => {
   return (

@@ -18,7 +18,7 @@ interface Props {
 
 const SnackBar: React.FC<Props> = ({ message, severity, yPos, xPos, snackClass, iconName, openSnack, setOpenSnack }) => {
 
-    const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+    const snackClose = (event?: React.SyntheticEvent, reason?: string) => {
         if (reason === 'clickaway') {
             return;
         }
@@ -32,7 +32,7 @@ const SnackBar: React.FC<Props> = ({ message, severity, yPos, xPos, snackClass, 
             anchorOrigin={{ vertical: yPos, horizontal: xPos }}
             className={snackClass}
         >
-            <Alert onClose={handleClose} icon={iconName} severity={severity}>
+            <Alert onClose={snackClose} icon={iconName} severity={severity}>
                 {message}
             </Alert>
         </Snackbar>

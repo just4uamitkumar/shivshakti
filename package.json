@@ -2,13 +2,15 @@
   "name": "shivshakti",
   "version": "1.0.0",
   "description": "All about mahadev",
+  "type":"module",
   "main": "index.js",
   "scripts": {
-    	"dev": "nodemon backend/server.js"
+    "dev": "nodemon backend/server.js"
   },
   "author": "amit",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "mongoose": "^8.8.4"

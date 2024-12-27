@@ -1,0 +1,35 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/colors.scss';
+@import '../../../styles/mixins.scss';
+
+
+.pageBanner {
+  background-color: $violet;
+  padding: $grid-2x 0;
+  .pageTitle {
+    color: $white;
+    font-size: 2rem;
+    font-family: $SodoSansBold;
+    line-height: 1.2;
+  }
+}
+
+@media only screen and (min-width: $breakpoint-sm-desktop) {
+  .pageBanner {
+    padding: $grid-3x 0;
+    .pageTitle {
+      font-size: 2.2rem;
+    }
+  }
+}
+
+@media only screen and (min-width: $breakpoint-normal-desktop) {
+  .pageBanner {
+    padding: $grid-6x  0;
+    .pageTitle {
+      font-size: 2.4rem;
+    }
+  }
+}
+
+
