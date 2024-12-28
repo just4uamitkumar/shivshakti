@@ -25,14 +25,7 @@ const Jyotirlinga: React.FC = () => {
   const [errorSnack, setErrorSnack] = useState<boolean>(false);
   const [errorVal, setErrorVal] = useState<string>("");
   const [selectedTempleId, setSelectedTempleId] = useState<string>("");
-  const [currentTemple, setCurrentTemple] = useState<templeType>({
-    name: "",
-    state: "",
-    description: "",
-    imgPath: "",
-    latitude: '',
-    longitude: '',
-  });
+  const [currentTemple, setCurrentTemple] = useState<templeType[]>([]);
 
   useEffect(() => {
     getJyotirling();
@@ -43,8 +36,10 @@ const Jyotirlinga: React.FC = () => {
   }, [addSnack, updateSnack]);
 
   useEffect(() => {
-    const currentItem = templeList.filter((item:templeType) => item?._id === selectedTempleId)
-    setCurrentTemple(currentItem)
+    const currentItem: never[] = templeList.filter(
+      (item: templeType) => item?._id === selectedTempleId
+    );
+    setCurrentTemple(currentItem);
   }, [selectedTempleId]);
 
   const handleAddSnackClose = () => {
@@ -75,14 +70,12 @@ const Jyotirlinga: React.FC = () => {
 
   const toggleUpdateTempleDrawer2 = (element: string) => {
     toggleUpdateTempleDrawer();
-    setSelectedTempleId(element)
+    setSelectedTempleId(element);
   };
 
   const toggleUpdateTempleDrawer = () => {
     setOpenUpdateTempleDrawer(!openUpdateTempleDrawer);
   };
-
-  console.log('currentTemple 1', currentTemple)
 
   const toggleDeleteModal = (element: string) => {
     setOpenDeleteModal(!openDeleteModal);
@@ -131,18 +124,13 @@ const Jyotirlinga: React.FC = () => {
             />
           </Grid>
           <Grid className="rightSection">
-            <Stack>
-              <TypoGraphy variant={"h2"} typeClass={"semi-bold-font"}>
-                {"Our Jyotirling"}
-              </TypoGraphy>
-            </Stack>
 
             {templeList &&
               templeList.map((item: templeType) => (
                 <Grid
                   size={12}
                   container
-                  className={"blockA mb-3"}
+                  className={"blockA mb-4"}
                   key={item?._id}
                 >
                   <Grid size={{ xs: 12, sm: 12, md: 4 }}>
@@ -158,8 +146,8 @@ const Jyotirlinga: React.FC = () => {
                     >
                       <Stack>
                         <TypoGraphy
-                          variant={"h2"}
-                          typeClass={"semi-bold-italic pb-1"}
+                          variant={"h3"}
+                          typeClass={"semi-bold-font pb-1"}
                         >
                           {item.name}
                         </TypoGraphy>
@@ -177,14 +165,32 @@ const Jyotirlinga: React.FC = () => {
                         />
                       </Stack>
                     </Stack>
-                    <Stack>
+                    <Stack className={"pb-2"}>
                       <TypoGraphy variant={"body1"}>
                         {item.description}
                       </TypoGraphy>
                     </Stack>
                     <Stack>
                       <TypoGraphy variant={"body1"}>
-                        {item.city + " / " + item.state}
+                        <strong>City : </strong> {item.city}
+                      </TypoGraphy>
+                    </Stack>
+                    <Stack className={"pb-2"}>
+                      <TypoGraphy variant={"body1"}>
+                        <strong>State : </strong>
+                        {item.state}
+                      </TypoGraphy>
+                    </Stack>
+
+                    <Stack>
+                      <TypoGraphy variant="body1" typeClass={"regular-font"}>
+                        Location :{" "}
+                        <a
+                          href={`https://www.google.com/maps?q=${item?.location?.latitude},${item?.location?.longitude}`}
+                          target="_blank"
+                        >
+                          Open in Google Maps
+                        </a>
                       </TypoGraphy>
                     </Stack>
                   </Grid>

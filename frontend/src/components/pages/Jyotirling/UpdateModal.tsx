@@ -5,10 +5,10 @@ import CustomDialog from "../../common/Dialog";
 interface Props {
     openModal: boolean;
     closeModal?: () => void;
-    handleCreate:  () => void;
+    handleUpdate:  () => void;
 }
 
-const AddModal: React.FC<Props> = ({ openModal, closeModal, handleCreate }) => {
+const UpdateModal: React.FC<Props> = ({ openModal, closeModal, handleUpdate }) => {
  
     return (
         <>
@@ -17,7 +17,7 @@ const AddModal: React.FC<Props> = ({ openModal, closeModal, handleCreate }) => {
                 dialogClass="confirm-dialog"
                 open={openModal}
                 onCancel={closeModal}
-                onConfirm={handleCreate}
+                onConfirm={handleUpdate}
                 confirmText={"Yes, Add"}
                 cancelText={"No"}
                 confirmBtnClass={"primary-btn"}
@@ -28,7 +28,7 @@ const AddModal: React.FC<Props> = ({ openModal, closeModal, handleCreate }) => {
             >
                 <Grid size={12}>
                     <Stack>
-                    {'Are you sure you want to add new temple ?'}
+                    {'Are you sure you want to update temple details ?'}
                     </Stack>
                 </Grid>
             </CustomDialog>
@@ -36,4 +36,4 @@ const AddModal: React.FC<Props> = ({ openModal, closeModal, handleCreate }) => {
     );
 };
 
-export default AddModal;
+export default UpdateModal;
