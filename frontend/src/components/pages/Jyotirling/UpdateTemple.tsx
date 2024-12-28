@@ -6,12 +6,12 @@ import Button from "../../common/Button";
 import { useEffect, useState } from "react";
 import { templeType } from "./constants";
 import { server } from "../../../redux/store";
-import CreateModal from "./addModal";
+import UpdateModal from "./UpdateModal";
 
 interface Props {
   openUpdateTempleDrawer: boolean;
   toggleUpdateTempleDrawer: () => void;
-  currentTemple: templeType;
+  currentTemple: templeType[];
   openSnack?: boolean;
   setOpenSnack: (openSnack: boolean) => void;
   errorSnack?: boolean;
@@ -31,7 +31,7 @@ const UpdateTemple: React.FC<Props> = ({
 }) => {
   const [formData, setFormData] = useState<templeType>({
     _id: "",
-    name: currentTemple?.name,
+    name: "",
     state: "",
     description: "",
     imgPath: "",
@@ -46,13 +46,14 @@ const UpdateTemple: React.FC<Props> = ({
     } else {
       setFormData({
         ...formData,
-        _id: currentTemple?._id,
-        name: currentTemple?.name,
-        state: currentTemple?.state,
-        description: currentTemple?.description,
-        imgPath: currentTemple?.imgPath,
-        latitude: currentTemple?.location?.latitude,
-        longitude: currentTemple?.location?.longitude,
+        _id: currentTemple[0]?._id,
+        name: currentTemple[0]?.name,
+        city: currentTemple[0]?.city,
+        state: currentTemple[0]?.state,
+        description: currentTemple[0]?.description,
+        imgPath: currentTemple[0]?.imgPath,
+        latitude: currentTemple[0]?.location?.latitude,
+        longitude: currentTemple[0]?.location?.longitude,
       });
     }
   }, [currentTemple]);
@@ -63,9 +64,6 @@ const UpdateTemple: React.FC<Props> = ({
       [e.target.name]: e.target.value,
     });
   };
-
-  console.log("currentTemple 2", currentTemple);
-  console.log("formData", formData);
 
   const submitHandler = () => {
     if (!formData.name) {
@@ -93,12 +91,12 @@ const UpdateTemple: React.FC<Props> = ({
     setOpenModal(true);
   };
 
-  const handleCreate = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUpdate = async (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
 
     try {
-      const response = await fetch(`${server}jyotirlings`, {
-        method: "POST",
+      const response = await fetch(`${server}jyotirlings/${currentTemple[0]?._id}`, {
+        method: "PUT",
         headers: {
           "Content-type": "application/json",
         },
@@ -115,16 +113,7 @@ const UpdateTemple: React.FC<Props> = ({
         }),
       });
 
-      if (response.status === 201) {
-        setFormData({
-          name: "",
-          state: "",
-          city: "",
-          imgPath: "",
-          description: "",
-          latitude: "",
-          longitude: "",
-        });
+      if (response.status === 200) {
         closeModal();
         setOpenSnack(!openSnack);
         toggleUpdateTempleDrawer();
@@ -154,9 +143,9 @@ const UpdateTemple: React.FC<Props> = ({
           <Grid className="formWrapper">
             <Stack className="mb-2">
               <TextField
-                // label="Name"
+               label="Name"
                 variant="outlined"
-                value={currentTemple?.name}
+                value={formData?.name}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   handleChange(e)
                 }
@@ -165,9 +154,9 @@ const UpdateTemple: React.FC<Props> = ({
             </Stack>
             <Stack className="mb-2">
               <TextField
-                // label="State"
+                label="State"
                 variant="outlined"
-                value={currentTemple?.state}
+                value={formData?.state}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   handleChange(e)
                 }
@@ -178,7 +167,7 @@ const UpdateTemple: React.FC<Props> = ({
               <TextField
                 label="City"
                 variant="outlined"
-                value={formData.city}
+                value={formData?.city}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   handleChange(e)
                 }
@@ -189,7 +178,7 @@ const UpdateTemple: React.FC<Props> = ({
               <TextField
                 label="Image Source"
                 variant="outlined"
-                value={formData.imgPath}
+                value={formData?.imgPath}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   handleChange(e)
                 }
@@ -237,7 +226,7 @@ const UpdateTemple: React.FC<Props> = ({
               <Button
                 className={"primary-btn"}
                 variant={"contained"}
-                text={"Submit"}
+                text={"Update"}
                 onClick={submitHandler}
               />
               <Button
@@ -250,9 +239,9 @@ const UpdateTemple: React.FC<Props> = ({
           </Grid>
         </Grid>
       </Drawer>
-      <CreateModal
+      <UpdateModal
         openModal={openModal}
-        handleCreate={handleCreate}
+        handleUpdate={handleUpdate}
         closeModal={closeModal}
       />
     </>

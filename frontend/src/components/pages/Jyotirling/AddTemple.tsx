@@ -6,7 +6,7 @@ import Button from "../../common/Button";
 import { useState } from "react";
 import { templeType } from "./constants";
 import { server } from "../../../redux/store";
-import CreateModal from "./addModal";
+import AddModal from "./addModal";
 
 interface Props {
   openAddTempleDrawer: boolean;
@@ -230,7 +230,7 @@ const AddTemple: React.FC<Props> = ({
           </Grid>
         </Grid>
       </Drawer>
-      <CreateModal
+      <AddModal
         openModal={openModal}
         handleCreate={handleCreate}
         closeModal={closeModal}

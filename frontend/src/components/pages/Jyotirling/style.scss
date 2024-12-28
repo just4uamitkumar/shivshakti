@@ -8,7 +8,7 @@
   }
 
   h4{
-    background-color: $violet;
+    background-color: $secondary;
     color:$white;
     padding: $grid-2x;
     font-size: 1.3rem;
@@ -24,7 +24,7 @@
 }
 
 .blockA{
-  @include boxShadow(0 0 4px $grey700);
+  @include boxShadow(0 0 4px $grey400);
 
   .MuiIconButton-root{
     &.edit-btn{

@@ -10,8 +10,8 @@ const PageBanner: React.FC<Props> = ({ title }) => {
   return (
     <>
       <Grid className="pageBanner" container>
-        <Grid className="container" textAlign={"center"}>
-          <Stack className="pageTitle text-center">{title}</Stack>
+        <Grid className="container">
+          <Stack className="pageTitle">{title}</Stack>
         </Grid>
       </Grid>
     </>
