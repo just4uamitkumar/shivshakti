@@ -13,13 +13,13 @@ const Code: React.FC = () => {
   const getProducts = async () => {
     const products = await fetch(`${server}products`);
     const data = await products.json();
-    console.log(data);
+    return data
   };
 
   const geJyotirling = async () => {
     const products = await fetch(`${server}jyotirlings`);
     const data = await products.json();
-    console.log(data);
+    return data
   };
 
   return (
