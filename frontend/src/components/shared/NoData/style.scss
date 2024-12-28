@@ -1,0 +1,15 @@
+@import "../../../styles//variables.scss";
+@import "../../../styles/colors.scss";
+@import "../../../styles/mixins.scss";
+
+.noData-container {
+  padding: $grid-1x;
+  color: $primary-text;
+
+  div {
+    margin: calc($grid-1x + calc($grid-1x/2)) $grid-1x;
+    img {
+      width: $grid-6x;
+    }
+  }
+}
