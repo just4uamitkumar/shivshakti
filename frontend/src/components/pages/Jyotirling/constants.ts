@@ -5,6 +5,10 @@ export type templeType = {
   imgPath?: string | undefined;
   name?: string | undefined;
   state?: string | undefined;
+  location?:{
+    latitude?:number | string | undefined;
+  longitude?:number | string | undefined;
+  }
   latitude?:number | string | undefined;
   longitude?:number | string | undefined;
 };

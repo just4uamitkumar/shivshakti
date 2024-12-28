@@ -10,29 +10,29 @@ import AddTemple from "./AddTemple";
 import { Delete, Edit, TaskAlt, Warning } from "@mui/icons-material";
 import CustomIconBtn from "../../common/IconBtn";
 import DeleteModal from "./DeleteModal";
+import UpdateTemple from "./UpdateTemple";
 
 const Jyotirlinga: React.FC = () => {
   const [templeList, setTempleList] = useState<[]>([]);
   const [openAddTempleDrawer, setOpenAddTempleDrawer] =
     useState<boolean>(false);
+  const [openUpdateTempleDrawer, setOpenUpdateTempleDrawer] =
+    useState<boolean>(false);
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
-  const [openSnack, setOpenSnack] = useState<boolean>(false);
+  const [addSnack, setAddSnack] = useState<boolean>(false);
+  const [updateSnack, setUpdateSnack] = useState<boolean>(false);
   const [deleteSnack, setDeleteSnack] = useState<boolean>(false);
   const [errorSnack, setErrorSnack] = useState<boolean>(false);
   const [errorVal, setErrorVal] = useState<string>("");
-  const [selectedTemple, setSelectedTemple] = useState<string>('')
-
-  const handleSnackClose = () => {
-    setOpenSnack(false);
-  };
-
-  const handleSnackErrorClose = () => {
-    setErrorSnack(false);
-  };
-
-  const handleDeleteSnackClose = () => {
-    setDeleteSnack(false);
-  };
+  const [selectedTempleId, setSelectedTempleId] = useState<string>("");
+  const [currentTemple, setCurrentTemple] = useState<templeType>({
+    name: "",
+    state: "",
+    description: "",
+    imgPath: "",
+    latitude: '',
+    longitude: '',
+  });
 
   useEffect(() => {
     getJyotirling();
@@ -40,7 +40,28 @@ const Jyotirlinga: React.FC = () => {
 
   useEffect(() => {
     getJyotirling();
-  }, [openSnack]);
+  }, [addSnack, updateSnack]);
+
+  useEffect(() => {
+    const currentItem = templeList.filter((item:templeType) => item?._id === selectedTempleId)
+    setCurrentTemple(currentItem)
+  }, [selectedTempleId]);
+
+  const handleAddSnackClose = () => {
+    setAddSnack(false);
+  };
+
+  const handleUpdateSnackClose = () => {
+    setAddSnack(false);
+  };
+
+  const handleDeleteSnackClose = () => {
+    setDeleteSnack(false);
+  };
+
+  const handleSnackErrorClose = () => {
+    setErrorSnack(false);
+  };
 
   const getJyotirling = async () => {
     const response = await fetch(`${server}jyotirlings`);
@@ -52,32 +73,41 @@ const Jyotirlinga: React.FC = () => {
     setOpenAddTempleDrawer(!openAddTempleDrawer);
   };
 
-  const toggleDeleteModal = (element:string) => {
+  const toggleUpdateTempleDrawer2 = (element: string) => {
+    toggleUpdateTempleDrawer();
+    setSelectedTempleId(element)
+  };
+
+  const toggleUpdateTempleDrawer = () => {
+    setOpenUpdateTempleDrawer(!openUpdateTempleDrawer);
+  };
+
+  console.log('currentTemple 1', currentTemple)
+
+  const toggleDeleteModal = (element: string) => {
     setOpenDeleteModal(!openDeleteModal);
-    setSelectedTemple(element)
+    setSelectedTempleId(element);
   };
 
   const closeDeleteModal = () => {
     setOpenDeleteModal(!openDeleteModal);
   };
 
-  const handleDelete = async (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleDelete = async (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
 
     try {
-      const response = await fetch(`${server}jyotirlings/${selectedTemple}`, {
+      const response = await fetch(`${server}jyotirlings/${selectedTempleId}`, {
         method: "DELETE",
       });
 
       if (response.status === 200) {
         closeDeleteModal();
-        setDeleteSnack(false);
+        setDeleteSnack(!deleteSnack);
         getJyotirling();
       }
     } catch (e) {
-      console.log(e);
+      console.dir(e);
       closeDeleteModal();
     }
   };
@@ -138,6 +168,7 @@ const Jyotirlinga: React.FC = () => {
                         <CustomIconBtn
                           IconComponent={Edit}
                           iconClass={"edit-btn"}
+                          onClick={() => toggleUpdateTempleDrawer2(item?._id)}
                         />
                         <CustomIconBtn
                           IconComponent={Delete}
@@ -164,8 +195,18 @@ const Jyotirlinga: React.FC = () => {
         <AddTemple
           openAddTempleDrawer={openAddTempleDrawer}
           toggleAddTempleDrawer={toggleAddTempleDrawer}
-          openSnack={openSnack}
-          setOpenSnack={setOpenSnack}
+          openSnack={addSnack}
+          setOpenSnack={setAddSnack}
+          errorSnack={errorSnack}
+          setErrorSnack={setErrorSnack}
+          setErrorVal={setErrorVal}
+        />
+        <UpdateTemple
+          openUpdateTempleDrawer={openUpdateTempleDrawer}
+          toggleUpdateTempleDrawer={toggleUpdateTempleDrawer}
+          currentTemple={currentTemple}
+          openSnack={updateSnack}
+          setOpenSnack={setUpdateSnack}
           errorSnack={errorSnack}
           setErrorSnack={setErrorSnack}
           setErrorVal={setErrorVal}
@@ -177,22 +218,43 @@ const Jyotirlinga: React.FC = () => {
           closeDeleteModal={closeDeleteModal}
         />
       </Grid>
+
       {/* Snack bar for Success Message */}
       <Snackbar
-        open={openSnack}
+        open={addSnack}
         autoHideDuration={4000}
-        onClose={handleSnackClose}
+        onClose={handleAddSnackClose}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         className="snack-bar success"
       >
         <Alert
           icon={<TaskAlt />}
-          onClose={handleSnackClose}
+          onClose={handleAddSnackClose}
           severity="success"
           variant="filled"
         >
           <TypoGraphy typeClass={"regular-font"} variant={"h4"}>
-            {"Success! Data added"}
+            {"Success! Temple added"}
+          </TypoGraphy>
+        </Alert>
+      </Snackbar>
+
+      {/* Snack bar for Success Message */}
+      <Snackbar
+        open={updateSnack}
+        autoHideDuration={4000}
+        onClose={handleUpdateSnackClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        className="snack-bar success"
+      >
+        <Alert
+          icon={<TaskAlt />}
+          onClose={handleUpdateSnackClose}
+          severity="success"
+          variant="filled"
+        >
+          <TypoGraphy typeClass={"regular-font"} variant={"h4"}>
+            {"Success! Temple Updated"}
           </TypoGraphy>
         </Alert>
       </Snackbar>
@@ -200,7 +262,7 @@ const Jyotirlinga: React.FC = () => {
       {/* Snack bar for Delete Temple Message */}
       <Snackbar
         open={deleteSnack}
-        autoHideDuration={4000}
+        autoHideDuration={6000}
         onClose={handleDeleteSnackClose}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         className="snack-bar success"

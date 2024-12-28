@@ -3,14 +3,15 @@ import TypoGraphy from "../../common/Typography";
 import { Drawer, Stack, TextField } from "@mui/material";
 import "./style.scss";
 import Button from "../../common/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { templeType } from "./constants";
 import { server } from "../../../redux/store";
 import CreateModal from "./addModal";
 
 interface Props {
-  openAddTempleDrawer: boolean;
-  toggleAddTempleDrawer: () => void;
+  openUpdateTempleDrawer: boolean;
+  toggleUpdateTempleDrawer: () => void;
+  currentTemple: templeType;
   openSnack?: boolean;
   setOpenSnack: (openSnack: boolean) => void;
   errorSnack?: boolean;
@@ -18,25 +19,43 @@ interface Props {
   setErrorVal: (errorVal: string) => void;
 }
 
-const AddTemple: React.FC<Props> = ({
-  openAddTempleDrawer,
-  toggleAddTempleDrawer,
+const UpdateTemple: React.FC<Props> = ({
+  openUpdateTempleDrawer,
+  toggleUpdateTempleDrawer,
+  currentTemple,
   openSnack,
   setOpenSnack,
   errorSnack,
   setErrorSnack,
-  setErrorVal
-
+  setErrorVal,
 }) => {
   const [formData, setFormData] = useState<templeType>({
-    name: "",
+    _id: "",
+    name: currentTemple?.name,
     state: "",
     description: "",
     imgPath: "",
-    latitude: '',
-    longitude: '',
+    latitude: "",
+    longitude: "",
   });
   const [openModal, setOpenModal] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!currentTemple) {
+      return;
+    } else {
+      setFormData({
+        ...formData,
+        _id: currentTemple?._id,
+        name: currentTemple?.name,
+        state: currentTemple?.state,
+        description: currentTemple?.description,
+        imgPath: currentTemple?.imgPath,
+        latitude: currentTemple?.location?.latitude,
+        longitude: currentTemple?.location?.longitude,
+      });
+    }
+  }, [currentTemple]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -44,6 +63,9 @@ const AddTemple: React.FC<Props> = ({
       [e.target.name]: e.target.value,
     });
   };
+
+  console.log("currentTemple 2", currentTemple);
+  console.log("formData", formData);
 
   const submitHandler = () => {
     if (!formData.name) {
@@ -71,9 +93,7 @@ const AddTemple: React.FC<Props> = ({
     setOpenModal(true);
   };
 
-  const handleCreate = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleCreate = async (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
 
     try {
@@ -102,12 +122,12 @@ const AddTemple: React.FC<Props> = ({
           city: "",
           imgPath: "",
           description: "",
-          latitude: '',
-          longitude: '',
+          latitude: "",
+          longitude: "",
         });
         closeModal();
         setOpenSnack(!openSnack);
-        toggleAddTempleDrawer()
+        toggleUpdateTempleDrawer();
       }
     } catch (e) {
       console.dir(e);
@@ -122,21 +142,21 @@ const AddTemple: React.FC<Props> = ({
   return (
     <>
       <Drawer
-        open={openAddTempleDrawer}
-        onClose={toggleAddTempleDrawer}
+        open={openUpdateTempleDrawer}
+        onClose={toggleUpdateTempleDrawer}
         className="drawerA"
         anchor={"right"}
       >
         <Grid size={12} flexDirection={"row"}>
           <Stack>
-            <TypoGraphy variant={"h4"}>{"Add Jyotirling"}</TypoGraphy>
+            <TypoGraphy variant={"h4"}>{"Update Jyotirling"}</TypoGraphy>
           </Stack>
           <Grid className="formWrapper">
             <Stack className="mb-2">
               <TextField
-                label="Name"
+                // label="Name"
                 variant="outlined"
-                value={formData.name}
+                value={currentTemple?.name}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   handleChange(e)
                 }
@@ -145,9 +165,9 @@ const AddTemple: React.FC<Props> = ({
             </Stack>
             <Stack className="mb-2">
               <TextField
-                label="State"
+                // label="State"
                 variant="outlined"
-                value={formData.state}
+                value={currentTemple?.state}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   handleChange(e)
                 }
@@ -224,7 +244,7 @@ const AddTemple: React.FC<Props> = ({
                 className={"cancel-btn"}
                 variant={"contained"}
                 text={"Cancel"}
-                onClick={toggleAddTempleDrawer}
+                onClick={toggleUpdateTempleDrawer}
               />
             </Stack>
           </Grid>
@@ -239,4 +259,4 @@ const AddTemple: React.FC<Props> = ({
   );
 };
 
-export default AddTemple;
+export default UpdateTemple;
