@@ -1,0 +1,32 @@
+@import "variables";
+@import "colors";
+@import "mixins";
+
+/*--------| HTML, Body |---------*/
+html {
+  font-size: 14px;
+}
+
+/*-------| Main |--------*/
+.container {
+  max-width: 96%;
+}
+
+
+/*-------| Button Classes |--------*/
+.MuiButtonBase-root {
+  &.MuiButton-root {
+
+    &.primary-btn {
+      padding: $grid-1x $grid-3x;
+    }
+
+    &.secondary-btn {
+      padding: $grid-1x $grid-3x;
+    }
+
+    &.cancel-btn {
+      padding: $grid-1x $grid-3x;
+    }
+  }
+}

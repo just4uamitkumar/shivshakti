@@ -1,0 +1,144 @@
+@import "variables";
+@import "colors";
+@import "mixins";
+
+/*--------| HTML, Body |---------*/
+html {
+  font-size: 12px;
+}
+
+/*-------| Main |--------*/
+.container {
+  max-width: 96%;
+}
+
+/*-------| ContentWrapper |--------*/
+.contentWraper {
+  .leftSideBar {
+    width: 300px;
+    padding: $grid-2x $grid-1x;
+    background-color: $green800;
+  }
+  .rightSection {
+    width: calc(100% - 332px);
+    padding: $grid-2x $grid-1x;
+  }
+}
+
+/*-------| Button Classes |--------*/
+.MuiButtonBase-root {
+  &.MuiButton-root {
+    font-size: 1rem;
+    align-items: center;
+    font-family: $SodoSans;
+    text-transform: uppercase;
+    @include roundCorner(0);
+    @include boxShadow(none);
+
+    &:hover {
+      @include boxShadow(none);
+    }
+
+    &.primary-btn {
+      background-color: $primary;
+      color: $white;
+      padding: calc($half-grid + 2px) $grid-2x;
+
+      &:hover {
+        background-color: $primary-hover;
+      }
+    }
+
+    &.secondary-btn {
+      border-color: $white;
+      border-width: 1px;
+      border-style: solid;
+      background-color: transparent;
+      color: $white;
+      padding: calc($half-grid + 2px) $grid-2x;
+      &:hover {
+        background-color: $white;
+        color: $primary;
+      }
+    }
+
+    &.cancel-btn {
+      border-color: $red500;
+      border-width: 1px;
+      border-style: solid;
+      background-color: transparent;
+      color: $red500;
+      padding: calc($half-grid + 2px) $grid-2x;
+      &:hover {
+        background-color: $red500;
+        color: $white;
+      }
+    }
+  }
+}
+
+/*-------| SnackBar |--------*/
+.snack-bar {
+  border-width: 1px;
+  border-style: solid;
+
+  .MuiPaper-root {
+    .MuiAlert-message {
+      h4 {
+        font-size: 1rem;
+        font-family: $SodoSans;
+      }
+    }
+  }
+
+  &.error {
+    border-color: $red200;
+    @include roundCorner(0);
+
+    .MuiPaper-root {
+      background-color: $white100;
+      .MuiAlert-message {
+        h4 {
+          color: $red200;
+        }
+      }
+
+      .MuiAlert-icon {
+        svg {
+          color: $red200;
+        }
+      }
+
+      .MuiAlert-action {
+        svg {
+          color: $red200;
+        }
+      }
+    }
+  }
+  &.success {
+    border-color: $green300;
+    @include roundCorner(0);
+
+    .MuiPaper-root {
+      background-color: $white100;
+      .MuiAlert-message {
+        h4 {
+          color: $green300;
+        }
+      }
+
+      .MuiAlert-icon {
+        svg {
+          color: $green300;
+        }
+      }
+
+      .MuiAlert-action {
+        svg {
+          color: $green300;
+        }
+      }
+    }
+  }
+}
