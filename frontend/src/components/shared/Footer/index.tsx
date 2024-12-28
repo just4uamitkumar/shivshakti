@@ -44,7 +44,14 @@ const Footer: React.FC = () => {
               <TypoGraphy variant="h4">{"Contact info"}</TypoGraphy>
             </Stack>
             <Stack>
-              <TypoGraphy variant="h4">{"About us"}</TypoGraphy>
+              <ul className="footer-links">
+                <li><Link to="/devotee">Devotee</Link></li>
+                <li><Link to="/">Read</Link></li>
+                <li><Link to="/">Listen</Link></li>
+                <li><Link to="/">Contact Us</Link></li>
+                <li><Link to="/">My Account</Link></li>
+                <li><Link to="/">Sign In</Link></li>
+              </ul>
             </Stack>
           </Grid>
           <Grid size={{ xs:6, md:3}}>
