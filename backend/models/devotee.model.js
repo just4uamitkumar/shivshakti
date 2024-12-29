@@ -13,10 +13,13 @@ const devoteeSchema = new mongoose.Schema(
 			type:String,
 		},
 		birthDate:{
-			type:Date,
-			required:true
+			type:String,
 		},
 		mobile: {
+      type: String,
+      required: true,
+    },
+		country: {
       type: String,
       required: true,
     },
@@ -28,15 +31,16 @@ const devoteeSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-		zipcode: {
+		zipCode: {
       type: String,
-      required: true,
     },
 		qualification: {
-      type: Number,
-      required: true,
+      type: String,
     },
 		hobbies: {
+			type: String,
+		},
+	comments: {
 			type: String,
 		},
 	},

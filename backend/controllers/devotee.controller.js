@@ -26,7 +26,7 @@ export const addDevotee = catchAsyncError(async (req, res, next) => {
     await newPerson.save();
     res.status(201).json({ success: true, data: newPerson });
   } catch (error) {
-    console.error("Error in added temple:", error.message);
+    console.error("Error in added devotee:", error.message);
     return next(new ErrorHandler("Server Error", 500));
   }
 });

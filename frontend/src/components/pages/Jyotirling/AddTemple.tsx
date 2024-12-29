@@ -14,7 +14,7 @@ interface Props {
   openSnack?: boolean;
   setOpenSnack: (openSnack: boolean) => void;
   errorSnack?: boolean;
-  setErrorSnack: (openSnack: boolean) => void;
+  setErrorSnack: (errorSnack: boolean) => void;
   setErrorVal: (errorVal: string) => void;
 }
 

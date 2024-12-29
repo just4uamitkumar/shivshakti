@@ -1,15 +1,15 @@
-export type templeType = {
+export type devoteeType = {
   _id?: string;
-  city?: string | undefined;
-  description?: string | undefined;
-  imgPath?: string | undefined;
-  name?: string | undefined;
+  firstName?: string | undefined;
+  middleName?: string | undefined;
+  lastName?: string | undefined;
+  mobile?: string | undefined;
+  birthDate?:string | undefined;
+  country?: string | undefined;
   state?: string | undefined;
-  location?:{
-    latitude?:number | string | undefined;
-  longitude?:number | string | undefined;
-  }
-  latitude?:number | string | undefined;
-  longitude?:number | string | undefined;
+  city?: string | undefined;
+  zipCode?: string | undefined;
+  qualification?: string | undefined;
+  hobbies?: string | undefined;
+  comments?: string | undefined;
 };
-

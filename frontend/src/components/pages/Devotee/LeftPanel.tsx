@@ -3,7 +3,11 @@ import React from "react";
 import Button from "../../common/Button";
 import { Stack } from "@mui/material";
 
-const LeftPanel: React.FC = () => {
+interface Props {
+  toggleAddDrawer?: () => void
+}
+
+const LeftPanel: React.FC<Props> = ({ toggleAddDrawer }) => {
   return (
     <Grid size={12}>
       <Stack>
@@ -11,6 +15,7 @@ const LeftPanel: React.FC = () => {
           className={"primary-btn"}
           variant={"contained"}
           text={"Add devotee"}
+          onClick={toggleAddDrawer}
         />
       </Stack>
     </Grid>
