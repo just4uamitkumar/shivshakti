@@ -1,13 +1,14 @@
 import Grid from "@mui/material/Grid2";
 import PageBanner from "../../shared/PageBanner";
 import { useEffect, useState } from "react";
-import { server } from "../../../redux/store";
+import { server, useAppDispatch } from "../../../redux/store";
 import LeftPanel from "./LeftPanel";
 import AddDrawer from "./AddDrawer";
 import RightPanel from "./RightPanel";
 import { Alert, Snackbar } from "@mui/material";
 import { TaskAlt, Warning } from "@mui/icons-material";
 import TypoGraphy from "../../common/Typography";
+import { getDevotees } from "../../../features/devoteeReducer/action";
 
 const Devotee: React.FC = () => {
   const [devoteeList, setDeveteeList] = useState<[]>([]);
@@ -16,9 +17,16 @@ const Devotee: React.FC = () => {
   const [errorSnack, setErrorSnack] = useState<boolean>(false);
   const [errorVal, setErrorVal] = useState<string>("");
 
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     getDevotee();
+   
+    dispatch( getDevotees() )
+
   }, []);
+
+  
 
   const handleAddSnack = () => {
     setAddSnack(false);

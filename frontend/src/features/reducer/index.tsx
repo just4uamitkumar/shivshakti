@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import jyotirlingReducer from '../jyotirlingReducer'
+import devoteeReducer from '../devoteeReducer'
 
 
 const rootReducer = combineReducers({
-    jyotirling:jyotirlingReducer,
+    devotees:devoteeReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
