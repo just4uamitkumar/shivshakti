@@ -5,7 +5,8 @@ import CustomDialog from "../../common/Dialog";
 interface Props {
     openModal: boolean;
     closeModal?: () => void;
-    handleCreate:  () => void;
+    // handleCreate: (event: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
+    handleCreate: () => void;
 }
 
 const AddModal: React.FC<Props> = ({ openModal, closeModal, handleCreate }) => {
@@ -13,7 +14,7 @@ const AddModal: React.FC<Props> = ({ openModal, closeModal, handleCreate }) => {
     return (
         <>
             <CustomDialog
-                title={"Confirm Add Jyotirling"}
+                title={"Confirm Add Devotee"}
                 dialogClass="confirm-dialog"
                 open={openModal}
                 onCancel={closeModal}
@@ -28,7 +29,7 @@ const AddModal: React.FC<Props> = ({ openModal, closeModal, handleCreate }) => {
             >
                 <Grid size={12}>
                     <Stack>
-                    {'Are you sure you want to add new temple ?'}
+                    {'Are you sure you want to add new devotee ?'}
                     </Stack>
                 </Grid>
             </CustomDialog>

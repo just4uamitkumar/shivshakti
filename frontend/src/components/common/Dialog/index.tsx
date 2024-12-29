@@ -16,7 +16,7 @@ interface Props extends DialogProps {
   children?: React.ReactNode;
   confirmText?: string;
   cancelText?: string;
-  onConfirm?:  () => void;
+  onConfirm?:() => void;
   onCancel?: () => void;
   dialogClass?: string;
   titleClass?: string;
@@ -46,23 +46,38 @@ const CustomDialog: React.FC<Props> = ({
 }) => {
   return (
     <Dialog {...props} className={dialogClass} open={open}>
-      {
-        isCancelIcon ?
-          <Stack className="dialog-header" direction="row" justifyContent={'space-between'}>
-            <DialogTitle className={titleClass}>{title}</DialogTitle>
-            <CustomIconBtn IconComponent={CloseRounded} onClick={onCancel} />
-          </Stack>
-          :
-          <Stack className="dialog-header" direction="row" justifyContent={'space-between'}>
-            <DialogTitle className={titleClass}>{title}</DialogTitle>
-          </Stack>
-      }
+      {isCancelIcon ? (
+        <Stack
+          className="dialog-header"
+          direction="row"
+          justifyContent={"space-between"}
+        >
+          <DialogTitle className={titleClass}>{title}</DialogTitle>
+          <CustomIconBtn IconComponent={CloseRounded} onClick={onCancel} />
+        </Stack>
+      ) : (
+        <Stack
+          className="dialog-header"
+          direction="row"
+          justifyContent={"space-between"}
+        >
+          <DialogTitle className={titleClass}>{title}</DialogTitle>
+        </Stack>
+      )}
       <DialogContent className={contentClass}>{children}</DialogContent>
       <DialogActions>
-        <Button onClick={onConfirm} className={confirmBtnClass} disabled={loading}>
+        <Button
+          onClick={onConfirm}
+          className={confirmBtnClass}
+          disabled={loading}
+        >
           {confirmText}
         </Button>
-        <Button onClick={onCancel} className={cancelBtnClass} disabled={loading}>
+        <Button
+          onClick={onCancel}
+          className={cancelBtnClass}
+          disabled={loading}
+        >
           {cancelText}
         </Button>
       </DialogActions>
