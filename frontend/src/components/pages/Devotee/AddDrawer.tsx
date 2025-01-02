@@ -6,7 +6,11 @@ import Button from "../../common/Button";
 import { useState } from "react";
 import { devoteeType } from "./constants";
 import AddModal from "./addModal";
-import { server } from "../../../redux/store";
+import { useAppDispatch } from "../../../redux/store";
+import {
+  createDevotee,
+  getDevotees,
+} from "../../../features/devoteeReducer/action";
 
 interface Props {
   isAddDrawer: boolean;
@@ -41,6 +45,8 @@ const AddDrawer: React.FC<Props> = ({
     comments: "",
   });
   const [openModal, setOpenModal] = useState<boolean>(false);
+
+  const dispatch = useAppDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -90,46 +96,11 @@ const AddDrawer: React.FC<Props> = ({
 
   const handleCreate = async (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
-
     try {
-      const response = await fetch(`${server}devotee`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          firstName: formData.firstName,
-          middleName: formData.middleName,
-          lastName: formData.lastName,
-          mobile: formData.mobile,
-          birthDate:formData.birthDate,
-          country: formData.country,
-          state: formData.state,
-          city: formData.city,
-          zipCode: formData.zipCode,
-          hobbies: formData.hobbies,
-          comments: formData.comments,
-        }),
-      });
-
-      if (response.status === 201) {
-        setFormData({
-          firstName: "",
-          middleName: "",
-          lastName: "",
-          mobile: "",
-          birthDate: "",
-          country: "",
-          state: "",
-          city: "",
-          zipCode: "",
-          hobbies: "",
-          comments: "",
-        });
-        closeModal();
-        setAddSnack(!addSnack);
-        toggleAddDrawer();
-      }
+      dispatch(createDevotee(formData));
+      closeModal();
+      setAddSnack(!addSnack);
+      dispatch(getDevotees());
     } catch (e) {
       console.dir(e);
       closeModal();

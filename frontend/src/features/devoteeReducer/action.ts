@@ -1,50 +1,50 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-//import devoteeService from "../../services/devoteeServices";
 import { devoteeType } from "../../components/pages/Devotee/constants";
-//import ApiService from "../../services/commonServices/apiService";
-import { server } from "../../redux/store";
-//const DevotService: devoteeService = new devoteeService(ApiService);
+import { createAPI, deleteAPI, getAPI, updateAPI } from "./api";
 
 export const getDevotees = createAsyncThunk(`devotee/getData`, async () => {
-  const response = await fetch(`${server}devotee`);
-  const people = await response.json();
-  return people;
-
-
-  //   const res = await DevotService.getData();
-  //   return res;
+  try {
+    const response = await getAPI();
+    return response.data;
+  } catch (error: unknown) {
+    return error.response?.data || "Something went wrong";
+  }
 });
 
 export const createDevotee = createAsyncThunk(
-  `devotee/createData`,
-  async (input: devoteeType) => {
-
-    const response = await fetch(`${server}devotee`);
-    const people = await response.json();
-    return people;
-    // const res = await DevotService.createData(input);
-    // return res;
+  "devotee/createData",
+  async (data: devoteeType, { rejectWithValue }) => {
+    try {
+      const response = await createAPI(data);
+      return response.data;
+    } catch (error: unknown) {
+      return rejectWithValue(error.response?.data || "Something went wrong");
+    }
   }
 );
 
 export const updateDevotee = createAsyncThunk(
-  `devotee/updateData`,
-  async (input: devoteeType) => {
-    const response = await fetch(`${server}devotee`);
-    const people = await response.json();
-    return people;
-    // const res = await DevotService.updateData(input);
-    // return res;
+  "devotee/updateData",
+  async (data: devoteeType, { rejectWithValue }) => {
+    try {
+      const response = await updateAPI(data);
+      return response.data;
+    } catch (error: unknown) {
+      return rejectWithValue(error.response?.data || "Something went wrong");
+    }
   }
 );
 
 export const deleteDevotee = createAsyncThunk(
-  `devotee/delete`,
-  async (input: devoteeType) => {
-    const response = await fetch(`${server}devotee`);
-    const people = await response.json();
-    return people;
-    // const res = await DevotService.deleteData(input);
-    // return res;
+  "devotee/delete",
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const response = await deleteAPI(id);
+      return response.message;
+    } catch (error: unknown) {
+      return rejectWithValue(
+        error.response?.data || "Failed to delete devotee"
+      );
+    }
   }
 );

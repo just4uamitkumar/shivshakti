@@ -5,7 +5,6 @@ import CustomDialog from "../../common/Dialog";
 interface Props {
     openModal: boolean;
     closeModal?: () => void;
-    // handleCreate: (event: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
     handleCreate: () => void;
 }
 

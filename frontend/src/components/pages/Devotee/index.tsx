@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid2";
 import PageBanner from "../../shared/PageBanner";
 import { useEffect, useState } from "react";
-import { server, useAppDispatch } from "../../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import LeftPanel from "./LeftPanel";
 import AddDrawer from "./AddDrawer";
 import RightPanel from "./RightPanel";
@@ -9,24 +9,33 @@ import { Alert, Snackbar } from "@mui/material";
 import { TaskAlt, Warning } from "@mui/icons-material";
 import TypoGraphy from "../../common/Typography";
 import { getDevotees } from "../../../features/devoteeReducer/action";
+import { devoteeType } from "./constants";
 
 const Devotee: React.FC = () => {
-  const [devoteeList, setDeveteeList] = useState<[]>([]);
+  const [devoteeList, setDeveteeList] = useState<devoteeType[]>([]);
   const [isAddDrawer, setISAddDrawer] = useState<boolean>(false);
   const [addSnack, setAddSnack] = useState<boolean>(false);
   const [errorSnack, setErrorSnack] = useState<boolean>(false);
   const [errorVal, setErrorVal] = useState<string>("");
 
   const dispatch = useAppDispatch();
+  const {
+    data,
+    loading,
+    success,
+  } = useAppSelector((state) => state.devotees);
 
   useEffect(() => {
-    getDevotee();
-   
-    dispatch( getDevotees() )
+    if (!success) {
+      dispatch(getDevotees());
+    }
+  }, [dispatch]);
 
-  }, []);
-
-  
+  useEffect(() => {
+    if (data) {
+      setDeveteeList(data);
+    }
+  }, [dispatch, data]);
 
   const handleAddSnack = () => {
     setAddSnack(false);
@@ -36,15 +45,8 @@ const Devotee: React.FC = () => {
     setErrorSnack(false);
   };
 
-  const getDevotee = async () => {
-    const response = await fetch(`${server}devotee`);
-    const people = await response.json();
-    setDeveteeList(people?.data);
-  };
-
   const toggleAddDrawer = () => {
     setISAddDrawer(!isAddDrawer);
-    console.log("clicked");
   };
 
   return (
@@ -61,7 +63,7 @@ const Devotee: React.FC = () => {
             <LeftPanel toggleAddDrawer={toggleAddDrawer} />
           </Grid>
           <Grid className="rightSection">
-            <RightPanel devoteeList={devoteeList} />
+            <RightPanel devoteeList={devoteeList} loading={loading} />
           </Grid>
         </Grid>
       </Grid>
