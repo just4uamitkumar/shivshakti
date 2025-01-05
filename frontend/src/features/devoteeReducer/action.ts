@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { devoteeType } from "../../components/pages/Devotee/constants";
+import { devotee, devoteeType } from "../../components/pages/Devotee/constants";
 import { createAPI, deleteAPI, getAPI, updateAPI } from "./api";
 
 export const getDevotees = createAsyncThunk(`devotee/getData`, async () => {

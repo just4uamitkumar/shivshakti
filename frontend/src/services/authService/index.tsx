@@ -35,7 +35,7 @@ class HttpInterceptor {
 
       return response;
     } catch (error: unknown) {
-      console.log(error);
+      console.dir(error);
       throw new Error(`Request failed: ${error.message}`);
     }
   }

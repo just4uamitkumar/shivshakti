@@ -22,7 +22,7 @@ export const createAPI = async (data: devotee): Promise<Response> => {
   return response.data;
 };
 
-export const updateAPI = async (data: devotee): Promise<Response> => {
+export const updateAPI = async (data: devoteeType): Promise<Response> => {
   const response = await axios.put<Response>(
     `${server}devotee/${data._id}`,
     data

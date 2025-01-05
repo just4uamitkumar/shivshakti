@@ -15,7 +15,7 @@ export type devoteeType = {
 };
 
 export interface devotee {
-  _id?: string;
+  _id: string;
   firstName?: string | undefined;
   middleName?: string | undefined;
   lastName?: string | undefined;
