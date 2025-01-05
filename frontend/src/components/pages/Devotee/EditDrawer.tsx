@@ -3,35 +3,40 @@ import TypoGraphy from "../../common/Typography";
 import { Drawer, Stack, TextField } from "@mui/material";
 import "./style.scss";
 import Button from "../../common/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { devoteeType } from "./constants";
-import AddModal from "./addModal";
 import { useAppDispatch } from "../../../redux/store";
 import {
-  createDevotee,
   getDevotees,
+  updateDevotee,
 } from "../../../features/devoteeReducer/action";
+import EditModal from "./EditModal";
 
 interface Props {
-  isAddDrawer: boolean;
-  toggleAddDrawer: () => void;
-  addSnack?: boolean;
-  setAddSnack: (openSnack: boolean) => void;
+  isEditDrawer: boolean;
+  setIsEditDrawer: (isEditDrawer: boolean) => void;
+  toggleEditDrawer: () => void;
+  editSnack?: boolean;
+  setEditSnack: (openSnack: boolean) => void;
   errorSnack?: boolean;
   setErrorSnack: (errorSnack: boolean) => void;
   setErrorVal: (errorVal: string) => void;
+  selectedRecord?: devoteeType;
 }
 
-const AddDrawer: React.FC<Props> = ({
-  isAddDrawer,
-  toggleAddDrawer,
-  addSnack,
-  setAddSnack,
+const EditDrawer: React.FC<Props> = ({
+  isEditDrawer,
+  setIsEditDrawer,
+  toggleEditDrawer,
+  editSnack,
+  setEditSnack,
   setErrorSnack,
   errorSnack,
   setErrorVal,
+  selectedRecord,
 }) => {
   const [formData, setFormData] = useState<devoteeType>({
+    _id: "",
     firstName: "",
     middleName: "",
     lastName: "",
@@ -47,6 +52,26 @@ const AddDrawer: React.FC<Props> = ({
   const [openModal, setOpenModal] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (selectedRecord) {
+      setFormData({
+        ...formData,
+        _id: selectedRecord?._id,
+        firstName: selectedRecord?.firstName,
+        middleName: selectedRecord?.middleName,
+        lastName: selectedRecord?.lastName,
+        mobile: selectedRecord?.mobile,
+        birthDate: selectedRecord?.birthDate,
+        country: selectedRecord?.country,
+        state: selectedRecord?.state,
+        city: selectedRecord?.city,
+        zipCode: selectedRecord?.zipCode,
+        hobbies: selectedRecord?.hobbies,
+        comments: selectedRecord?.comments,
+      });
+    }
+  }, [selectedRecord]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -94,30 +119,35 @@ const AddDrawer: React.FC<Props> = ({
     setOpenModal(!openModal);
   };
 
-  const handleCreate = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUpdate = async (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
-    try {
-      dispatch(createDevotee(formData));
-      closeModal();
-      setAddSnack(!addSnack);
-      dispatch(getDevotees());
-    } catch (e) {
-      console.dir(e);
-      closeModal();
-    }
+
+    dispatch(updateDevotee(formData))
+      .then(() => {
+        closeModal();
+        setEditSnack(!editSnack);
+        toggleEditDrawer();
+      })
+      .then(() => {
+        dispatch(getDevotees());
+      })
+      .catch((error) => {
+        console.dir(error);
+        closeModal();
+      });
   };
 
   return (
     <>
       <Drawer
-        open={isAddDrawer}
-        onClose={toggleAddDrawer}
+        open={isEditDrawer}
+        onClose={toggleEditDrawer}
         className="drawerA"
         anchor={"right"}
       >
         <Grid size={12} flexDirection={"row"}>
           <Stack>
-            <TypoGraphy variant={"h4"}>{"Add New Devotee"}</TypoGraphy>
+            <TypoGraphy variant={"h4"}>{"Edit Devotee"}</TypoGraphy>
           </Stack>
           <Grid className="formWrapper">
             <Stack className="mb-2">
@@ -258,26 +288,26 @@ const AddDrawer: React.FC<Props> = ({
               <Button
                 className={"primary-btn"}
                 variant={"contained"}
-                text={"Submit"}
+                text={"Update"}
                 onClick={submitHandler}
               />
               <Button
                 className={"cancel-btn"}
                 variant={"contained"}
                 text={"Cancel"}
-                onClick={toggleAddDrawer}
+                onClick={() => setIsEditDrawer(false)}
               />
             </Stack>
           </Grid>
         </Grid>
       </Drawer>
-      <AddModal
+      <EditModal
         closeModal={closeModal}
         openModal={openModal}
-        handleCreate={handleCreate}
+        handleUpdate={handleUpdate}
       />
     </>
   );
 };
 
-export default AddDrawer;
+export default EditDrawer;

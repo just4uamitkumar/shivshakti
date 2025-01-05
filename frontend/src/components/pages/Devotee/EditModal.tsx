@@ -5,20 +5,20 @@ import CustomDialog from "../../common/Dialog";
 interface Props {
     openModal: boolean;
     closeModal?: () => void;
-    handleCreate: () => void;
+    handleUpdate: () => void;
 }
 
-const AddModal: React.FC<Props> = ({ openModal, closeModal, handleCreate }) => {
+const EditModal: React.FC<Props> = ({ openModal, closeModal, handleUpdate }) => {
  
     return (
         <>
             <CustomDialog
-                title={"Confirm Add Devotee"}
+                title={"Confirm Update Devotee"}
                 dialogClass="confirm-dialog"
                 open={openModal}
                 onCancel={closeModal}
-                onConfirm={handleCreate}
-                confirmText={"Yes, Add"}
+                onConfirm={handleUpdate}
+                confirmText={"Yes, Update"}
                 cancelText={"No"}
                 confirmBtnClass={"primary-btn"}
                 cancelBtnClass={"cancel-btn"}
@@ -28,7 +28,7 @@ const AddModal: React.FC<Props> = ({ openModal, closeModal, handleCreate }) => {
             >
                 <Grid size={12}>
                     <Stack>
-                    {'Are you sure you want to add new devotee ?'}
+                    {'Are you sure you want to Update this devotee ?'}
                     </Stack>
                 </Grid>
             </CustomDialog>
@@ -36,4 +36,4 @@ const AddModal: React.FC<Props> = ({ openModal, closeModal, handleCreate }) => {
     );
 };
 
-export default AddModal;
+export default EditModal;

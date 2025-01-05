@@ -3,21 +3,21 @@ import Grid from "@mui/material/Grid2";
 import CustomDialog from "../../common/Dialog";
 
 interface Props {
-    openModal: boolean;
-    closeModal?: () => void;
-    handleCreate: () => void;
+    openDeleteModal: boolean;
+    closeDeleteModal?: () => void;
+    handleDelete:  () => void;
 }
 
-const AddModal: React.FC<Props> = ({ openModal, closeModal, handleCreate }) => {
+const DeleteModal: React.FC<Props> = ({ openDeleteModal, closeDeleteModal, handleDelete }) => {
  
     return (
         <>
             <CustomDialog
-                title={"Confirm Add Devotee"}
+                title={"Confirm Delet from list"}
                 dialogClass="confirm-dialog"
-                open={openModal}
-                onCancel={closeModal}
-                onConfirm={handleCreate}
+                open={openDeleteModal}
+                onCancel={closeDeleteModal}
+                onConfirm={handleDelete}
                 confirmText={"Yes, Add"}
                 cancelText={"No"}
                 confirmBtnClass={"primary-btn"}
@@ -28,7 +28,7 @@ const AddModal: React.FC<Props> = ({ openModal, closeModal, handleCreate }) => {
             >
                 <Grid size={12}>
                     <Stack>
-                    {'Are you sure you want to add new devotee ?'}
+                    {'Are you sure you want to delete this devotee from the list ?'}
                     </Stack>
                 </Grid>
             </CustomDialog>
@@ -36,4 +36,4 @@ const AddModal: React.FC<Props> = ({ openModal, closeModal, handleCreate }) => {
     );
 };
 
-export default AddModal;
+export default DeleteModal;

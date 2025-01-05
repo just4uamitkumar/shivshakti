@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 import rootReducer from "../../features/reducer";
-import jyotirlingReducer from '../../features/jyotirlingReducer'
+import devoteeReducer from '../../features/devoteeReducer'
 
 export const store = configureStore({
   reducer: {
-    jyotirling:jyotirlingReducer,
+    devotees:devoteeReducer,
   },
 });
 
