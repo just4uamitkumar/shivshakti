@@ -6,7 +6,6 @@ import { DataGrid } from "@mui/x-data-grid";
 import { paginationModel } from "./columns";
 import LoadUI from "../../shared/Loader/LoadUI";
 import { devoteeType } from "./constants";
-import Button from "../../common/Button";
 import CustomIconBtn from "../../common/IconBtn";
 import { Delete, Edit } from "@mui/icons-material";
 
@@ -48,17 +47,6 @@ const RightPanel: React.FC<Props> = ({
       field: "state",
       headerName: "State",
       width: 190,
-    },
-    {
-      field: "zipcode",
-      headerName: "Pin Code",
-      width: 90,
-    },
-    {
-      field: "qualification",
-      headerName: "Qualification",
-      type: "number",
-      width: 290,
     },
     {
       field: "actions",

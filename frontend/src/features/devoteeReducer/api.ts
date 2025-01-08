@@ -1,5 +1,5 @@
 import axios from "axios";
-import { devotee } from "../../components/pages/Devotee/constants";
+import { devotee, devoteeType } from "../../components/pages/Devotee/constants";
 import { server } from "../../redux/store";
 
 interface Response {

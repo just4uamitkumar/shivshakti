@@ -6,9 +6,6 @@ const devoteeSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-		middleName:{
-			type:String,
-		},
 		lastName:{
 			type:String,
 		},
@@ -19,6 +16,24 @@ const devoteeSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+		email:{
+			type: String,
+		},
+		weight:{
+			type:Number
+		},
+		height:{
+			type:Number
+		},
+		address1:{
+			type:String
+		},
+		address2:{
+			type:String
+		},
+		landMark:{
+			type:String
+		},
 		country: {
       type: String,
       required: true,
@@ -40,7 +55,7 @@ const devoteeSchema = new mongoose.Schema(
 		hobbies: {
 			type: String,
 		},
-	comments: {
+		comments: {
 			type: String,
 		},
 	},
