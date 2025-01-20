@@ -12,10 +12,10 @@ import {
 } from "@mui/material";
 import "./style.scss";
 import Button from "../../common/Button";
-import { useEffect, useState } from "react";
-import { devoteeType, countryType, place, requestOptions } from "./constants";
+import {  useState } from "react";
+import { cityType, countryType, devoteeType, place, requestOptions, stateType } from "./constants";
 import AddModal from "./addModal";
-import { useAppDispatch } from "../../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import {
   createDevotee,
   getDevotees,
@@ -40,6 +40,10 @@ const AddDrawer: React.FC<Props> = ({
   errorSnack,
   setErrorVal,
 }) => {
+  const { data: coutnryList } = useAppSelector(
+      (state) => state.countries
+    );
+
   const [formData, setFormData] = useState<devoteeType>({
     firstName: "",
     lastName: "",
@@ -50,23 +54,11 @@ const AddDrawer: React.FC<Props> = ({
     comments: "",
   });
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [countries, setCountries] = useState<countryType[]>([]);
   const [countryCode, setCountryCode] = useState<string>("");
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
 
   const dispatch = useAppDispatch();
-
-  // Fetch countries on component load
-  useEffect(() => {
-    fetch("https://api.countrystatecity.in/v1/countries", requestOptions)
-      .then((response) => response.text())
-      .then((result: string) => {
-        const data: countryType[] = JSON.parse(result);
-        setCountries(data);
-      })
-      .catch((error) => console.dir("error", error));
-  }, []);
 
   //Fetch States when country is selected
   const fetchStates = (countryISO2: string) => {
@@ -91,7 +83,6 @@ const AddDrawer: React.FC<Props> = ({
     )
       .then((response) => response.text())
       .then((result) => {
-        console.log(result);
         const data = JSON.parse(result);
         setCities(data);
       })
@@ -240,9 +231,9 @@ const AddDrawer: React.FC<Props> = ({
                   }}
                 >
                   <MenuItem value={""}>Select Country</MenuItem>
-                  {countries &&
-                    countries?.map((country: place) => (
-                      <MenuItem key={country.iso2} value={country.iso2}>
+                  {coutnryList &&
+                    coutnryList?.map((country: countryType) => (
+                      <MenuItem key={country.id} value={country.iso2}>
                         {country.name}
                       </MenuItem>
                     ))}

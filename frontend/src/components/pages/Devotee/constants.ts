@@ -43,15 +43,28 @@ export interface devotee {
 };
 
 export type countryType = {
-  id?: number | undefined,
+  id?: number | null| undefined,
   name?: string | undefined,
   iso2?: string | undefined,
   iso3?: string | undefined,
-  phonecode?: number | undefined,
+  phonecode?: number | null| undefined,
   capital: string | undefined,
   currency: string | undefined,
   native: string | undefined,
   emoji: string | undefined,
+}
+
+export type stateType = {
+  id?: number | null | undefined;
+  iso2?: string | null | undefined;
+  name?:  string | null | undefined;
+}
+
+export type cityType = {
+  id?: number | null | undefined;
+  latitude?: string | null | undefined;
+  longitude?: string | null | undefined;
+  name?:  string | null | undefined;
 }
 
 

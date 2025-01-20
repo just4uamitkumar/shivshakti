@@ -2,10 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 import rootReducer from "../../features/reducer";
 import devoteeReducer from '../../features/devoteeReducer'
+import countryReducer from '../../features/countryReducer'
 
 export const store = configureStore({
   reducer: {
     devotees:devoteeReducer,
+    countries:countryReducer
   },
 });
 
