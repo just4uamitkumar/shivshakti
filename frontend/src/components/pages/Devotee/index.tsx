@@ -228,7 +228,7 @@ const Devotee: React.FC = () => {
           variant="filled"
         >
           <TypoGraphy variant={"h4"} typeClass={"regular-font"}>
-            {`Please enter the ${errorVal}.`}
+            {errorVal}
           </TypoGraphy>
         </Alert>
       </Snackbar>

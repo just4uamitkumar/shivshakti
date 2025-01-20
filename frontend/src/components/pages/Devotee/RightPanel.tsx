@@ -1,28 +1,40 @@
 import Grid from "@mui/material/Grid2";
 import { GridColDef } from "@mui/x-data-grid";
-import React from "react";
+import React, { useEffect } from "react";
 import NoData from "../../shared/NoData";
 import { DataGrid } from "@mui/x-data-grid";
 import { paginationModel } from "./columns";
 import LoadUI from "../../shared/Loader/LoadUI";
-import { devoteeType } from "./constants";
-import Button from "../../common/Button";
+import { countryType, devoteeType } from "./constants";
 import CustomIconBtn from "../../common/IconBtn";
 import { Delete, Edit } from "@mui/icons-material";
+import { useAppDispatch, useAppSelector } from "../../../redux/store";
+import { allCountries } from "../../../features/countryReducer/action";
 
 interface Props {
   devoteeList: devoteeType[];
   loading?: boolean;
   toggleEditDrawer: (id: string) => void;
-  toggleDeleteModal:(id: string) => void;
+  toggleDeleteModal: (id: string) => void;
 }
 
 const RightPanel: React.FC<Props> = ({
   devoteeList,
   loading,
   toggleEditDrawer,
-  toggleDeleteModal
+  toggleDeleteModal,
 }) => {
+  const dispatch = useAppDispatch();
+  const { success, data: coutnryList } = useAppSelector(
+    (state) => state.countries
+  );
+
+  useEffect(() => {
+    if (!success) {
+      dispatch(allCountries());
+    }
+  }, [dispatch, success]);
+
   const columns: GridColDef[] = [
     { field: "_id", headerName: "ID", width: 170 },
     {
@@ -40,9 +52,15 @@ const RightPanel: React.FC<Props> = ({
       width: 170,
     },
     {
-      field: "city",
-      headerName: "City",
+      field: "country",
+      headerName: "Country",
       width: 120,
+      // renderCell:(params) => (
+      //   console.log(params)
+      //   // console.log(params?.formattedValue)
+      // )
+      valueGetter: (params) =>
+        coutnryList?.find((item: countryType) => item?.iso2 === params)?.name,
     },
     {
       field: "state",
@@ -50,16 +68,11 @@ const RightPanel: React.FC<Props> = ({
       width: 190,
     },
     {
-      field: "zipcode",
-      headerName: "Pin Code",
-      width: 90,
+      field: "city",
+      headerName: "City",
+      width: 120,
     },
-    {
-      field: "qualification",
-      headerName: "Qualification",
-      type: "number",
-      width: 290,
-    },
+
     {
       field: "actions",
       headerName: "Actions",

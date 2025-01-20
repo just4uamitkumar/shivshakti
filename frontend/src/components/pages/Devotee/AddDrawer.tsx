@@ -1,12 +1,21 @@
 import Grid from "@mui/material/Grid2";
 import TypoGraphy from "../../common/Typography";
-import { Drawer, Stack, TextField } from "@mui/material";
+import {
+  Drawer,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Stack,
+  TextField,
+} from "@mui/material";
 import "./style.scss";
 import Button from "../../common/Button";
-import { useState } from "react";
-import { devoteeType } from "./constants";
+import {  useState } from "react";
+import { cityType, countryType, devoteeType, place, requestOptions, stateType } from "./constants";
 import AddModal from "./addModal";
-import { useAppDispatch } from "../../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import {
   createDevotee,
   getDevotees,
@@ -31,24 +40,58 @@ const AddDrawer: React.FC<Props> = ({
   errorSnack,
   setErrorVal,
 }) => {
+  const { data: coutnryList } = useAppSelector(
+      (state) => state.countries
+    );
+
   const [formData, setFormData] = useState<devoteeType>({
     firstName: "",
-    middleName: "",
     lastName: "",
     mobile: "",
-    birthDate: "",
     country: "",
     state: "",
     city: "",
-    zipCode: "",
-    hobbies: "",
     comments: "",
   });
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [countryCode, setCountryCode] = useState<string>("");
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
 
   const dispatch = useAppDispatch();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //Fetch States when country is selected
+  const fetchStates = (countryISO2: string) => {
+    setCountryCode(countryISO2);
+    fetch(
+      `https://api.countrystatecity.in/v1/countries/${countryISO2}/states`,
+      requestOptions
+    )
+      .then((response) => response.text())
+      .then((result) => {
+        const data = JSON.parse(result);
+        setStates(data);
+      })
+      .catch((error) => console.dir("error", error));
+  };
+
+  // Fetch cities when a state is selected
+  const fetchCities = (stateCode: string) => {
+    fetch(
+      `https://api.countrystatecity.in/v1/countries/${countryCode}/states/${stateCode}/cities`,
+      requestOptions
+    )
+      .then((response) => response.text())
+      .then((result) => {
+        const data = JSON.parse(result);
+        setCities(data);
+      })
+      .catch((error) => console.log("error", error));
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<string>
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -58,31 +101,42 @@ const AddDrawer: React.FC<Props> = ({
   const submitHandler = () => {
     if (!formData.firstName) {
       setErrorSnack(!errorSnack);
-      setErrorVal("First Name");
+      setErrorVal("First Name is Empty");
+      return;
+    }
+    if (formData.firstName.length < 3) {
+      setErrorSnack(!errorSnack);
+      setErrorVal("Please enter proper name");
       return;
     }
     if (!formData.lastName) {
       setErrorSnack(!errorSnack);
-      setErrorVal("Last Name");
+      setErrorVal("Last Name is Empty");
       return;
     }
     if (!formData.country) {
-      setErrorVal("Country");
+      setErrorVal("Country is Empty");
       setErrorSnack(!errorSnack);
       return;
     }
     if (!formData.state) {
-      setErrorVal("State");
+      setErrorVal("State is Empty");
       setErrorSnack(!errorSnack);
       return;
     }
     if (!formData.city) {
-      setErrorVal("city");
+      setErrorVal("city is Empty");
       setErrorSnack(!errorSnack);
       return;
     }
     if (!formData.mobile) {
-      setErrorVal("Mobile");
+      setErrorVal("Mobile is Empty");
+      setErrorSnack(!errorSnack);
+      return;
+    }
+    const phoneno = /^\d{10}$/;
+    if (!formData.mobile.match(phoneno)) {
+      setErrorVal("Mobile number is invalid");
       setErrorSnack(!errorSnack);
       return;
     }
@@ -133,17 +187,6 @@ const AddDrawer: React.FC<Props> = ({
             </Stack>
             <Stack className="mb-2">
               <TextField
-                label="Middle Name"
-                variant="outlined"
-                value={formData.middleName}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleChange(e)
-                }
-                name="middleName"
-              />
-            </Stack>
-            <Stack className="mb-2">
-              <TextField
                 label="Last Name"
                 variant="outlined"
                 value={formData.lastName}
@@ -165,81 +208,95 @@ const AddDrawer: React.FC<Props> = ({
               />
             </Stack>
             <Stack className="mb-2">
-              <TextField
-                label="Birth Date"
-                variant="outlined"
-                value={formData.birthDate}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleChange(e)
-                }
-                name="birthDate"
-              />
+              <FormControl fullWidth>
+                <InputLabel id="country-label">Country</InputLabel>
+                <Select
+                  labelId="country-label"
+                  name="country"
+                  value={formData.country}
+                  label="Country"
+                  onChange={(
+                    e:
+                      | React.ChangeEvent<HTMLInputElement>
+                      | SelectChangeEvent<string>
+                  ) => {
+                    handleChange(e);
+                    fetchStates(e.target.value);
+                    setFormData({
+                      ...formData,
+                      country: e.target.value,
+                      state: "",
+                      city: "",
+                    });
+                  }}
+                >
+                  <MenuItem value={""}>Select Country</MenuItem>
+                  {coutnryList &&
+                    coutnryList?.map((country: countryType) => (
+                      <MenuItem key={country.id} value={country.iso2}>
+                        {country.name}
+                      </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
             </Stack>
             <Stack className="mb-2">
-              <TextField
-                label="Country"
-                variant="outlined"
-                value={formData.country}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleChange(e)
-                }
-                name="country"
-              />
+              <FormControl fullWidth>
+                <InputLabel id="state-label">State</InputLabel>
+                <Select
+                  labelId="state-label"
+                  name="state"
+                  value={formData.state}
+                  label="State"
+                  onChange={(
+                    e:
+                      | React.ChangeEvent<HTMLInputElement>
+                      | SelectChangeEvent<string>
+                  ) => {
+                    handleChange(e);
+                    fetchCities(e.target.value);
+                    setFormData({
+                      ...formData,
+                      state: e.target.value,
+                      city: "",
+                    });
+                  }}
+                >
+                  <MenuItem value={""}>Select State</MenuItem>
+                  {states &&
+                    states?.map((state: place) => (
+                      <MenuItem key={state.iso2} value={state.iso2}>
+                        {state.name}
+                      </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
             </Stack>
             <Stack className="mb-2">
-              <TextField
-                label="State"
-                variant="outlined"
-                value={formData.state}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleChange(e)
-                }
-                name="state"
-              />
-            </Stack>
-            <Stack className="mb-2">
-              <TextField
-                label="City"
-                variant="outlined"
-                value={formData.city}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleChange(e)
-                }
-                name="city"
-              />
-            </Stack>
-            <Stack className="mb-2">
-              <TextField
-                label="Zip Code"
-                variant="outlined"
-                value={formData.zipCode}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleChange(e)
-                }
-                name="zipCode"
-              />
-            </Stack>
-            <Stack className="mb-2">
-              <TextField
-                label="Qualification"
-                variant="outlined"
-                value={formData.qualification}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleChange(e)
-                }
-                name="qualifiation"
-              />
-            </Stack>
-            <Stack className="mb-2">
-              <TextField
-                label="Hobbies"
-                variant="outlined"
-                value={formData.hobbies}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleChange(e)
-                }
-                name="hobbies"
-              />
+              <FormControl fullWidth>
+                <InputLabel id="city-label">City</InputLabel>
+                <Select
+                  labelId="city-label"
+                  name="city"
+                  value={formData.city}
+                  label="City"
+                  onChange={(
+                    e:
+                      | React.ChangeEvent<HTMLInputElement>
+                      | SelectChangeEvent<string>
+                  ) => {
+                    handleChange(e);
+                  }}
+                >
+                  <MenuItem value={""}>Select City</MenuItem>
+                  {cities &&
+                    cities?.map((city: place) => (
+                      <MenuItem key={city.name} value={city.name}>
+                        {city.name}
+                      </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
             </Stack>
             <Stack className="mb-2">
               <TextField
