@@ -16,7 +16,7 @@ export const getDevotee = catchAsyncError(async (req, res, next) => {
 export const addDevotee = catchAsyncError(async (req, res, next) => {
   const person = req.body; // user will send this data
 
-  if (!person.firstName || !person.city || !person.state) {
+  if (!person.firstName || !person.mobile) {
     return next(new ErrorHandler("Please provide all fields", 400));
   }
 

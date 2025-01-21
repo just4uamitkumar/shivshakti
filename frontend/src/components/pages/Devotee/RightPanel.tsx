@@ -1,15 +1,12 @@
 import Grid from "@mui/material/Grid2";
 import { GridColDef } from "@mui/x-data-grid";
-import React, { useEffect } from "react";
 import NoData from "../../shared/NoData";
 import { DataGrid } from "@mui/x-data-grid";
 import { paginationModel } from "./columns";
 import LoadUI from "../../shared/Loader/LoadUI";
-import { countryType, devoteeType } from "./constants";
+import { devoteeType } from "./constants";
 import CustomIconBtn from "../../common/IconBtn";
 import { Delete, Edit } from "@mui/icons-material";
-import { useAppDispatch, useAppSelector } from "../../../redux/store";
-import { allCountries } from "../../../features/countryReducer/action";
 
 interface Props {
   devoteeList: devoteeType[];
@@ -24,17 +21,6 @@ const RightPanel: React.FC<Props> = ({
   toggleEditDrawer,
   toggleDeleteModal,
 }) => {
-  const dispatch = useAppDispatch();
-  const { success, data: coutnryList } = useAppSelector(
-    (state) => state.countries
-  );
-
-  useEffect(() => {
-    if (!success) {
-      dispatch(allCountries());
-    }
-  }, [dispatch, success]);
-
   const columns: GridColDef[] = [
     { field: "_id", headerName: "ID", width: 170 },
     {
@@ -59,18 +45,21 @@ const RightPanel: React.FC<Props> = ({
       //   console.log(params)
       //   // console.log(params?.formattedValue)
       // )
-      valueGetter: (params) =>
-        coutnryList?.find((item: countryType) => item?.iso2 === params)?.name,
+      valueGetter: (value, row) => row.country?.name ?? '',
+      // valueGetter: (params) =>
+      //   coutnryList?.find((item: countryType) => item?.iso2 === params)?.name,
     },
     {
       field: "state",
       headerName: "State",
       width: 190,
+      valueGetter: (value, row) => row.state?.name ?? '',
     },
     {
       field: "city",
       headerName: "City",
       width: 120,
+      valueGetter: (value, row) => row.city?.name ?? '',
     },
 
     {
