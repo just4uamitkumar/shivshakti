@@ -35,16 +35,58 @@ const devoteeSchema = new mongoose.Schema(
 			type:String
 		},
 		country: {
-      type: String,
-      required: true,
+			id:{
+				type:Number
+			},
+			name:{
+				type:String
+			},
+			iso2:{
+				type:String
+			},
+			iso3:{
+				type:String
+			},
+			phonecode:{
+				type:Number
+			},
+			capital:{
+				type:String
+			},
+			currency:{
+				type:String
+			},
+			native:{
+				type:String
+			},
+			emoji:{
+				type:String
+			},
     },
     state: {
-      type: String,
-      required: true,
+			id:{
+				type:Number
+			},
+			iso2:{
+				type:String
+			},
+			name:{
+				type:String
+			},
     },
 		city: {
-      type: String,
-      required: true,
+			id:{
+				type:Number
+			},
+			latitude:{
+				type:String
+			},
+			longitude:{
+				type:String
+			},
+			name:{
+				type:String
+			},
     },
 		zipCode: {
       type: String,

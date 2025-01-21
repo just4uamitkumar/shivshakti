@@ -12,14 +12,21 @@ import {
 } from "@mui/material";
 import "./style.scss";
 import Button from "../../common/Button";
-import {  useState } from "react";
-import { cityType, countryType, devoteeType, place, requestOptions, stateType } from "./constants";
+import { useState } from "react";
+import {
+  cityType,
+  countryType,
+  devoteeType,
+  requestOptions,
+  stateType,
+} from "./constants";
 import AddModal from "./addModal";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import {
   createDevotee,
   getDevotees,
 } from "../../../features/devoteeReducer/action";
+import { fieldName } from "./enum";
 
 interface Props {
   isAddDrawer: boolean;
@@ -40,31 +47,39 @@ const AddDrawer: React.FC<Props> = ({
   errorSnack,
   setErrorVal,
 }) => {
-  const { data: coutnryList } = useAppSelector(
-      (state) => state.countries
-    );
+  const { data: coutnryList } = useAppSelector((state) => state.countries);
 
   const [formData, setFormData] = useState<devoteeType>({
     firstName: "",
     lastName: "",
     mobile: "",
-    country: "",
-    state: "",
-    city: "",
+    country: {
+      id: null,
+      name: null,
+      iso2: null,
+      iso3: null,
+      phonecode: null,
+      capital: null,
+      currency: null,
+      native: null,
+      emoji: null,
+    },
+    state: { id: null, iso2: null, name: null },
+    city: { id: null, latitude: null, longitude: null, name: null },
     comments: "",
   });
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [countryCode, setCountryCode] = useState<string>("");
+  const [countryCode, setCountryCode] = useState<string | null | undefined>("");
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
 
   const dispatch = useAppDispatch();
 
   //Fetch States when country is selected
-  const fetchStates = (countryISO2: string) => {
-    setCountryCode(countryISO2);
+  const fetchStates = (country: countryType) => {
+    setCountryCode(country?.iso2);
     fetch(
-      `https://api.countrystatecity.in/v1/countries/${countryISO2}/states`,
+      `https://api.countrystatecity.in/v1/countries/${country?.iso2}/states`,
       requestOptions
     )
       .then((response) => response.text())
@@ -76,9 +91,9 @@ const AddDrawer: React.FC<Props> = ({
   };
 
   // Fetch cities when a state is selected
-  const fetchCities = (stateCode: string) => {
+  const fetchCities = (stateCode: stateType) => {
     fetch(
-      `https://api.countrystatecity.in/v1/countries/${countryCode}/states/${stateCode}/cities`,
+      `https://api.countrystatecity.in/v1/countries/${countryCode}/states/${stateCode?.iso2}/cities`,
       requestOptions
     )
       .then((response) => response.text())
@@ -114,17 +129,17 @@ const AddDrawer: React.FC<Props> = ({
       setErrorVal("Last Name is Empty");
       return;
     }
-    if (!formData.country) {
+    if (!formData.country?.id) {
       setErrorVal("Country is Empty");
       setErrorSnack(!errorSnack);
       return;
     }
-    if (!formData.state) {
+    if (!formData.state?.id) {
       setErrorVal("State is Empty");
       setErrorSnack(!errorSnack);
       return;
     }
-    if (!formData.city) {
+    if (!formData.city?.id) {
       setErrorVal("city is Empty");
       setErrorSnack(!errorSnack);
       return;
@@ -212,7 +227,7 @@ const AddDrawer: React.FC<Props> = ({
                 <InputLabel id="country-label">Country</InputLabel>
                 <Select
                   labelId="country-label"
-                  name="country"
+                  name={fieldName.country}
                   value={formData.country}
                   label="Country"
                   onChange={(
@@ -225,15 +240,20 @@ const AddDrawer: React.FC<Props> = ({
                     setFormData({
                       ...formData,
                       country: e.target.value,
-                      state: "",
-                      city: "",
+                      state: { id: null, iso2: null, name: null },
+                      city: {
+                        id: null,
+                        latitude: null,
+                        longitude: null,
+                        name: null,
+                      },
                     });
                   }}
                 >
                   <MenuItem value={""}>Select Country</MenuItem>
                   {coutnryList &&
                     coutnryList?.map((country: countryType) => (
-                      <MenuItem key={country.id} value={country.iso2}>
+                      <MenuItem key={country.id} value={country}>
                         {country.name}
                       </MenuItem>
                     ))}
@@ -245,7 +265,7 @@ const AddDrawer: React.FC<Props> = ({
                 <InputLabel id="state-label">State</InputLabel>
                 <Select
                   labelId="state-label"
-                  name="state"
+                  name={fieldName.state}
                   value={formData.state}
                   label="State"
                   onChange={(
@@ -258,14 +278,19 @@ const AddDrawer: React.FC<Props> = ({
                     setFormData({
                       ...formData,
                       state: e.target.value,
-                      city: "",
+                      city: {
+                        id: null,
+                        latitude: null,
+                        longitude: null,
+                        name: null,
+                      },
                     });
                   }}
                 >
                   <MenuItem value={""}>Select State</MenuItem>
                   {states &&
-                    states?.map((state: place) => (
-                      <MenuItem key={state.iso2} value={state.iso2}>
+                    states?.map((state: stateType) => (
+                      <MenuItem key={state.id} value={state}>
                         {state.name}
                       </MenuItem>
                     ))}
@@ -277,7 +302,7 @@ const AddDrawer: React.FC<Props> = ({
                 <InputLabel id="city-label">City</InputLabel>
                 <Select
                   labelId="city-label"
-                  name="city"
+                  name={fieldName.city}
                   value={formData.city}
                   label="City"
                   onChange={(
@@ -290,8 +315,8 @@ const AddDrawer: React.FC<Props> = ({
                 >
                   <MenuItem value={""}>Select City</MenuItem>
                   {cities &&
-                    cities?.map((city: place) => (
-                      <MenuItem key={city.name} value={city.name}>
+                    cities?.map((city: cityType) => (
+                      <MenuItem key={city.id} value={city}>
                         {city.name}
                       </MenuItem>
                     ))}
