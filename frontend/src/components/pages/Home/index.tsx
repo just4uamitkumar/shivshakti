@@ -5,7 +5,7 @@ import ContentSection from "./ContentSection";
 import WaySection from "./WaySection";
 import BlogSection from "./BlogSection";
 import { useEffect } from "react";
-import { allCountries } from "../../../features/countryReducer/action";
+import { getCountries } from "../../../features/countryReducer/action";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
 
 const Home: React.FC = () => {
@@ -14,7 +14,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     if (!success) {
-      dispatch(allCountries());
+      dispatch(getCountries());
     }
   }, [dispatch, success]);
 
