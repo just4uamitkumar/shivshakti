@@ -12,8 +12,8 @@ const requestOptions: RequestInit = {
 };
 
 export type iso = {
-  stateIso2:string
-  countryIso2:string
+  stateIso2:string | null | undefined
+  countryIso2:string | null | undefined
 }
 
 export const countryApi = async () => {

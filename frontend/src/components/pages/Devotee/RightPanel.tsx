@@ -22,7 +22,7 @@ const RightPanel: React.FC<Props> = ({
   toggleDeleteModal,
 }) => {
   const columns: GridColDef[] = [
-    { field: "_id", headerName: "ID", width: 170 },
+    // { field: "_id", headerName: "ID", width: 170 },
     {
       field: "fullName",
       headerName: "Name",
