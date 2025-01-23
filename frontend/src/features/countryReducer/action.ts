@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { countryApi, stateApi, cityApi } from "./api";
+import { countryApi, stateApi, cityApi, iso } from "./api";
 
 export const getCountries = createAsyncThunk(`country/getData`, async () => {
   try {
@@ -19,9 +19,9 @@ export const getStates = createAsyncThunk(`state/getData`, async (input:string) 
   }
 });
 
-export const getCities = createAsyncThunk(`city/getData`, async ({ input1, input2 }) => {
+export const getCities = createAsyncThunk(`city/getData`, async (input:iso) => {
   try {
-    const response = await cityApi({input1, input2});
+    const response = await cityApi(input);
     return response;
   } catch (error: unknown) {
     return error.response?.data || "Something went wrong";

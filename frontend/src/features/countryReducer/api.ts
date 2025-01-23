@@ -11,6 +11,11 @@ const requestOptions: RequestInit = {
   redirect: "follow",
 };
 
+export type iso = {
+  stateIso2:string
+  countryIso2:string
+}
+
 export const countryApi = async () => {
   const response = await fetch(
     `https://api.countrystatecity.in/v1/countries`,
@@ -31,9 +36,9 @@ export const stateApi = async (input:string) => {
   return data;
 }
 
-export const cityApi = async ({ input1, input2 }) => {
+export const cityApi = async (input:iso) => {
   const response = await fetch(
-    `https://api.countrystatecity.in/v1/countries/${input1}/states/${input2}/cities`,
+    `https://api.countrystatecity.in/v1/countries/${input.countryIso2}/states/${input.stateIso2}/cities`,
     requestOptions
   );
   const result = await response.text();

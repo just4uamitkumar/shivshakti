@@ -77,7 +77,7 @@ export const countrySlice = createSlice({
       })
       .addCase(getCities.fulfilled, (state: countryState, action: unknown) => {
         state.isCityLoading = false;
-        state.states = action.payload;
+        state.cities = action.payload;
         state.isCitySuccess = true;
       })
       .addCase(getCities.rejected, (state: countryState, action: unknown) => {

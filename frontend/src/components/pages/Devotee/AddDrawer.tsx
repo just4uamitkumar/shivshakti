@@ -28,9 +28,11 @@ import {
 } from "../../../features/devoteeReducer/action";
 import { fieldName } from "./enum";
 import {
+  getCities,
   getCountries,
   getStates,
 } from "../../../features/countryReducer/action";
+import { iso } from "../../../features/countryReducer/api";
 
 interface Props {
   isAddDrawer: boolean;
@@ -51,8 +53,9 @@ const AddDrawer: React.FC<Props> = ({
   errorSnack,
   setErrorVal,
 }) => {
-  const { countries, states, isCountrySuccess, isStateSuccess } =
-    useAppSelector((state) => state.countries);
+  const { countries, states, cities, isCountrySuccess } = useAppSelector(
+    (state) => state.countries
+  );
   const dispatch = useAppDispatch();
 
   const [formData, setFormData] = useState<devoteeType>({
@@ -77,7 +80,6 @@ const AddDrawer: React.FC<Props> = ({
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [countryISO2, setCountryISO2] = useState<string>("");
   const [stateISO2, setStateISO2] = useState<string>("");
-  const [cities, setCities] = useState([]);
 
   useEffect(() => {
     if (formData?.country?.iso2) {
@@ -97,24 +99,20 @@ const AddDrawer: React.FC<Props> = ({
   }, [dispatch, isCountrySuccess]);
 
   useEffect(() => {
-    if (countryISO2 && !isStateSuccess) {
+    if (countryISO2) {
       dispatch(getStates(countryISO2));
     }
-  }, [countryISO2, dispatch, isStateSuccess]);
+  }, [countryISO2, dispatch]);
 
-  // Fetch cities when a state is selected
-  const fetchCities = (stateISO2: string) => {
-    fetch(
-      `https://api.countrystatecity.in/v1/countries/${countryISO2}/states/${stateISO2}/cities`,
-      requestOptions
-    )
-      .then((response) => response.text())
-      .then((result) => {
-        const data = JSON.parse(result);
-        setCities(data);
-      })
-      .catch((error) => console.dir("error", error));
-  };
+  useEffect(() => {
+    const isoCode: iso = {
+      stateIso2: stateISO2,
+      countryIso2: countryISO2,
+    };
+    if (countryISO2 && stateISO2) {
+      dispatch(getCities(isoCode));
+    }
+  }, [countryISO2, stateISO2, dispatch]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<string>
@@ -178,10 +176,12 @@ const AddDrawer: React.FC<Props> = ({
   const handleCreate = async (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     try {
-      dispatch(createDevotee(formData));
-      closeModal();
-      setAddSnack(!addSnack);
-      dispatch(getDevotees());
+      dispatch(createDevotee(formData)).then(() => {
+        dispatch(getDevotees());
+        closeModal();
+        setAddSnack(!addSnack);
+        toggleAddDrawer();
+      });
     } catch (e) {
       console.dir(e);
       closeModal();
@@ -286,7 +286,7 @@ const AddDrawer: React.FC<Props> = ({
                       | SelectChangeEvent<string>
                   ) => {
                     handleChange(e);
-                    fetchCities(e.target.value?.iso2);
+                    // fetchCities(e.target.value?.iso2);
                     setFormData({
                       ...formData,
                       state: e.target.value,
