@@ -8,7 +8,10 @@ import RightPanel from "./RightPanel";
 import { Alert, Snackbar } from "@mui/material";
 import { TaskAlt, Warning } from "@mui/icons-material";
 import TypoGraphy from "../../common/Typography";
-import { deleteDevotee, getDevotees } from "../../../features/devoteeReducer/action";
+import {
+  deleteDevotee,
+  getDevotees,
+} from "../../../features/devoteeReducer/action";
 import { devoteeType } from "./constants";
 import EditDrawer from "./EditDrawer";
 import DeleteModal from "./DeleteModal";
@@ -33,7 +36,7 @@ const Devotee: React.FC = () => {
     if (!success) {
       dispatch(getDevotees());
     }
-  }, [dispatch]);
+  }, [dispatch, success]);
 
   useEffect(() => {
     if (selectedDevotee) {
@@ -126,32 +129,40 @@ const Devotee: React.FC = () => {
           </Grid>
         </Grid>
       </Grid>
-      <AddDrawer
-        isAddDrawer={isAddDrawer}
-        toggleAddDrawer={toggleAddDrawer}
-        addSnack={addSnack}
-        setAddSnack={setAddSnack}
-        errorSnack={errorSnack}
-        setErrorSnack={setErrorSnack}
-        setErrorVal={setErrorVal}
-      />
-      <EditDrawer
-        isEditDrawer={isEditDrawer}
-        setIsEditDrawer={setIsEditDrawer}
-        toggleEditDrawer={toggleEditDrawer}
-        selectedRecord={selectedRecord}
-        editSnack={editSnack}
-        setEditSnack={setEditSnack}
-        errorSnack={errorSnack}
-        setErrorSnack={setErrorSnack}
-        setErrorVal={setErrorVal}
-      />
 
-      <DeleteModal
-        openDeleteModal={openDeleteModal}
-        handleDelete={handleDelete}
-        closeDeleteModal={closeDeleteModal}
-      />
+      {isAddDrawer && (
+        <AddDrawer
+          isAddDrawer={isAddDrawer}
+          toggleAddDrawer={toggleAddDrawer}
+          addSnack={addSnack}
+          setAddSnack={setAddSnack}
+          errorSnack={errorSnack}
+          setErrorSnack={setErrorSnack}
+          setErrorVal={setErrorVal}
+        />
+      )}
+
+      {isEditDrawer && (
+        <EditDrawer
+          isEditDrawer={isEditDrawer}
+          setIsEditDrawer={setIsEditDrawer}
+          toggleEditDrawer={toggleEditDrawer}
+          selectedRecord={selectedRecord}
+          editSnack={editSnack}
+          setEditSnack={setEditSnack}
+          errorSnack={errorSnack}
+          setErrorSnack={setErrorSnack}
+          setErrorVal={setErrorVal}
+        />
+      )}
+
+      {openDeleteModal && (
+        <DeleteModal
+          openDeleteModal={openDeleteModal}
+          handleDelete={handleDelete}
+          closeDeleteModal={closeDeleteModal}
+        />
+      )}
 
       {/* Snack bar for Add Devotee Message */}
       <Snackbar

@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import "./style.scss";
 import Button from "../../common/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   cityType,
   countryType,
@@ -27,6 +27,12 @@ import {
   getDevotees,
 } from "../../../features/devoteeReducer/action";
 import { fieldName } from "./enum";
+import {
+  getCities,
+  getCountries,
+  getStates,
+} from "../../../features/countryReducer/action";
+import { iso } from "../../../features/countryReducer/api";
 
 interface Props {
   isAddDrawer: boolean;
@@ -47,7 +53,10 @@ const AddDrawer: React.FC<Props> = ({
   errorSnack,
   setErrorVal,
 }) => {
-  const { data: coutnryList } = useAppSelector((state) => state.countries);
+  const { countries, states, cities, isCountrySuccess } = useAppSelector(
+    (state) => state.countries
+  );
+  const dispatch = useAppDispatch();
 
   const [formData, setFormData] = useState<devoteeType>({
     firstName: "",
@@ -69,40 +78,41 @@ const AddDrawer: React.FC<Props> = ({
     comments: "",
   });
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [countryCode, setCountryCode] = useState<string | null | undefined>("");
-  const [states, setStates] = useState([]);
-  const [cities, setCities] = useState([]);
+  const [countryISO2, setCountryISO2] = useState<string>("");
+  const [stateISO2, setStateISO2] = useState<string>("");
 
-  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (formData?.country?.iso2) {
+      const countryCode: string = formData?.country?.iso2 ?? "";
+      setCountryISO2(countryCode);
+    }
+    if (formData?.state?.iso2) {
+      const stateCode: string = formData?.state?.iso2 ?? "";
+      setStateISO2(stateCode);
+    }
+  }, [formData]);
 
-  //Fetch States when country is selected
-  const fetchStates = (country: countryType) => {
-    setCountryCode(country?.iso2);
-    fetch(
-      `https://api.countrystatecity.in/v1/countries/${country?.iso2}/states`,
-      requestOptions
-    )
-      .then((response) => response.text())
-      .then((result) => {
-        const data = JSON.parse(result);
-        setStates(data);
-      })
-      .catch((error) => console.dir("error", error));
-  };
+  useEffect(() => {
+    if (!isCountrySuccess) {
+      dispatch(getCountries());
+    }
+  }, [dispatch, isCountrySuccess]);
 
-  // Fetch cities when a state is selected
-  const fetchCities = (stateCode: stateType) => {
-    fetch(
-      `https://api.countrystatecity.in/v1/countries/${countryCode}/states/${stateCode?.iso2}/cities`,
-      requestOptions
-    )
-      .then((response) => response.text())
-      .then((result) => {
-        const data = JSON.parse(result);
-        setCities(data);
-      })
-      .catch((error) => console.log("error", error));
-  };
+  useEffect(() => {
+    if (countryISO2) {
+      dispatch(getStates(countryISO2));
+    }
+  }, [countryISO2, dispatch]);
+
+  useEffect(() => {
+    const isoCode: iso = {
+      stateIso2: stateISO2,
+      countryIso2: countryISO2,
+    };
+    if (countryISO2 && stateISO2) {
+      dispatch(getCities(isoCode));
+    }
+  }, [countryISO2, stateISO2, dispatch]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<string>
@@ -166,10 +176,12 @@ const AddDrawer: React.FC<Props> = ({
   const handleCreate = async (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     try {
-      dispatch(createDevotee(formData));
-      closeModal();
-      setAddSnack(!addSnack);
-      dispatch(getDevotees());
+      dispatch(createDevotee(formData)).then(() => {
+        dispatch(getDevotees());
+        closeModal();
+        setAddSnack(!addSnack);
+        toggleAddDrawer();
+      });
     } catch (e) {
       console.dir(e);
       closeModal();
@@ -236,7 +248,6 @@ const AddDrawer: React.FC<Props> = ({
                       | SelectChangeEvent<string>
                   ) => {
                     handleChange(e);
-                    fetchStates(e.target.value);
                     setFormData({
                       ...formData,
                       country: e.target.value,
@@ -251,8 +262,8 @@ const AddDrawer: React.FC<Props> = ({
                   }}
                 >
                   <MenuItem value={""}>Select Country</MenuItem>
-                  {coutnryList &&
-                    coutnryList?.map((country: countryType) => (
+                  {countries &&
+                    countries?.map((country: countryType) => (
                       <MenuItem key={country.id} value={country}>
                         {country.name}
                       </MenuItem>
@@ -264,6 +275,7 @@ const AddDrawer: React.FC<Props> = ({
               <FormControl fullWidth>
                 <InputLabel id="state-label">State</InputLabel>
                 <Select
+                  disabled={countryISO2 === ""}
                   labelId="state-label"
                   name={fieldName.state}
                   value={formData.state}
@@ -274,7 +286,7 @@ const AddDrawer: React.FC<Props> = ({
                       | SelectChangeEvent<string>
                   ) => {
                     handleChange(e);
-                    fetchCities(e.target.value);
+                    // fetchCities(e.target.value?.iso2);
                     setFormData({
                       ...formData,
                       state: e.target.value,
@@ -301,6 +313,7 @@ const AddDrawer: React.FC<Props> = ({
               <FormControl fullWidth>
                 <InputLabel id="city-label">City</InputLabel>
                 <Select
+                  disabled={stateISO2 === ""}
                   labelId="city-label"
                   name={fieldName.city}
                   value={formData.city}
@@ -316,7 +329,7 @@ const AddDrawer: React.FC<Props> = ({
                   <MenuItem value={""}>Select City</MenuItem>
                   {cities &&
                     cities?.map((city: cityType) => (
-                      <MenuItem key={city.id} value={city}>
+                      <MenuItem key={city?.id} value={city}>
                         {city.name}
                       </MenuItem>
                     ))}

@@ -1,16 +1,32 @@
 import Grid from "@mui/material/Grid2";
 import TypoGraphy from "../../common/Typography";
-import { Drawer, Stack, TextField } from "@mui/material";
+import {
+  Drawer,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Stack,
+  TextField,
+} from "@mui/material";
 import "./style.scss";
 import Button from "../../common/Button";
 import { useEffect, useState } from "react";
-import { devoteeType } from "./constants";
-import { useAppDispatch } from "../../../redux/store";
+import { cityType, countryType, devoteeType, stateType } from "./constants";
+import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import {
   getDevotees,
   updateDevotee,
 } from "../../../features/devoteeReducer/action";
 import EditModal from "./EditModal";
+import { fieldName } from "./enum";
+import {
+  getCities,
+  getCountries,
+  getStates,
+} from "../../../features/countryReducer/action";
+import { iso } from "../../../features/countryReducer/api";
 
 interface Props {
   isEditDrawer: boolean;
@@ -35,23 +51,36 @@ const EditDrawer: React.FC<Props> = ({
   setErrorVal,
   selectedRecord,
 }) => {
+  const { countries, states, cities, isCountrySuccess } = useAppSelector(
+    (state) => state.countries
+  );
+
+  console.log("countries", countries);
+  console.log("states", states);
+  console.log("cities", cities);
+
+  const dispatch = useAppDispatch();
   const [formData, setFormData] = useState<devoteeType>({
     _id: "",
     firstName: "",
-    middleName: "",
     lastName: "",
     mobile: "",
-    birthDate: "",
-    country: "",
-    state: "",
-    city: "",
-    zipCode: "",
-    hobbies: "",
+    country: {
+      id: null,
+      name: null,
+      iso2: null,
+      iso3: null,
+      phonecode: null,
+      capital: null,
+      currency: null,
+      native: null,
+      emoji: null,
+    },
+    state: { id: null, iso2: null, name: null },
+    city: { id: null, latitude: null, longitude: null, name: null },
     comments: "",
   });
   const [openModal, setOpenModal] = useState<boolean>(false);
-
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (selectedRecord) {
@@ -59,21 +88,43 @@ const EditDrawer: React.FC<Props> = ({
         ...formData,
         _id: selectedRecord?._id,
         firstName: selectedRecord?.firstName,
-        middleName: selectedRecord?.middleName,
         lastName: selectedRecord?.lastName,
         mobile: selectedRecord?.mobile,
-        birthDate: selectedRecord?.birthDate,
         country: selectedRecord?.country,
         state: selectedRecord?.state,
         city: selectedRecord?.city,
-        zipCode: selectedRecord?.zipCode,
-        hobbies: selectedRecord?.hobbies,
         comments: selectedRecord?.comments,
       });
     }
   }, [selectedRecord]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  console.log("formData", formData);
+
+  useEffect(() => {
+    if (formData?.country?.iso2) {
+      dispatch(getStates(formData?.country?.iso2));
+    }
+  }, [formData?.country?.iso2]);
+
+  useEffect(() => {
+    const isoCode: iso = {
+      stateIso2: formData?.state?.iso2,
+      countryIso2: formData?.country?.iso2,
+    };
+    if (isoCode.countryIso2 && isoCode.stateIso2) {
+      dispatch(getCities(isoCode));
+    }
+  }, [formData?.country?.iso2, formData?.state?.iso2]);
+
+  useEffect(() => {
+    if (!isCountrySuccess) {
+      dispatch(getCountries());
+    }
+  }, [dispatch, isCountrySuccess]);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<string>
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -91,17 +142,17 @@ const EditDrawer: React.FC<Props> = ({
       setErrorVal("Last Name");
       return;
     }
-    if (!formData.country) {
+    if (!formData.country?.id) {
       setErrorVal("Country");
       setErrorSnack(!errorSnack);
       return;
     }
-    if (!formData.state) {
+    if (!formData.state?.id) {
       setErrorVal("State");
       setErrorSnack(!errorSnack);
       return;
     }
-    if (!formData.city) {
+    if (!formData.city?.id) {
       setErrorVal("city");
       setErrorSnack(!errorSnack);
       return;
@@ -163,17 +214,6 @@ const EditDrawer: React.FC<Props> = ({
             </Stack>
             <Stack className="mb-2">
               <TextField
-                label="Middle Name"
-                variant="outlined"
-                value={formData.middleName}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleChange(e)
-                }
-                name="middleName"
-              />
-            </Stack>
-            <Stack className="mb-2">
-              <TextField
                 label="Last Name"
                 variant="outlined"
                 value={formData.lastName}
@@ -195,81 +235,109 @@ const EditDrawer: React.FC<Props> = ({
               />
             </Stack>
             <Stack className="mb-2">
-              <TextField
-                label="Birth Date"
-                variant="outlined"
-                value={formData.birthDate}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleChange(e)
-                }
-                name="birthDate"
-              />
+              <FormControl fullWidth>
+                <InputLabel id="country-label">Country</InputLabel>
+                <Select
+                  labelId="country-label"
+                  name={fieldName.country}
+                  value={formData.country}
+                  label="Country"
+                  onChange={(
+                    e:
+                      | React.ChangeEvent<HTMLInputElement>
+                      | SelectChangeEvent<string>
+                  ) => {
+                    handleChange(e);
+                    setFormData({
+                      ...formData,
+                      country: e.target.value,
+                      state: { id: null, iso2: null, name: null },
+                      city: {
+                        id: null,
+                        latitude: null,
+                        longitude: null,
+                        name: null,
+                      },
+                    });
+                  }}
+                >
+                  <MenuItem value={formData.country}>
+                    {formData.country?.name}
+                  </MenuItem>
+                  {countries &&
+                    countries?.map((country: countryType) => (
+                      <MenuItem key={country.id} value={country}>
+                        {country.name}
+                      </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
             </Stack>
             <Stack className="mb-2">
-              <TextField
-                label="Country"
-                variant="outlined"
-                value={formData.country}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleChange(e)
-                }
-                name="country"
-              />
+              <FormControl fullWidth>
+                <InputLabel id="state-label">State</InputLabel>
+                <Select
+                  labelId="state-label"
+                  name={fieldName.state}
+                  value={formData.state}
+                  label="State"
+                  onChange={(
+                    e:
+                      | React.ChangeEvent<HTMLInputElement>
+                      | SelectChangeEvent<string>
+                  ) => {
+                    handleChange(e);
+                    setFormData({
+                      ...formData,
+                      state: e.target.value,
+                      city: {
+                        id: null,
+                        latitude: null,
+                        longitude: null,
+                        name: null,
+                      },
+                    });
+                  }}
+                >
+                  <MenuItem value={formData.state}>
+                    {formData?.state?.name}
+                  </MenuItem>
+                  {states &&
+                    states?.map((state: stateType) => (
+                      <MenuItem key={state.id} value={state}>
+                        {state.name}
+                      </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
             </Stack>
             <Stack className="mb-2">
-              <TextField
-                label="State"
-                variant="outlined"
-                value={formData.state}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleChange(e)
-                }
-                name="state"
-              />
-            </Stack>
-            <Stack className="mb-2">
-              <TextField
-                label="City"
-                variant="outlined"
-                value={formData.city}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleChange(e)
-                }
-                name="city"
-              />
-            </Stack>
-            <Stack className="mb-2">
-              <TextField
-                label="Zip Code"
-                variant="outlined"
-                value={formData.zipCode}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleChange(e)
-                }
-                name="zipCode"
-              />
-            </Stack>
-            <Stack className="mb-2">
-              <TextField
-                label="Qualification"
-                variant="outlined"
-                value={formData.qualification}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleChange(e)
-                }
-                name="qualifiation"
-              />
-            </Stack>
-            <Stack className="mb-2">
-              <TextField
-                label="Hobbies"
-                variant="outlined"
-                value={formData.hobbies}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleChange(e)
-                }
-                name="hobbies"
-              />
+              <FormControl fullWidth>
+                <InputLabel id="city-label">City</InputLabel>
+                <Select
+                  labelId="city-label"
+                  name={fieldName.city}
+                  value={formData.city}
+                  label="City"
+                  onChange={(
+                    e:
+                      | React.ChangeEvent<HTMLInputElement>
+                      | SelectChangeEvent<string>
+                  ) => {
+                    handleChange(e);
+                  }}
+                >
+                  <MenuItem value={formData.city}>
+                    {formData.city?.name}
+                  </MenuItem>
+                  {cities &&
+                    cities?.map((city: cityType) => (
+                      <MenuItem key={city?.id} value={city}>
+                        {city.name}
+                      </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
             </Stack>
             <Stack className="mb-2">
               <TextField
