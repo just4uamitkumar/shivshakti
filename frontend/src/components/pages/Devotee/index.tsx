@@ -15,6 +15,7 @@ import {
 import { devoteeType } from "./constants";
 import EditDrawer from "./EditDrawer";
 import DeleteModal from "./DeleteModal";
+import "./style.scss";
 
 const Devotee: React.FC = () => {
   const [devoteeList, setDeveteeList] = useState<devoteeType[]>([]);
@@ -93,12 +94,13 @@ const Devotee: React.FC = () => {
     event.preventDefault();
 
     dispatch(deleteDevotee(selectedDevotee))
-      .then(() => {
+      .then((res) => {
+        console.log(JSON.stringify(res))
         closeDeleteModal();
         setDeleteSnack(!deleteSnack);
-      })
-      .then(() => {
-        dispatch(getDevotees());
+        if(JSON.stringify(res).requestStatus === 'fulfilled'){
+          dispatch(getDevotees());
+        }
       })
       .catch((error) => {
         console.dir(error);
