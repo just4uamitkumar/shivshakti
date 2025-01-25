@@ -6,7 +6,7 @@ import { paginationModel } from "./columns";
 import LoadUI from "../../shared/Loader/LoadUI";
 import { devoteeType } from "./constants";
 import CustomIconBtn from "../../common/IconBtn";
-import { Delete, Edit } from "@mui/icons-material";
+import { Delete, Edit, Visibility } from "@mui/icons-material";
 
 interface Props {
   devoteeList: devoteeType[];
@@ -28,31 +28,25 @@ const RightPanel: React.FC<Props> = ({
       headerName: "Name",
       description: "This column has a value getter and is not sortable.",
       sortable: false,
-      width: 200,
+      width: 180,
       valueGetter: (value, row) =>
         `${row.firstName || ""} ${row?.middleName || ""} ${row.lastName || ""}`,
     },
     {
       field: "mobile",
       headerName: "Mobile",
-      width: 170,
+      width: 150,
     },
     {
       field: "country",
       headerName: "Country",
       width: 120,
-      // renderCell:(params) => (
-      //   console.log(params)
-      //   // console.log(params?.formattedValue)
-      // )
       valueGetter: (value, row) => row.country?.name ?? '',
-      // valueGetter: (params) =>
-      //   coutnryList?.find((item: countryType) => item?.iso2 === params)?.name,
     },
     {
       field: "state",
       headerName: "State",
-      width: 190,
+      width: 170,
       valueGetter: (value, row) => row.state?.name ?? '',
     },
     {
@@ -65,9 +59,14 @@ const RightPanel: React.FC<Props> = ({
     {
       field: "actions",
       headerName: "Actions",
-      width: 200,
+      width: 150,
       renderCell: (params) => (
         <>
+          <CustomIconBtn
+            IconComponent={Visibility}
+            iconClass={"view-btn"}
+            onClick={() => toggleEditDrawer(params.row?._id)}
+          />
           <CustomIconBtn
             IconComponent={Edit}
             iconClass={"edit-btn"}
@@ -78,6 +77,7 @@ const RightPanel: React.FC<Props> = ({
             iconClass={"delete-btn"}
             onClick={() => toggleDeleteModal(params.row?._id)}
           />
+          
         </>
       ),
     },
