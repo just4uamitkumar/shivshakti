@@ -17,7 +17,6 @@ import {
   cityType,
   countryType,
   devoteeType,
-  requestOptions,
   stateType,
 } from "./constants";
 import AddModal from "./addModal";

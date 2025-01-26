@@ -55,10 +55,6 @@ const EditDrawer: React.FC<Props> = ({
     (state) => state.countries
   );
 
-  console.log("countries", countries);
-  console.log("states", states);
-  console.log("cities", cities);
-
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState<devoteeType>({
     _id: "",
@@ -97,8 +93,6 @@ const EditDrawer: React.FC<Props> = ({
       });
     }
   }, [selectedRecord]);
-
-  console.log("formData", formData);
 
   useEffect(() => {
     if (formData?.country?.iso2) {

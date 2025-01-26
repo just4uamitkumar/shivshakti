@@ -16,6 +16,7 @@ import { devoteeType } from "./constants";
 import EditDrawer from "./EditDrawer";
 import DeleteModal from "./DeleteModal";
 import "./style.scss";
+import { useNavigate, useParams } from "react-router";
 
 const Devotee: React.FC = () => {
   const [devoteeList, setDeveteeList] = useState<devoteeType[]>([]);
@@ -31,6 +32,7 @@ const Devotee: React.FC = () => {
   const [errorVal, setErrorVal] = useState<string>("");
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { data, loading, success } = useAppSelector((state) => state.devotees);
 
   useEffect(() => {
@@ -95,10 +97,9 @@ const Devotee: React.FC = () => {
 
     dispatch(deleteDevotee(selectedDevotee))
       .then((res) => {
-        console.log(JSON.stringify(res))
         closeDeleteModal();
         setDeleteSnack(!deleteSnack);
-        if(JSON.stringify(res).requestStatus === 'fulfilled'){
+        if (JSON.stringify(res).requestStatus === "fulfilled") {
           dispatch(getDevotees());
         }
       })
@@ -106,6 +107,12 @@ const Devotee: React.FC = () => {
         console.dir(error);
         closeDeleteModal();
       });
+  };
+
+  const handleView = (id: string) => {
+    if (id) {
+     navigate(`${id}`);
+    }
   };
 
   return (
@@ -127,6 +134,7 @@ const Devotee: React.FC = () => {
               loading={loading}
               toggleEditDrawer={(id: string) => toggleEditDrawer(id)}
               toggleDeleteModal={(id: string) => toggleDeleteModal(id)}
+              handleView={(id: string) => handleView(id)}
             />
           </Grid>
         </Grid>

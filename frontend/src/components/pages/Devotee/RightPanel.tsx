@@ -7,12 +7,14 @@ import LoadUI from "../../shared/Loader/LoadUI";
 import { devoteeType } from "./constants";
 import CustomIconBtn from "../../common/IconBtn";
 import { Delete, Edit, Visibility } from "@mui/icons-material";
+import { NavLink, Outlet } from "react-router";
 
 interface Props {
   devoteeList: devoteeType[];
   loading?: boolean;
   toggleEditDrawer: (id: string) => void;
   toggleDeleteModal: (id: string) => void;
+  handleView: (id: string) => void;
 }
 
 const RightPanel: React.FC<Props> = ({
@@ -20,9 +22,9 @@ const RightPanel: React.FC<Props> = ({
   loading,
   toggleEditDrawer,
   toggleDeleteModal,
+  handleView,
 }) => {
   const columns: GridColDef[] = [
-    // { field: "_id", headerName: "ID", width: 170 },
     {
       field: "fullName",
       headerName: "Name",
@@ -41,19 +43,19 @@ const RightPanel: React.FC<Props> = ({
       field: "country",
       headerName: "Country",
       width: 120,
-      valueGetter: (value, row) => row.country?.name ?? '',
+      valueGetter: (value, row) => row.country?.name ?? "",
     },
     {
       field: "state",
       headerName: "State",
       width: 170,
-      valueGetter: (value, row) => row.state?.name ?? '',
+      valueGetter: (value, row) => row.state?.name ?? "",
     },
     {
       field: "city",
       headerName: "City",
       width: 120,
-      valueGetter: (value, row) => row.city?.name ?? '',
+      valueGetter: (value, row) => row.city?.name ?? "",
     },
 
     {
@@ -65,7 +67,7 @@ const RightPanel: React.FC<Props> = ({
           <CustomIconBtn
             IconComponent={Visibility}
             iconClass={"view-btn"}
-            onClick={() => toggleEditDrawer(params.row?._id)}
+            onClick={() => handleView(params.row?._id)}
           />
           <CustomIconBtn
             IconComponent={Edit}
@@ -77,7 +79,6 @@ const RightPanel: React.FC<Props> = ({
             iconClass={"delete-btn"}
             onClick={() => toggleDeleteModal(params.row?._id)}
           />
-          
         </>
       ),
     },

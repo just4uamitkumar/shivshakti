@@ -67,28 +67,3 @@ export type cityType = {
   name?: string | null | undefined;
 };
 
-const headers = new Headers();
-headers.append(
-  "X-CSCAPI-KEY",
-  "QmJPN0tPOGVMZGlFU3JSVTBXV0psQTM4SnFLbG01Z1dFWVVTUHRyRQ=="
-);
-
-export const requestOptions: RequestInit = {
-  method: "GET",
-  headers: headers,
-  redirect: "follow",
-};
-
-// Fetch countries on component load
-// useEffect(() => {
-//   axios
-//     .get("https://restcountries.com/v3.1/all")
-//     .then((response) => {
-//       const countryData = response.data.map((country) => ({
-//         name: country.name.common,
-//         code: country.cca2, // ISO code
-//       }));
-//       setCountries(countryData);
-//     })
-//     .catch((error) => console.error("Error fetching countries:", error));
-// }, []);
