@@ -46,20 +46,3 @@ export const cityApi = async (input:iso) => {
   return data;
 }
 
-
-
-  // Fetch cities when a state is selected
- // const fetchCities = (stateCode: stateType) => {
-    // fetch(
-    //   `https://api.countrystatecity.in/v1/countries/${countryCode}/states/${stateCode?.iso2}/cities`,
-    //   requestOptions
-    // )
-    //   .then((response) => response.text())
-    //   .then((result) => {
-    //     const data = JSON.parse(result);
-    //     setCities(data);
-    //   })
-    //   .catch((error) => console.log("error", error));
- // };
-
-
