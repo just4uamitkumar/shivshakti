@@ -16,7 +16,7 @@ import { devoteeType } from "./constants";
 import EditDrawer from "./EditDrawer";
 import DeleteModal from "./DeleteModal";
 import "./style.scss";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 
 const Devotee: React.FC = () => {
   const [devoteeList, setDeveteeList] = useState<devoteeType[]>([]);

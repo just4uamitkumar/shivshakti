@@ -1,10 +1,12 @@
+import { Dayjs } from "dayjs";
+
 export type devoteeType = {
   _id?: string;
   firstName?: string | undefined;
   middleName?: string | undefined;
   lastName?: string | undefined;
   mobile?: string | undefined;
-  birthDate?: string | undefined;
+  birthDate?: Dayjs  | null;
   email?: string | undefined;
   weight?: string | undefined;
   height?: string | undefined;
@@ -26,7 +28,7 @@ export interface devotee {
   middleName?: string | undefined;
   lastName?: string | undefined;
   mobile?: string | undefined;
-  birthDate?: string | undefined;
+  birthDate?: Dayjs  | null;
   email?: string | undefined;
   weight?: string | undefined;
   height?: string | undefined;
