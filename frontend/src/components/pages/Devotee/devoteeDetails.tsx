@@ -136,12 +136,13 @@ const DevoteeDetail: React.FC = () => {
     event.preventDefault();
 
     dispatch(updateDevotee(formData))
-      .then(() => {
+      .then((res) => {
         closeModal();
         setEditSnack(!editSnack);
-      })
-      .then(() => {
-        dispatch(getDevotees());
+        console.log(JSON.stringify(res.meta.requestStatus));
+        if (JSON.stringify(res.meta.requestStatus) === "fulfilled") {
+          dispatch(getDevotees());
+        }
         setIsEditMode(!isEditMode);
       })
       .catch((error) => {
@@ -149,9 +150,6 @@ const DevoteeDetail: React.FC = () => {
         closeModal();
       });
   };
-
-
- 
 
   return (
     <>
@@ -190,10 +188,10 @@ const DevoteeDetail: React.FC = () => {
                 <Grid size={4}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
-                      value={formData.birthDate}
+                      value={dayjs(formData?.birthDate)}
                       name="birthDate"
                       label="BirthDate"
-                      onChange={(e: Dayjs | null) => handleBirthDate(e)}
+                      onChange={(date: Dayjs | null) => handleBirthDate(date)}
                     />
                   </LocalizationProvider>
                 </Grid>
@@ -344,20 +342,120 @@ const DevoteeDetail: React.FC = () => {
               <Grid size={12} spacing={2} className="formWrapper" container>
                 <Grid size={4} display={"flex"}>
                   <Stack className="mr-2">
-                    <strong>Name : </strong>
-                  </Stack>
-                  <Stack>
-                    {formData?.firstName} {formData?.lastName}
+                    <TypoGraphy variant="h6">
+                      <strong> Name :</strong> {formData?.firstName}{" "}
+                      {formData?.lastName}
+                    </TypoGraphy>
                   </Stack>
                 </Grid>
                 <Grid size={4} display={"flex"}>
                   <Stack className="mr-2">
-                    <strong>Date of Birth : </strong>
+                    <TypoGraphy variant="h6">
+                      <strong> Date of Birth :</strong>{" "}
+                      {formData?.birthDate &&
+                        dayjs(formData?.birthDate).format("MMM DD, YYYY")}
+                      {formData?.lastName}
+                    </TypoGraphy>
                   </Stack>
-                  <Stack>
-                    {" "}
-                    {formData?.birthDate &&
-                      dayjs(formData?.birthDate)?.format("DD MMM, YYYY")}
+                </Grid>
+                <Grid size={4} display={"flex"}>
+                  <Stack className="mr-2">
+                    <TypoGraphy variant="h6">
+                      <strong> Age :</strong>{" "}
+                      {formData?.birthDate &&
+                        dayjs(formData?.birthDate).format("MMM DD, YYYY")}
+                      {formData?.lastName}
+                    </TypoGraphy>
+                  </Stack>
+                </Grid>
+                <Grid size={4} display={"flex"}>
+                  <Stack className="mr-2">
+                    <TypoGraphy variant="h6">
+                      <strong> Mobile :</strong>{" "}
+                      {formData?.birthDate &&
+                        dayjs(formData?.birthDate).format("MMM DD, YYYY")}
+                      {formData?.lastName}
+                    </TypoGraphy>
+                  </Stack>
+                </Grid>
+                <Grid size={4} display={"flex"}>
+                  <Stack className="mr-2">
+                    <TypoGraphy variant="h6">
+                      <strong> Email :</strong>{" "}
+                      {formData?.birthDate &&
+                        dayjs(formData?.birthDate).format("MMM DD, YYYY")}
+                      {formData?.lastName}
+                    </TypoGraphy>
+                  </Stack>
+                </Grid>
+                <Grid size={4} display={"flex"}>
+                  <Stack className="mr-2">
+                    <TypoGraphy variant="h6">
+                      <strong> Qualification :</strong>{" "}
+                      {formData?.birthDate &&
+                        dayjs(formData?.birthDate).format("MMM DD, YYYY")}
+                      {formData?.lastName}
+                    </TypoGraphy>
+                  </Stack>
+                </Grid>
+                <Grid size={4} display={"flex"}>
+                  <Stack className="mr-2">
+                    <TypoGraphy variant="h6">
+                      <strong> Weight :</strong>{" "}
+                      {formData?.birthDate &&
+                        dayjs(formData?.birthDate).format("MMM DD, YYYY")}
+                      {formData?.lastName}
+                    </TypoGraphy>
+                  </Stack>
+                </Grid>
+                <Grid size={4} display={"flex"}>
+                  <Stack className="mr-2">
+                    <TypoGraphy variant="h6">
+                      <strong> Height :</strong>{" "}
+                      {formData?.birthDate &&
+                        dayjs(formData?.birthDate).format("MMM DD, YYYY")}
+                      {formData?.lastName}
+                    </TypoGraphy>
+                  </Stack>
+                </Grid>
+                <Grid size={4} display={"flex"}>
+                  <Stack className="mr-2">
+                    <TypoGraphy variant="h6">
+                      <strong> Hobbies :</strong>{" "}
+                      {formData?.birthDate &&
+                        dayjs(formData?.birthDate).format("MMM DD, YYYY")}
+                      {formData?.lastName}
+                    </TypoGraphy>
+                  </Stack>
+                </Grid>
+                <Grid size={4} display={"flex"}>
+                  <Stack className="mr-2">
+                    <TypoGraphy variant="h6">
+                      <strong> Hobbies :</strong>{" "}
+                      {formData?.birthDate &&
+                        dayjs(formData?.birthDate).format("MMM DD, YYYY")}
+                      {formData?.lastName}
+                    </TypoGraphy>
+                  </Stack>
+                </Grid>
+                <Grid size={4} display={"flex"}>
+                  <Stack className="mr-2">
+                    <TypoGraphy variant="h6">
+                      <strong> Address :</strong>{" "}
+                      {formData?.birthDate &&
+                        dayjs(formData?.birthDate).format("MMM DD, YYYY")}
+                      {formData?.lastName}
+                    </TypoGraphy>
+                  </Stack>
+                </Grid>
+                <Grid size={4} display={"flex"}>
+                  <Stack className="mr-2">
+                    <TypoGraphy variant="h6">
+                      <strong> Comments :</strong>{" "}
+                      {formData?.birthDate &&
+                        dayjs(formData?.birthDate).format("MMM DD, YYYY")}
+                      {formData?.lastName}
+                    </TypoGraphy>
                   </Stack>
                 </Grid>
               </Grid>
