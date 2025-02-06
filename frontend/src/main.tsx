@@ -16,7 +16,7 @@ import Home from "./components/pages/Home/index.tsx";
 import Jyotirling from "./components/pages/Jyotirling/index.tsx";
 import Devotee from "./components/pages/Devotee/index.tsx";
 import Code from "./components/pages/Code/index.tsx";
-import DevoteeDetails from "./components/pages/Devotee/devoteeDetails.tsx";
+import DevoteeDetails from "./components/pages/Devotee/DevoteeDetail/index.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
