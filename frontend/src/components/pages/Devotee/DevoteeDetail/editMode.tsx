@@ -1,16 +1,34 @@
 import Grid from "@mui/material/Grid2";
 import "../style.scss";
-import { SelectChangeEvent, Stack, TextField } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Stack,
+  TextField,
+} from "@mui/material";
 
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
 import CustomBtn from "../../../common/Button";
-import { devoteeType } from "../constants";
+import { cityType, countryType, devoteeType, stateType } from "../constants";
+import { fieldName } from "../enum";
+import { useAppDispatch, useAppSelector } from "../../../../redux/store";
+import { useEffect, useState } from "react";
+import {
+  getCities,
+  getCountries,
+  getStates,
+} from "../../../../features/countryReducer/action";
+import { iso } from "../../../../features/countryReducer/api";
 
 interface Props {
   formData?: devoteeType;
+  setFormData: (formData: devoteeType) => void;
   handleChange: (
     e: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<string>
   ) => void;
@@ -22,12 +40,56 @@ interface Props {
 
 const EditMode: React.FC<Props> = ({
   formData,
+  setFormData,
   handleChange,
   handleBirthDate,
   setIsEditMode,
   isEditMode,
   submitHandler,
 }) => {
+  const { countries, states, cities, isCountrySuccess } = useAppSelector(
+    (state) => state.countries
+  );
+  const dispatch = useAppDispatch();
+
+  const [countryISO2, setCountryISO2] = useState<string>("");
+  const [stateISO2, setStateISO2] = useState<string>("");
+
+  useEffect(() => {
+    if (!isCountrySuccess) {
+      dispatch(getCountries());
+    }
+  }, [dispatch, isCountrySuccess]);
+
+  useEffect(() => {
+    if (formData?.country?.iso2) {
+      const countryCode: string = formData?.country?.iso2 ?? "";
+      setCountryISO2(countryCode);
+    }
+    if (formData?.state?.iso2) {
+      const stateCode: string = formData?.state?.iso2 ?? "";
+      setStateISO2(stateCode);
+    }
+  }, [formData]);
+
+  useEffect(() => {
+    if (countryISO2) {
+      dispatch(getStates(countryISO2));
+    }
+  }, [countryISO2, dispatch]);
+
+  useEffect(() => {
+    const isoCode: iso = {
+      stateIso2: stateISO2,
+      countryIso2: countryISO2,
+    };
+    if (countryISO2 && stateISO2) {
+      dispatch(getCities(isoCode));
+    }
+  }, [countryISO2, stateISO2, dispatch]);
+
+  console.log('editmode', formData)
+
   return (
     <>
       <Grid size={12} spacing={2} className="formWrapper" container>
@@ -122,6 +184,9 @@ const EditMode: React.FC<Props> = ({
             label="Address Line 1"
             variant="outlined"
             value={formData?.address1}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleChange(e)
+            }
             name="address1"
           />
         </Grid>
@@ -130,6 +195,9 @@ const EditMode: React.FC<Props> = ({
             label="Address Line 2"
             variant="outlined"
             value={formData?.address2}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleChange(e)
+            }
             name="address2"
           />
         </Grid>
@@ -138,39 +206,123 @@ const EditMode: React.FC<Props> = ({
             label="Nearest Land Mark"
             variant="outlined"
             value={formData?.landMark}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleChange(e)
+            }
             name="landMark"
           />
         </Grid>
         <Grid size={4}>
-          <TextField
-            label="Country"
-            variant="outlined"
-            value={formData?.country?.name}
-            name="country"
-          />
+          <FormControl className="selectDropdown">
+            <InputLabel id="country-label">Country</InputLabel>
+            <Select
+              labelId="country-label"
+              name={fieldName.country}
+              value={formData?.country}
+              label="Country"
+              onChange={(
+                e:
+                  | React.ChangeEvent<HTMLInputElement>
+                  | SelectChangeEvent<string>
+              ) => {
+                handleChange(e);
+                setFormData({
+                  ...formData,
+                  country: e.target.value,
+                  state: { id: null, iso2: null, name: null },
+                  city: {
+                    id: null,
+                    latitude: null,
+                    longitude: null,
+                    name: null,
+                  },
+                });
+              }}
+            >
+              <MenuItem value={formData?.country}>Select Country</MenuItem>
+              {countries &&
+                countries?.map((country: countryType) => (
+                  <MenuItem key={country.id} value={country}>
+                    {country.name}
+                  </MenuItem>
+                ))}
+            </Select>
+          </FormControl>
         </Grid>
         <Grid size={4}>
-          <TextField
-            label="State"
-            variant="outlined"
-            value={formData?.state?.name}
-            name="state"
-          />
+          <FormControl className="selectDropdown">
+            <InputLabel id="state-label">State</InputLabel>
+            <Select
+              disabled={countryISO2 === ""}
+              labelId="state-label"
+              name={fieldName.state}
+              value={formData?.state}
+              label="State"
+              onChange={(
+                e:
+                  | React.ChangeEvent<HTMLInputElement>
+                  | SelectChangeEvent<string>
+              ) => {
+                handleChange(e);
+                setFormData({
+                  ...formData,
+                  state: e.target.value,
+                  city: {
+                    id: null,
+                    latitude: null,
+                    longitude: null,
+                    name: null,
+                  },
+                });
+              }}
+            >
+              <MenuItem value={formData?.state}>Select State</MenuItem>
+              {states &&
+                states?.map((state: stateType) => (
+                  <MenuItem key={state.id} value={state}>
+                    {state.name}
+                  </MenuItem>
+                ))}
+            </Select>
+          </FormControl>
         </Grid>
-        <Grid size={4}>
-          <TextField
-            label="City"
-            variant="outlined"
-            value={formData?.city?.name}
-            name="city"
-          />
+        <Grid>
+          <FormControl className="selectDropdown">
+            <InputLabel id="city-label">City</InputLabel>
+            <Select
+              disabled={stateISO2 === ""}
+              labelId="city-label"
+              name={fieldName.city}
+              value={formData?.city}
+              label="City"
+              onChange={(
+                e:
+                  | React.ChangeEvent<HTMLInputElement>
+                  | SelectChangeEvent<string>
+              ) => {
+                handleChange(e);
+              }}
+            >
+              <MenuItem value={formData?.city}>Select City</MenuItem>
+              {cities &&
+                cities?.map((city: cityType) => (
+                  <MenuItem key={city?.id} value={city}>
+                    {city.name}
+                  </MenuItem>
+                ))}
+            </Select>
+          </FormControl>
         </Grid>
+
         <Grid size={4}>
           <TextField
             label="Zip Code"
             variant="outlined"
             value={formData?.zipCode}
             name="zipCode"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleChange(e)
+            }
           />
         </Grid>
         <Grid size={4}>
@@ -179,6 +331,9 @@ const EditMode: React.FC<Props> = ({
             variant="outlined"
             value={formData?.comments}
             name="comments"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleChange(e)
+            }
           />
         </Grid>
       </Grid>

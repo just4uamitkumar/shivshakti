@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid2";
 import "../style.scss";
 import { Stack} from "@mui/material";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { devoteeType } from "../constants";
 import TypoGraphy from "../../../common/Typography";
 import CustomBtn from "../../../common/Button";
@@ -13,6 +13,23 @@ interface Props {
 }
 
 const SaveMode: React.FC<Props> = ({ formData, isEditMode, setIsEditMode }) => {
+
+  const calculateAge = (birthDate:Dayjs | null | undefined) => {
+    // Convert birth date string to Date object if it's a string
+    const dob = new Date(birthDate);
+    const today = new Date();
+
+    // Calculate age
+    let age = today.getFullYear() - dob.getFullYear();
+    const monthDifference = today.getMonth() - dob.getMonth();
+    
+    // Adjust age if birthday hasn't occurred this year
+    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < dob.getDate())) {
+        age--;
+    }
+    
+    return age;
+}
   return (
     <>
       <Grid size={12} spacing={2} className="formWrapper" container>
@@ -28,7 +45,7 @@ const SaveMode: React.FC<Props> = ({ formData, isEditMode, setIsEditMode }) => {
             <TypoGraphy variant="h6">
               <strong> Date of Birth :</strong>{" "}
               {formData?.birthDate &&
-                dayjs(formData?.birthDate).format("MMM DD, YYYY")}
+                dayjs(formData?.birthDate).format("DD MMM, YYYY")}
             </TypoGraphy>
           </Stack>
         </Grid>
@@ -36,8 +53,7 @@ const SaveMode: React.FC<Props> = ({ formData, isEditMode, setIsEditMode }) => {
           <Stack className="mr-2">
             <TypoGraphy variant="h6">
               <strong> Age :</strong>{" "}
-              {formData?.birthDate &&
-                dayjs(formData?.birthDate).format("MMM DD, YYYY")}
+              {formData?.birthDate && calculateAge(formData?.birthDate)}
             </TypoGraphy>
           </Stack>
         </Grid>
@@ -93,21 +109,38 @@ const SaveMode: React.FC<Props> = ({ formData, isEditMode, setIsEditMode }) => {
             </TypoGraphy>
           </Stack>
         </Grid>
+        
         <Grid size={6} display={"flex"}>
           <Stack className="mr-2">
             <TypoGraphy variant="h6">
-              <strong> Hobbies :</strong>{" "}
-              {formData?.birthDate &&
-                dayjs(formData?.birthDate).format("MMM DD, YYYY")}
+              <strong> Address Line 1 :</strong>{" "}
+              {formData?.address1}{' '}{formData?.address2} {' '}{formData?.city?.name}{' '}{formData?.state?.name}
+              {' '}{formData?.country?.name}
             </TypoGraphy>
           </Stack>
         </Grid>
         <Grid size={6} display={"flex"}>
           <Stack className="mr-2">
             <TypoGraphy variant="h6">
-              <strong> Address :</strong>{" "}
-              {formData?.birthDate &&
-                dayjs(formData?.birthDate).format("MMM DD, YYYY")}
+              <strong> Address Line 2 :</strong>{" "}
+             {formData?.city?.name}{' '}{formData?.state?.name}
+              {' '}{formData?.country?.name}
+            </TypoGraphy>
+          </Stack>
+        </Grid>
+        <Grid size={6} display={"flex"}>
+          <Stack className="mr-2">
+            <TypoGraphy variant="h6">
+              <strong> Zip Code :</strong>{" "}
+              {formData?.zipCode && formData?.zipCode}
+            </TypoGraphy>
+          </Stack>
+        </Grid>
+        <Grid size={6} display={"flex"}>
+          <Stack className="mr-2">
+            <TypoGraphy variant="h6">
+              <strong> LandMark :</strong>{" "}
+              {formData?.landMark && formData?.landMark}
             </TypoGraphy>
           </Stack>
         </Grid>

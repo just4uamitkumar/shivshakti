@@ -19,6 +19,7 @@ import EditModal from "../EditModal";
 import TypoGraphy from "../../../common/Typography";
 import { getDevotees, updateDevotee } from "../../../../features/devoteeReducer/action";
 
+
 const DevoteeDetail: React.FC = () => {
   const navigate = useNavigate();
   const { data } = useAppSelector((state) => state.devotees);
@@ -29,6 +30,9 @@ const DevoteeDetail: React.FC = () => {
     lastName: "",
     mobile: "",
     birthDate: null,
+    address1:'',
+    address2:'',
+    landMark:'',
     country: {
       id: null,
       name: null,
@@ -89,6 +93,7 @@ const DevoteeDetail: React.FC = () => {
     });
   };
 
+
   const submitHandler = () => {
     if (!formData?.firstName) {
       setErrorSnack(!errorSnack);
@@ -117,6 +122,19 @@ const DevoteeDetail: React.FC = () => {
       return;
     }
 
+    const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    // Pattern check
+    if (!formData?.email) {
+      setErrorVal("Email is Empty");
+      setErrorSnack(!errorSnack);
+      return;
+    }
+    if (!emailPattern.test(formData?.email)) {
+      setErrorVal("Please enter a valid email addressy");
+      setErrorSnack(!errorSnack);
+      return;
+    }
+
     closeModal();
   };
 
@@ -124,10 +142,10 @@ const DevoteeDetail: React.FC = () => {
     setOpenModal(!openModal);
   };
 
+  console.log('indexed', formData)
+
   const handleUpdate = async (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
-    // eslint-disable-next-line no-debugger
-    debugger;
     dispatch(updateDevotee(formData))
       .then((res) => {
         closeModal();
@@ -156,6 +174,7 @@ const DevoteeDetail: React.FC = () => {
           {isEditMode ? (
             <EditMode
               formData={formData}
+              setFormDate={setFormData}
               handleChange={handleChange}
               handleBirthDate={handleBirthDate}
               isEditMode={isEditMode}
