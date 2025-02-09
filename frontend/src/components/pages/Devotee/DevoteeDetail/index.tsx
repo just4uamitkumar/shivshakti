@@ -1,31 +1,24 @@
 import Grid from "@mui/material/Grid2";
-import PageBanner from "../../shared/PageBanner";
-import "./style.scss";
+import "../style.scss";
 import {
   Alert,
   SelectChangeEvent,
   Snackbar,
-  Stack,
-  TextField,
 } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import { useEffect, useState } from "react";
-import { devoteeType } from "./constants";
 import { useNavigate, useParams } from "react-router";
-import CustomBtn from "../../common/Button";
-import EditModal from "./EditModal";
-import TypoGraphy from "../../common/Typography";
 import { TaskAlt, Warning } from "@mui/icons-material";
-import {
-  getDevotees,
-  updateDevotee,
-} from "../../../features/devoteeReducer/action";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import dayjs, { Dayjs } from "dayjs";
-import EditMode from "./editmode";
+
+import  { Dayjs } from "dayjs";
+import EditMode from "./editMode";
 import SaveMode from "./saveMode";
+import { useAppDispatch, useAppSelector } from "../../../../redux/store";
+import { devoteeType } from "../constants";
+import PageBanner from "../../../shared/PageBanner";
+import EditModal from "../EditModal";
+import TypoGraphy from "../../../common/Typography";
+import { getDevotees, updateDevotee } from "../../../../features/devoteeReducer/action";
+
 
 const DevoteeDetail: React.FC = () => {
   const navigate = useNavigate();
@@ -37,6 +30,9 @@ const DevoteeDetail: React.FC = () => {
     lastName: "",
     mobile: "",
     birthDate: null,
+    address1:'',
+    address2:'',
+    landMark:'',
     country: {
       id: null,
       name: null,
@@ -81,8 +77,6 @@ const DevoteeDetail: React.FC = () => {
     navigate(-1);
   };
 
-  console.log("formData", formData);
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<string>
   ) => {
@@ -92,38 +86,51 @@ const DevoteeDetail: React.FC = () => {
     });
   };
 
-  const handleBirthDate = (date: Date | null) => {
-    console.log(date);
+  const handleBirthDate = (date: Dayjs | null) => {
     setFormData({
       ...formData,
       birthDate: date,
     });
   };
 
+
   const submitHandler = () => {
-    if (!formData.firstName) {
+    if (!formData?.firstName) {
       setErrorSnack(!errorSnack);
       setErrorVal("First Name is Empty");
       return;
     }
-    if (formData.firstName.length < 3) {
+    if (formData?.firstName.length < 3) {
       setErrorSnack(!errorSnack);
       setErrorVal("Please enter proper name");
       return;
     }
-    if (!formData.lastName) {
+    if (!formData?.lastName) {
       setErrorSnack(!errorSnack);
       setErrorVal("Last Name is Empty");
       return;
     }
-    if (!formData.mobile) {
+    if (!formData?.mobile) {
       setErrorVal("Mobile is Empty");
       setErrorSnack(!errorSnack);
       return;
     }
     const phoneno = /^\d{10}$/;
-    if (!formData.mobile.match(phoneno)) {
+    if (!formData?.mobile.match(phoneno)) {
       setErrorVal("Mobile number is invalid");
+      setErrorSnack(!errorSnack);
+      return;
+    }
+
+    const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    // Pattern check
+    if (!formData?.email) {
+      setErrorVal("Email is Empty");
+      setErrorSnack(!errorSnack);
+      return;
+    }
+    if (!emailPattern.test(formData?.email)) {
+      setErrorVal("Please enter a valid email addressy");
       setErrorSnack(!errorSnack);
       return;
     }
@@ -135,16 +142,18 @@ const DevoteeDetail: React.FC = () => {
     setOpenModal(!openModal);
   };
 
+  console.log('indexed', formData)
+
   const handleUpdate = async (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
-
     dispatch(updateDevotee(formData))
-      .then(() => {
+      .then((res) => {
         closeModal();
         setEditSnack(!editSnack);
-      })
-      .then(() => {
-        dispatch(getDevotees());
+        console.log(JSON.stringify(res.meta.requestStatus));
+        if (JSON.stringify(res.meta.requestStatus) === "fulfilled") {
+          dispatch(getDevotees());
+        }
         setIsEditMode(!isEditMode);
       })
       .catch((error) => {
@@ -162,7 +171,23 @@ const DevoteeDetail: React.FC = () => {
       />
       <Grid className={"contentWraper  pt-4  pb-4"}>
         <Grid className="container" container>
-          {isEditMode ? <EditMode formData={formData} handleChange={handleChange} handleBirthDate={handleBirthDate}> : <SaveMode />}
+          {isEditMode ? (
+            <EditMode
+              formData={formData}
+              setFormDate={setFormData}
+              handleChange={handleChange}
+              handleBirthDate={handleBirthDate}
+              isEditMode={isEditMode}
+              setIsEditMode={setIsEditMode}
+              submitHandler={submitHandler}
+            />
+          ) : (
+            <SaveMode
+              formData={formData}
+              isEditMode={isEditMode}
+              setIsEditMode={setIsEditMode}
+            />
+          )}
         </Grid>
       </Grid>
       <EditModal

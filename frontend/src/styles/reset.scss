@@ -255,3 +255,16 @@ h6.MuiTypography-root {
 }
 
 
+/*-------| Form Classes |--------*/
+.formWrapper{
+.MuiFormControl-root {
+  &.MuiTextField-root {
+    width:calc(3 * $grid-10x);
+  }
+  &.selectDropdown{
+    width:calc(3 * $grid-10x);
+  }
+}
+}
+
+
