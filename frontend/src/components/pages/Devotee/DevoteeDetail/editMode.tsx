@@ -92,7 +92,7 @@ const EditMode: React.FC<Props> = ({
 
   return (
     <>
-      <Grid size={12} spacing={2} className="formWrapper" container>
+      <Grid size={12} spacing={2} className="devoteeForm" container>
         <Grid size={4}>
           <TextField
             label="First Name"
@@ -239,7 +239,7 @@ const EditMode: React.FC<Props> = ({
                 });
               }}
             >
-              <MenuItem value={formData?.country}>Select Country</MenuItem>
+              <MenuItem value={formData?.country}>{formData?.country?.name}</MenuItem>
               {countries &&
                 countries?.map((country: countryType) => (
                   <MenuItem key={country.id} value={country}>
@@ -276,7 +276,7 @@ const EditMode: React.FC<Props> = ({
                 });
               }}
             >
-              <MenuItem value={formData?.state}>Select State</MenuItem>
+              <MenuItem value={formData?.state}>{formData?.state?.name}</MenuItem>
               {states &&
                 states?.map((state: stateType) => (
                   <MenuItem key={state.id} value={state}>
@@ -303,7 +303,7 @@ const EditMode: React.FC<Props> = ({
                 handleChange(e);
               }}
             >
-              <MenuItem value={formData?.city}>Select City</MenuItem>
+              <MenuItem value={formData?.city}>{formData?.city?.name}</MenuItem>
               {cities &&
                 cities?.map((city: cityType) => (
                   <MenuItem key={city?.id} value={city}>

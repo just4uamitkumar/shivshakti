@@ -75,6 +75,7 @@ const DevoteeDetail: React.FC = () => {
 
   const handleBack = () => {
     navigate(-1);
+    dispatch(getDevotees());
   };
 
   const handleChange = (
