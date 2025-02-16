@@ -225,6 +225,11 @@ const EditDrawer: React.FC<Props> = ({
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   handleChange(e)
                 }
+                onKeyUp={
+                  (e: React.ChangeEvent<HTMLInputElement>) => {setFormData({
+                  ...formData,
+                  [e.target.name]: e.target.value.replace(/\D/g, '')
+                })}}
                 name="mobile"
               />
             </Stack>

@@ -5,7 +5,7 @@ export type devoteeType = {
   firstName?: string | undefined;
   middleName?: string | undefined;
   lastName?: string | undefined;
-  mobile?: string | undefined;
+  mobile: string | undefined;
   birthDate?: Dayjs | undefined | null;
   email?: string | undefined;
   weight?: string | undefined;
@@ -13,7 +13,7 @@ export type devoteeType = {
   address1?: string | undefined;
   address2?: string | undefined;
   landMark?: string | undefined;
-  country?: countryType | undefined;
+  country?: countryType | string | undefined;
   state?: stateType | undefined;
   city?: cityType | undefined;
   zipCode?: string | undefined;
