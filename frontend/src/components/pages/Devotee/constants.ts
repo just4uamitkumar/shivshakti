@@ -13,7 +13,7 @@ export type devoteeType = {
   address1?: string | undefined;
   address2?: string | undefined;
   landMark?: string | undefined;
-  country?: countryType | string | undefined;
+  country?: countryType | undefined;
   state?: stateType | undefined;
   city?: cityType | undefined;
   zipCode?: string | undefined;
