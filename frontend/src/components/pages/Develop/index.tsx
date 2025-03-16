@@ -3,13 +3,14 @@ import PageBanner from "../../shared/PageBanner";
 import { useState } from "react";
 import { Box } from "@mui/material";
 import TypoGraphy from "../../common/Typography";
-import ArrayProblem1 from "./ArrayProblem1";
+import ArrayProblem1 from "./Recurssion";
 import ArrayProblem2 from "./ArrayProblem2";
 import NumberProblem1 from "./NumberProblem1";
 import NumberProblem2 from "./NumberProblem2";
 import StringProblem1 from "./StringProblem1";
 import StringProblem2 from "./StringProblem2";
 import ObjectProblem1 from "./ObjectProblem1";
+import Recurssion from "./Recurssion";
 
 type page = {
   name: string;
@@ -18,7 +19,7 @@ type page = {
 
 const Develop: React.FC = () => {
   const pageObj: page[] = [
-    { name: "ArrayProblem1", comp: () => <ArrayProblem1 /> },
+    { name: "Recurssion", comp: () => <Recurssion /> },
     { name: "ArrayProblem2", comp: () => <ArrayProblem2 /> },
     { name: "NumberProblem1", comp: () => <NumberProblem1 /> },
     { name: "NumberProblem2", comp: () => <NumberProblem2 /> },
@@ -41,10 +42,10 @@ const Develop: React.FC = () => {
         <Grid className="container" container>
           <Grid className={"leftSideBar"}>
             <Box className="pl-2 pb-2">
-              <TypoGraphy variant={"h6"}>{"Array Problems"}</TypoGraphy>
+              <TypoGraphy variant={"h6"}>{"Recurssion Problems"}</TypoGraphy>
               <ul className="left-links pl-1">
                 <li onClick={() => getPage(pageObj[0].name)}>
-                  Remove Duplicates
+                  Recurrsion
                 </li>
                 <li onClick={() => getPage(pageObj[1].name)}>Compare Array</li>
               </ul>

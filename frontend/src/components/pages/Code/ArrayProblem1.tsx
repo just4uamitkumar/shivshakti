@@ -40,7 +40,7 @@ const ArrayProblem1: React.FC = () => {
     return myArr;
   };
 
-  //Intersection of two arrays
+  //Union of two arrays
   const unionArray = (arr1: number[], arr2: number[]) => {
     let myArr: number[] = [];
 
@@ -54,6 +54,7 @@ const ArrayProblem1: React.FC = () => {
     return myArr;
   };
 
+  //Remove duplicate Elements
   const removeDuplicates = (arr: number[]) => {
     const myArr: number[] = [];
 
@@ -116,6 +117,7 @@ const ArrayProblem1: React.FC = () => {
             </TypoGraphy>
             <Stack>{uniqueArr.toString()}</Stack>
           </Grid>
+
         </Box>
       </Grid>
     </>
