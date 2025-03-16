@@ -17,16 +17,7 @@ const Nav: React.FC = () => {
               Jyotirlinga
             </Link>
           </li>
-          <li>
-            <Link to="/code">
-              Code
-            </Link>
-          </li>
-          <li>
-            <Link to="/develop">
-              Develop
-            </Link>
-          </li>
+        
           <li>
             <Link  to="/events">
               Events
