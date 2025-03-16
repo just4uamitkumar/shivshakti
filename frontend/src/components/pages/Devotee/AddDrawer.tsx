@@ -114,7 +114,7 @@ const AddDrawer: React.FC<Props> = ({
   }, [countryISO2, stateISO2, dispatch]);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<string>
+    e: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<string | countryType >
   ) => {
     setFormData({
       ...formData,
@@ -230,6 +230,11 @@ const AddDrawer: React.FC<Props> = ({
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   handleChange(e)
                 }
+                onKeyUp={
+                  (e: React.ChangeEvent<HTMLInputElement>) => {setFormData({
+                  ...formData,
+                  [e.target.name]: e.target.value.replace(/\D/g, '')
+                })}}
                 name="mobile"
               />
             </Stack>

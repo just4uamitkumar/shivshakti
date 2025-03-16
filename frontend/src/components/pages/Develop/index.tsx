@@ -16,7 +16,7 @@ type page = {
   comp: React.FC;
 };
 
-const Code: React.FC = () => {
+const Develop: React.FC = () => {
   const pageObj: page[] = [
     { name: "ArrayProblem1", comp: () => <ArrayProblem1 /> },
     { name: "ArrayProblem2", comp: () => <ArrayProblem2 /> },
@@ -36,7 +36,7 @@ const Code: React.FC = () => {
 
   return (
     <>
-      <PageBanner title={"Code"} />
+      <PageBanner title={"Develop"} />
       <Grid className={"contentWraper"}>
         <Grid className="container" container>
           <Grid className={"leftSideBar"}>
@@ -90,4 +90,4 @@ const Code: React.FC = () => {
   );
 };
 
-export default Code;
+export default Develop;

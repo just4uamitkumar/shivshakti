@@ -17,6 +17,7 @@ import Jyotirling from "./components/pages/Jyotirling/index.tsx";
 import Devotee from "./components/pages/Devotee/index.tsx";
 import Code from "./components/pages/Code/index.tsx";
 import DevoteeDetails from "./components/pages/Devotee/DevoteeDetail/index.tsx";
+import Develop from "./components/pages/Develop/index.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,6 +27,7 @@ const router = createBrowserRouter(
       <Route path="/devotee" element={<Devotee />}/>
       <Route path="/devotee/:id" element={<DevoteeDetails />}/>
       <Route path="/code" element={<Code />} />
+      <Route path="/develop" element={<Develop />} />
       <Route path="*" element={<h1>404 - Page Not Found</h1>} />
     </Route>
   )

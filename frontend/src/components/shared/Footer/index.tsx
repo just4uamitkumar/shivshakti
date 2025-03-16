@@ -31,8 +31,8 @@ const Footer: React.FC = () => {
             <Stack>
               <ul className="footer-links">
                 <li><Link to="/">About Us</Link></li>
-                <li><Link to="/">Read</Link></li>
-                <li><Link to="/">Listen</Link></li>
+                <li><Link to="/code">Code</Link></li>
+                <li><Link to="/develop">Develop</Link></li>
                 <li><Link to="/">Contact Us</Link></li>
                 <li><Link to="/">My Account</Link></li>
                 <li><Link to="/">Sign In</Link></li>
