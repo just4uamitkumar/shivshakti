@@ -14,27 +14,8 @@ const ArrayProblem2: React.FC = () => {
   }, []);
 
   const compareArray = (item1: number[], item2: number[]) => {
-    if (item1.length === item2.length) {
-      const firstArr: number[] = [];
-      const secondArr: number[] = [];
-      for (let i = 0; i < item1.length; i++) {
-        if (!item2.includes(item1[i])) {
-          firstArr.push(item1[i]);
-        }
-      }
-      for (let j = 0; j < item2.length; j++) {
-        if (!item1.includes(item2[j])) {
-          secondArr.push(item2[j]);
-        }
-      }
-      if (firstArr.length === 0 && secondArr.length === 0) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }
+    return  item1.length === item2.length && 
+    item1.sort().join(',') === item2.sort().join(',');
   };
 
   return (
