@@ -18,13 +18,7 @@ const NumberProblem1: React.FC = () => {
 
   //Reverse a number
   const reverseNum = (num: number): number => {
-    let rev = 0;
-    while (num > 0) {
-      const rem: number = num % 10;
-      rev = rev * 10 + rem;
-      num = Math.floor(num / 10);
-    }
-    return rev;
+    return parseInt(num.toString().split('').reverse().join(''), 10);
   };
 
   //Add All numbers

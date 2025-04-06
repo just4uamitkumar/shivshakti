@@ -10,6 +10,7 @@ import NumberProblem2 from "./NumberProblem2";
 import StringProblem1 from "./StringProblem1";
 import StringProblem2 from "./StringProblem2";
 import ObjectProblem1 from "./ObjectProblem1";
+import ObjectProblem2 from "./ObjectProblem2";
 
 type page = {
   name: string;
@@ -25,6 +26,7 @@ const Code: React.FC = () => {
     { name: "StringProblem1", comp: () => <StringProblem1 /> },
     { name: "StringProblem2", comp: () => <StringProblem2 /> },
     { name: "ObjectProblem1", comp: () => <ObjectProblem1 /> },
+    { name: "ObjectProblem2", comp: () => <ObjectProblem2 /> },
   ];
 
   const [currentPage, setCurrentPage] = useState<React.FC>(pageObj[0].comp);
@@ -79,7 +81,9 @@ const Code: React.FC = () => {
                 <li onClick={() => getPage(pageObj[6].name)}>
                   {"Object Problem 1"}
                 </li>
-                
+                <li onClick={() => getPage(pageObj[7].name)}>
+                  {"Object Problem 2"}
+                </li>
               </ul>
             </Box>
           </Grid>

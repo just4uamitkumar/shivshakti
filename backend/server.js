@@ -7,6 +7,7 @@ import { connectDB } from "./config/db.js";
 import productRoutes from "./routes/product.route.js";
 import jyotirlingRoutes from "./routes/jyotirling.route.js";
 import devoteeRoutes from "./routes/devotee.route.js";
+import userRoutes from "./routes/user.route.js";
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.use(cors());
 app.use("/api/products", productRoutes);
 app.use("/api/jyotirlings", jyotirlingRoutes);
 app.use("/api/devotee", devoteeRoutes);
+app.use("/api/user", userRoutes);
 
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static(path.join(__dirname, "/frontend/dist")));

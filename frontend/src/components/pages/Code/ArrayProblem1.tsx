@@ -26,7 +26,8 @@ const ArrayProblem1: React.FC = () => {
       { name: "Vivek", age: 32, location: "Agra" },
       { name: "Sachin", age: 24, location: "Delhi" },
     ];
-    removeDuplicateObj(myArr4);
+    removeDuplicateObjA(myArr4);
+    removeDuplicateObjB(myArr4);
   }, []);
 
   //Intersection of two arrays
@@ -67,7 +68,7 @@ const ArrayProblem1: React.FC = () => {
   };
 
   //Remove duplicate object
-  const removeDuplicateObj = (obj: object[]) => {
+  const removeDuplicateObjA = (obj: object[]) => {
     const myArr: object[] = [];
     const uniqueObject: object = {};
 
@@ -84,8 +85,18 @@ const ArrayProblem1: React.FC = () => {
       myArr.push(uniqueObject[i]);
     }
 
-    console.log(myArr);
+    console.log("removeDuplicateObj 1", myArr);
     return myArr;
+  };
+
+  // Remove duplicates object based on all object properties
+  const removeDuplicateObjB = (obj: object[]) => {
+    const uniqueByName: object[] = obj.filter(
+      (obj, index, self) => index === self.findIndex((o) => o.name === obj.name)
+    );
+
+    console.log("removeDplicateObj 2", uniqueByName);
+    return uniqueByName;
   };
 
   return (
@@ -117,7 +128,6 @@ const ArrayProblem1: React.FC = () => {
             </TypoGraphy>
             <Stack>{uniqueArr.toString()}</Stack>
           </Grid>
-
         </Box>
       </Grid>
     </>

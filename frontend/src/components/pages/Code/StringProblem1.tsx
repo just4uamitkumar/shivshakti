@@ -37,11 +37,15 @@ const StringProblem1: React.FC = () => {
 
   //Reverse a string
   const reverseString = (str: string) => {
-    const myStr = str
+    return str
       ?.split(" ")
       .map((item: string) => item.split("").reverse().join(""))
       .join(" ");
-    return myStr;
+  };
+
+  //Paradimonal a string
+  const paraDomString = (str: string) => {
+    return str === str.split("").reverse().join("");
   };
 
   //Capitilize first letter of a word
@@ -58,14 +62,9 @@ const StringProblem1: React.FC = () => {
     };
   };
 
-  //Paradimonal a string
-  const paraDomString = (str: string) => {
-    return str === str.split("").reverse().join("");
-  };
-
   //check string occurence
   const checkStringOccurence = (str: string) => {
-    const obj:unknown = {};
+    const obj: unknown = {};
     str.split("").forEach((elem: string) => {
       obj.hasOwnProperty(elem) ? obj[elem]++ : (obj[elem] = 1);
     });
@@ -77,8 +76,10 @@ const StringProblem1: React.FC = () => {
     const keyArr: string[] = Object.keys(myObj);
     const valueArr: string[] = Object.values(myObj);
     const newValArr: string[] = valueArr.map((e) => e);
-    const hightstValue = newValArr.sort((a:string, b:string) => a - b)[valueArr.length - 1];
-    const valueIndex:number = valueArr.indexOf(hightstValue);
+    const hightstValue = newValArr.sort((a: string, b: string) => a - b)[
+      valueArr.length - 1
+    ];
+    const valueIndex: number = valueArr.indexOf(hightstValue);
     return `${keyArr[valueIndex]}  found ${hightstValue} times`;
   };
   return (
