@@ -4,6 +4,7 @@ import Nav from "./Nav";
 import TypoGraphy from "../../common/Typography";
 import CustomIconBtn from "../../common/IconBtn";
 import { Cancel } from "@mui/icons-material";
+import Button from "../../common/Button";
 
 interface Props {
   handleNav?: () => void;
@@ -16,7 +17,7 @@ const MobileNav: React.FC<Props> = ({ handleNav, openNav }) => {
         className="nav-header"
         justifyContent={"space-between"}
         flexDirection={"row"}
-        alignItems={'center'}
+        alignItems={"center"}
       >
         <Stack>
           <TypoGraphy variant={"h4"}> {"Menu"}</TypoGraphy>
@@ -30,6 +31,7 @@ const MobileNav: React.FC<Props> = ({ handleNav, openNav }) => {
         </Stack>
       </Stack>
       <Nav />
+      <Button className={"primary-btn bottomItem"} variant={"contained"} text={"Login"} />
     </Drawer>
   );
 };

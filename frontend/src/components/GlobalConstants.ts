@@ -12,3 +12,5 @@ export const normalDesktop = 1200
 export const DeleteRequest = 'Confirm Cancellation'
 export const END_DATE_INCLUDE_DOT_1_Value = "12:00 AM"
 export const ALL_DAY_HOURS = 0
+export const RIGHT = 'right'
+export const LEFT = 'LEFT'

@@ -10,15 +10,22 @@ import CustomIconBtn from "../../common/IconBtn";
 import { useState } from "react";
 import MobileNav from "./MobileNav";
 import { Menu } from "@mui/icons-material";
+import Button from "../../common/Button";
+import Login from "../../pages/Auth/Login";
 
 const Header: React.FC = () => {
   const windowWidth = useViewportWidth();
 
   const [openNav, setOpenNav] = useState<boolean>(false);
+  const [isLoginDrawer, setIsLoginDrawer] = useState<boolean>(false);
 
   const handleNav = () => {
     setOpenNav(!openNav);
   };
+
+  const toggleLoginDrawer = () => {
+    setIsLoginDrawer(!isLoginDrawer)
+  }
 
   return (
     <>
@@ -39,8 +46,21 @@ const Header: React.FC = () => {
                     </Link>
                   </Stack>
                 </Grid>
-                <Grid size={9} textAlign={"right"}>
+                <Grid
+                  size={6}
+                  justifyContent={"center"}
+                  spacing={2}
+                  display={"flex"}
+                >
                   <Nav />
+                </Grid>
+                <Grid size={3} textAlign={"right"}>
+                  <Button
+                    className={"primary-btn"}
+                    variant={"contained"}
+                    text={"Login"}
+                    onClick={toggleLoginDrawer}
+                  />
                 </Grid>
               </>
             ) : (
@@ -71,6 +91,12 @@ const Header: React.FC = () => {
           </Grid>
         </Stack>
       </header>
+      {isLoginDrawer && (
+          <Login
+            isLoginDrawer={isLoginDrawer}           
+            toggleLoginDrawer={toggleLoginDrawer}
+          />
+        )}
     </>
   );
 };
