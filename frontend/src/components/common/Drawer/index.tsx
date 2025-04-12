@@ -3,85 +3,70 @@ import IconButton from "@mui/material/IconButton";
 import { CloseRounded } from "@mui/icons-material";
 import { Box } from "@mui/material";
 import TypoGraphy from "../Typography";
-import SimpleBar from "simplebar-react";
 import Grid from "@mui/material/Grid2";
-import "simplebar-react/dist/simplebar.min.css";
 import "./style.scss";
-import useViewportWidth from "../../../utils/useViewportWidth";
-import { smallDesktop } from "../../GlobalConstants";
+import Button from "../Button";
 
 interface Props {
-    anchor: "top" | "left" | "bottom" | "right";
-    openDrawer?: boolean;
-    toggleDrawer: (
-        open: boolean
-    ) => (event: React.KeyboardEvent | React.MouseEvent) => void;
-    drawerClass?: string;
-    closeBtnClass?: string;
-    drawerTitle?: React.ReactNode;
-    titleClass?: string;
-    children?: React.ReactNode;
-    onCustomAction?: () => void;
+  anchor: "top" | "left" | "bottom" | "right";
+  open?: boolean;
+  onClose: () => void;
+  className?: string;
+  closeBtnClass?: string;
+  drawerTitle?: React.ReactNode;
+  titleClass?: string;
+  children?: React.ReactNode;
+  submitHandler?: () => void;
+  SubmitText?: string;
 }
 
 const CustomDrawer: React.FC<Props> = ({
-    anchor,
-    openDrawer,
-    toggleDrawer,
-    drawerClass,
-    closeBtnClass,
-    drawerTitle,
-    titleClass,
-    children,
-    onCustomAction
+  anchor,
+  open,
+  className,
+  onClose,
+  closeBtnClass,
+  drawerTitle,
+  titleClass,
+  children,
+  submitHandler,
+  SubmitText,
 }) => {
-    const windowWidth = useViewportWidth();
-    const handleCustomAction = () => {
-        if (onCustomAction) {
-            onCustomAction();
-        }
-    }
-    return (
-        <Drawer
-            anchor={anchor}
-            open={openDrawer}
-            onClose={toggleDrawer(false)}
-            className={drawerClass}
-        >
-            <Box role="presentation">
-                {windowWidth < smallDesktop ? (
-                    <>
-                        <Grid container item xs={12} justifyContent={"flex-end"}>
-                            <IconButton
-                                onClick={() => {
-                                    toggleDrawer(false);
-                                    handleCustomAction();
-                                }}
-                                className={closeBtnClass}
-                            >
-                                <CloseRounded />
-                            </IconButton>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TypoGraphy variant="h1" component={"h1"} typeClass={titleClass}>
-                                {drawerTitle}
-                            </TypoGraphy>
-                        </Grid>
-
-                        <SimpleBar className="drawer-scroll">
-                            <Grid container item xs={12}>
-                                {children}
-                            </Grid>
-                        </SimpleBar>
-                    </>
-                ) : (
-                    <Grid container item xs={12}>
-                        {children}
-                    </Grid>
-                )}
-            </Box>
-        </Drawer>
-    );
+  return (
+    <Drawer anchor={anchor} open={open} onClose={onClose} className={className}>
+      <Box role="presentation">
+        <Grid size={12}>
+          <Grid size={12}>
+            <header className={"header"}>
+              <TypoGraphy variant="h4" component={"h4"} typeClass={titleClass}>
+                {drawerTitle}
+              </TypoGraphy>
+              <IconButton onClick={onClose} className={closeBtnClass}>
+                <CloseRounded />
+              </IconButton>
+            </header>
+          </Grid>
+          <Grid size={12}>{children}</Grid>
+          <Grid size={12}>
+            <footer className="footer">
+              <Button
+                className={"primary-btn"}
+                variant={"contained"}
+                text={SubmitText}
+                onClick={submitHandler}
+              />
+              <Button
+                className={"cancel-btn"}
+                variant={"contained"}
+                text={"Cancel"}
+                onClick={onClose}
+              />
+            </footer>
+          </Grid>
+        </Grid>
+      </Box>
+    </Drawer>
+  );
 };
 
 export default CustomDrawer;

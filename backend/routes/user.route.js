@@ -2,7 +2,7 @@ import express from "express";
 import {
      login, logout, register, getMyProfile
 } from "../controllers/userController.js";
-//import { authorizeAdmin, isAuthenticated } from "../middlewares/auth.js";
+import { isAuthenticated } from "../middleware/auth.js";
 //import singleUpload from '../middlewares/multer.js'
 
 const router = express.Router();
@@ -17,6 +17,6 @@ router.route("/login").post(login);
 router.route("/logout").get(logout);
 
 // Get my profile
-router.route("/me").get(getMyProfile);
+router.route("/me").get(isAuthenticated, getMyProfile);
 
 export default router;
