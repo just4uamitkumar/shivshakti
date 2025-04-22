@@ -12,20 +12,34 @@ import MobileNav from "./MobileNav";
 import { Menu } from "@mui/icons-material";
 import Button from "../../common/Button";
 import Login from "../../pages/Auth/Login";
+import { logoutUser } from "../../../features/userReducer/action";
+import { useAppDispatch } from "../../../redux/store";
+interface Props{
+  isAuthenticated?:boolean;
+  user?:unknown
+}
 
-const Header: React.FC = () => {
+const Header: React.FC<Props> = ({isAuthenticated=false, user}) => {
   const windowWidth = useViewportWidth();
 
   const [openNav, setOpenNav] = useState<boolean>(false);
   const [isLoginDrawer, setIsLoginDrawer] = useState<boolean>(false);
+
+  const dispatch = useAppDispatch();
 
   const handleNav = () => {
     setOpenNav(!openNav);
   };
 
   const toggleLoginDrawer = () => {
-    setIsLoginDrawer(!isLoginDrawer)
+    setIsLoginDrawer(!isLoginDrawer);
+  };
+
+  const handleLogout = () => {
+    dispatch(logoutUser())
   }
+
+  console.log('user', user)
 
   return (
     <>
@@ -55,12 +69,28 @@ const Header: React.FC = () => {
                   <Nav />
                 </Grid>
                 <Grid size={3} textAlign={"right"}>
-                  <Button
-                    className={"primary-btn"}
-                    variant={"contained"}
-                    text={"Login"}
-                    onClick={toggleLoginDrawer}
-                  />
+                  {!isAuthenticated ? (
+                    <Button
+                      className={"primary-btn"}
+                      variant={"contained"}
+                      text={"Login"}
+                      onClick={toggleLoginDrawer}
+                    />
+                  ) : (
+                    <>
+                    <Stack>
+                    {`Welcome ${
+                      user?.firstName + " " + user?.lastName
+                    }`}
+                    </Stack>
+                    <Button
+                      className={"primary-btn"}
+                      variant={"contained"}
+                      text={"Logout"}
+                      onClick={handleLogout}
+                    />
+                    </>
+                  )}
                 </Grid>
               </>
             ) : (
@@ -92,11 +122,11 @@ const Header: React.FC = () => {
         </Stack>
       </header>
       {isLoginDrawer && (
-          <Login
-            isLoginDrawer={isLoginDrawer}           
-            toggleLoginDrawer={toggleLoginDrawer}
-          />
-        )}
+        <Login
+          isLoginDrawer={isLoginDrawer}
+          toggleLoginDrawer={toggleLoginDrawer}
+        />
+      )}
     </>
   );
 };

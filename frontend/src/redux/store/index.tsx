@@ -3,11 +3,13 @@ import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 import rootReducer from "../../features/reducer";
 import devoteeReducer from '../../features/devoteeReducer'
 import countryReducer from '../../features/countryReducer'
+import userReducer from '../../features/userReducer'
 
 export const store = configureStore({
   reducer: {
     devotees:devoteeReducer,
-    countries:countryReducer
+    countries:countryReducer,
+    user:userReducer
   },
 });
 
