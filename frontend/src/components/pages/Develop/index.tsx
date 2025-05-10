@@ -11,6 +11,7 @@ import StringProblem1 from "./StringProblem1";
 import StringProblem2 from "./StringProblem2";
 import ObjectProblem1 from "./ObjectProblem1";
 import Recurssion from "./Recurssion";
+import Currying from "./Currying";
 
 type page = {
   name: string;
@@ -26,6 +27,7 @@ const Develop: React.FC = () => {
     { name: "StringProblem1", comp: () => <StringProblem1 /> },
     { name: "StringProblem2", comp: () => <StringProblem2 /> },
     { name: "ObjectProblem1", comp: () => <ObjectProblem1 /> },
+    { name: "Currying", comp: () => <Currying /> },
   ];
 
   const [currentPage, setCurrentPage] = useState<React.FC>(pageObj[0].comp);
@@ -79,6 +81,15 @@ const Develop: React.FC = () => {
               <ul className="left-links pl-1">
                 <li onClick={() => getPage(pageObj[6].name)}>
                   {"Object Problem 1"}
+                </li>
+                
+              </ul>
+            </Box>
+            <Box className="pl-2 pb-2">
+              <TypoGraphy variant={"h6"}>{"Cyrring Problems"}</TypoGraphy>
+              <ul className="left-links pl-1">
+                <li onClick={() => getPage(pageObj[7].name)}>
+                  {"Currying Problem 1"}
                 </li>
                 
               </ul>

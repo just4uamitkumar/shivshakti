@@ -4,7 +4,8 @@ import CustomDrawer from "../../common/Drawer";
 import "./style.scss";
 import { Stack, TextField } from "@mui/material";
 import { useState } from "react";
-import { server } from "../../../redux/store";
+import { useAppDispatch } from "../../../redux/store";
+import { loginUser } from "../../../features/userReducer/action";
 
 interface Props {
   isLoginDrawer?: boolean;
@@ -15,30 +16,15 @@ const Login: React.FC<Props> = ({ isLoginDrawer, toggleLoginDrawer }) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  const dispatch = useAppDispatch();
+
   const loginHandler = async (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
-    try {
-        const response = await fetch(`${server}user/login`, {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            password
-          }),
-        });
-  
-        if (response.status === 200) {
-            toggleLoginDrawer()
-        }
-      } catch (e) {
-        console.dir(e);
-        toggleLoginDrawer()
-      }
-  }
+    dispatch(loginUser({ email, password })).then(() => {
+      toggleLoginDrawer();
+    });
+  };
 
-   
   return (
     <>
       <CustomDrawer

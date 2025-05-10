@@ -1,0 +1,14 @@
+@import "fonts";
+@import "reset";
+
+/*-------| Main |--------*/
+main {
+  padding: calc($grid-2x + 4px) 0 0;
+}
+
+.container{
+  width: 100%;
+  margin:0 auto;
+}
+
+
