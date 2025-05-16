@@ -1,0 +1,63 @@
+
+  @media only screen and (min-width: $breakpoint-sm-mobile) {
+}
+
+@media only screen and (min-width: $breakpoint-mobile) {
+}
+
+@media only screen and (min-width: $breakpoint-tablet) {
+}
+
+@media only screen and (max-width: $breakpoint-sm-desktop) {
+  //1024
+  .curtesy{
+    display: none;
+  }
+
+/*-------| Header |--------*/
+header {
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $grid-1x 0;
+  }
+  .logo {
+    a {
+      img {
+        width: calc($default-grid * 18);
+      }
+    }
+  }
+
+  nav {
+    ul {
+      list-style: none;
+      display: flex;
+
+      li {
+        a {
+          color: $black300;
+          font-size: 1rem;
+          text-decoration: none;
+          font-family: $SodoSansSemiBold;;
+          padding: $grid-1x $grid-2x;
+          &:hover {
+            color: $black;
+          }
+        }
+      }
+    }
+  }
+}
+}
+
+@media only screen and (min-width: $breakpoint-normal-desktop) {
+}
+
+@media only screen and (min-width: $breakpoint-normal-desktop2) {
+ 
+}
+
+@media only screen and (min-width: $breakpoint-large-desktop) {
+}

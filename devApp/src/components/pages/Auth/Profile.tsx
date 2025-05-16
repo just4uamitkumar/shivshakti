@@ -1,5 +1,5 @@
 import { Stack, Grid } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { server } from "../../../redux/store";
 import axios from "axios";
@@ -7,30 +7,19 @@ import axios from "axios";
 const Profile: React.FC = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-
-//   useEffect(() => {
-//     if (token) {
-//       const decodedToken = JSON.parse(atob(token.split(".")[1]));
-//       console.log("Decoded token:", decodedToken);
-//       axios
-//         .get(`${server}user/profile/${decodedToken?._id}`)
-//         .then((response) => console.log("Profile data:", response))
-//         .catch((error) => console.error("Error fetching profile:", error));
-//     }
-//   }, [token]);
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     fetchProfile();
-  }, []);
+  }, [token]);
 
   const fetchProfile = async () => {
     try {
       if (token) {
         const response = await axios.get(`${server}user/me`, {
           headers: { Authorization: `Bearer ${token}` },
-        //   withCredentials: true,
         });
-        console.log("Profile data:", response);
+        setUserData(response.data?.user);
       }
     } catch (err) {
       //   setError("Failed to fetch profile");
@@ -55,7 +44,7 @@ const Profile: React.FC = () => {
           </Grid>
           <Grid size={12}>
             <Stack direction="row" spacing={2}>
-              <button onClick={() => navigate("/")}>Back to Home</button>
+              <button onClick={() => navigate("/")}>Welcome {userData?.firstName} </button>
             </Stack>
           </Grid>
         </Grid>

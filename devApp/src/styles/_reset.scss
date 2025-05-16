@@ -254,17 +254,19 @@ h6.MuiTypography-root {
   }
 }
 
+/*-------| Button Classes |--------*/
+button.MuiButtonBase-root {
+  font-size: 1rem;
+  font-family: $SodoSansSemiBold;
+  text-transform: uppercase;
 
-/*-------| Form Classes |--------*/
-.devoteeForm{
-.MuiFormControl-root {
-  &.MuiTextField-root {
-    width:calc(3 * $grid-10x);
-  }
-  &.selectDropdown{
-    width:calc(3 * $grid-10x);
+  &.primary-btn {
+    background-color: $orange;
+    color: $white;
+    padding: $grid-1x $grid-3x;
+
+    &:hover {
+      background-color: $orange300;
+    }
   }
 }
-}
-
-
