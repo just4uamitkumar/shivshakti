@@ -3,6 +3,7 @@ import { increment, decrement } from "../../../features/counter/index.tsx";
 import { server, useAppDispatch, useAppSelector } from "../../../redux/store";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import HomeBanner from "./HomeBanner.tsx";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -25,7 +26,8 @@ const Home: React.FC = () => {
   };
   return (
     <>
-      <Grid container spacing={2} justifyContent="center" alignItems="center">
+      <Grid container spacing={2} flexDirection={"column"}>
+        <HomeBanner/>
         <Grid>
           <Stack component={"h1"}>{"Home Page"}</Stack>
           <Stack component={"h2"}>{`Count: ${count}`}</Stack>
