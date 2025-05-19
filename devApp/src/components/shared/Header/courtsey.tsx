@@ -1,7 +1,6 @@
 import { Grid } from "@mui/material";
 import { Link } from "react-router";
-import { FaFacebookF, FaTwitter , FaLinkedinIn , FaPinterestP  } from "react-icons/fa";
-import IconBtn from "../../common/IconBtn";
+import SocialLinks from "../SocialLinks";
 
 const Courtesy: React.FC = () => {
   return (
@@ -25,21 +24,12 @@ const Courtesy: React.FC = () => {
               </li>
             </ul>
           </Grid>
-          <Grid size={6} className="socialLinks" justifyContent={"flex-end"} display={"flex"}>
-            <ul>
-              <li>
-                <IconBtn IconComponent={FaFacebookF } />
-              </li>
-              <li>
-                <IconBtn IconComponent={FaTwitter } />
-              </li>
-              <li>
-                <IconBtn IconComponent={FaLinkedinIn } />
-              </li>
-              <li>
-                <IconBtn IconComponent={FaPinterestP} />
-              </li>
-            </ul>
+          <Grid
+            size={6}
+            justifyContent={"flex-end"}
+            display={"flex"}
+          >
+            <SocialLinks />
           </Grid>
         </Grid>
       </section>
