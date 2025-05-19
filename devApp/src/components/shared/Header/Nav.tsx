@@ -14,8 +14,8 @@ const Nav: React.FC = () => {
             </Link>
           </li>
           <li>
-            <Link to="/jyotirlinga">
-              Jyotirlinga
+            <Link to="/Jyotirling">
+              Jyotirlings
             </Link>
           </li>
         

@@ -13,6 +13,7 @@ import { Provider } from "react-redux";
 import  store from "./redux/store/index.tsx";
 import Login from "./components/pages/Auth/Login.tsx";
 import Profile from "./components/pages/Auth/Profile.tsx";
+import Jyotirling from "./components/pages/Jyotirling/index.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="/Login" element={<Login />} />
       <Route path="/Profile" element={<Profile />} />
+      <Route path="/Jyotirling" element={<Jyotirling />} />
       <Route path="*" element={<h1>404 - Page Not Found</h1>} />
     </Route>
   )
