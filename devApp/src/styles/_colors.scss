@@ -46,7 +46,7 @@ $yellow300: #f7d87d;
 $yellow400: #fae8b1;
 
 /*----| Orange |----*/
-$orange: #F26938; 
+$orange: #F26938;  // $secondary-text
 $orange300: #fc8f00; //tertiary
 
 /*----| Black |----*/
@@ -64,7 +64,7 @@ $white: #fff;
 $white100: #dadada; //rgb(218, 218, 218);
 $white200: #d9d9d9;
 $white300: #C2C2C2;
-$white400: #e7e7e7; //rgb(231, 231, 231);
+$white400: #f7f3ee; //rgb(231, 231, 231);
 $white500: #f9f9f9; //rgb(249, 249, 249);
 
 /*----| Grey |----*/
@@ -85,13 +85,13 @@ $brown: #645123; //$warning-text
 /*----| Primary |----*/
 $primary: $blue400;
 $primary-hover: $blue300;
-$primary-text: $black300;
+$primary-text: $black600;
 $primary-text-hover: $black400;
 
 /*----| Secondary |----*/
 $secondary: $violet;
 $secondary-hover: $blue100;
-$secondary-text: $white;
+$secondary-text: $orange;
 $secondary-text-hover: $white200;
 
 /*----| Warning |----*/

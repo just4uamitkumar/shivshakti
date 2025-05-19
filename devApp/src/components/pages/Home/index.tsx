@@ -4,6 +4,9 @@ import { server, useAppDispatch, useAppSelector } from "../../../redux/store";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import HomeBanner from "./HomeBanner.tsx";
+import Section1 from "./Section1.tsx";
+import Section2 from "./Section2.tsx";
+import Section3 from "./Section3.tsx";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -28,8 +31,10 @@ const Home: React.FC = () => {
     <>
       <Grid container spacing={2} flexDirection={"column"}>
         <HomeBanner/>
+        <Section1/>
+        <Section2/>
+        <Section3/>
         <Grid>
-          <Stack component={"h1"}>{"Home Page"}</Stack>
           <Stack component={"h2"}>{`Count: ${count}`}</Stack>
           <Stack direction="row" spacing={2}>
             <button onClick={() => dispatch(increment())}>Increment</button>
