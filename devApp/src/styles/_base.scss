@@ -332,34 +332,31 @@ footer {
   padding: $grid-2x;
 }
 
-
 /*-------| Product Page |--------*/
-.ProductCard{
-  padding:$grid-1x;
-  margin:$grid-3x 0;
+.ProductCard {
+  padding: $grid-1x;
+  margin: $grid-3x 0;
   border: 1px solid $black300;
-  .imgWrapper{
-    img{
+  .imgWrapper {
+    img {
       width: 50%;
-      margin:0 auto
+      margin: 0 auto;
     }
-   
   }
-
-  
 }
 
 .pagination {
-  
-    .activePage{
-      color:$blue200;
-    }
+  .activePage {
+    color: $blue200;
+  }
 
-    span {
-      padding: 0 $grid-1x;
+  span {
+    padding: 0 $grid-1x;
+    margin: 0 $grid-1x;
+    cursor: pointer;
 
-      &.disable {
+    &.disable {
       visibility: hidden;
-      }
     }
   }
+}

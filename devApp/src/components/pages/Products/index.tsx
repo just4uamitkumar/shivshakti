@@ -9,6 +9,7 @@ import {
   FaRegArrowAltCircleLeft,
   FaRegArrowAltCircleRight,
 } from "react-icons/fa";
+import IconBtn from "../../common/IconBtn";
 
 const Products: React.FC = () => {
   const [ProductsList, setProductsList] = useState<ProductType[]>([]);
@@ -72,13 +73,13 @@ const Products: React.FC = () => {
               direction={"row"}
               display={"flex"}
               justifyContent={"center"}
+              alignItems={"center"}
             >
-              <span
+              <IconBtn
+                IconComponent={FaRegArrowAltCircleLeft}
                 onClick={() => selectPageHandler(page - 1)}
-                className={page > 1 ? "" : "disable"}
-              >
-                <FaRegArrowAltCircleLeft />
-              </span>
+                iconClass={page > 1 ? "" : "disable"}
+              />
 
               {[...Array(ProductsList.length / 10)].map((_, i) => {
                 return (
@@ -91,15 +92,11 @@ const Products: React.FC = () => {
                   </span>
                 );
               })}
-
-              <span
+              <IconBtn
+                IconComponent={FaRegArrowAltCircleRight}
                 onClick={() => selectPageHandler(page + 1)}
-                className={
-                  page < ProductsList.length / 10 ? "" : "disable"
-                }
-              >
-                <FaRegArrowAltCircleRight />
-              </span>
+                iconClass={page < ProductsList.length / 10 ? "" : "disable"}
+              />
             </Stack>
           )}
         </Grid>
