@@ -331,3 +331,35 @@ footer {
 .formWrapper {
   padding: $grid-2x;
 }
+
+
+/*-------| Product Page |--------*/
+.ProductCard{
+  padding:$grid-1x;
+  margin:$grid-3x 0;
+  border: 1px solid $black300;
+  .imgWrapper{
+    img{
+      width: 50%;
+      margin:0 auto
+    }
+   
+  }
+
+  
+}
+
+.pagination {
+  
+    .activePage{
+      color:$blue200;
+    }
+
+    span {
+      padding: 0 $grid-1x;
+
+      &.disable {
+      visibility: hidden;
+      }
+    }
+  }

@@ -20,8 +20,8 @@ const Nav: React.FC = () => {
           </li>
         
           <li>
-            <Link  to="/events">
-              Events
+            <Link  to="/Products">
+              Products
             </Link>
           </li>
           <li>
