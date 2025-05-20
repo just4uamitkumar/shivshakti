@@ -3,7 +3,7 @@ import type { SvgIconProps } from "@mui/material";
 
 interface Props {
   IconComponent: React.ElementType<SvgIconProps>;
-  onClick?: () => void;
+  onClick?: (() => void) | ((event: React.MouseEvent<HTMLButtonElement>) => void);
   ariaLabel?: string;
   iconClass?: string;
   disabled?: boolean;
