@@ -30,6 +30,9 @@ const jyotirlingSchema = new mongoose.Schema(
         type: Number,
       },
     },
+		history:{
+			type:String,
+		}
   },
   {
     timestamp: true,

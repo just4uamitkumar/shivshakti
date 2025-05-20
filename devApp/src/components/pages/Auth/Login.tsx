@@ -1,16 +1,28 @@
-import { Stack, Grid, TextField } from "@mui/material";
+import CustomDrawer from "../../common/Drawer";
+import {
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  Stack,
+  TextField,
+} from "@mui/material";
 import { useState } from "react";
-import { useNavigate } from "react-router";
-import axios from "axios";
 import { server } from "../../../redux/store";
+import axios from "axios";
+import { RIGHT } from "../../../utils/constants";
+import CustomBtn from "../../common/Button";
 
-const Login: React.FC = () => {
-  const navigate = useNavigate();
+interface Props {
+  isLoginDrawer?: boolean;
+  toggleLoginDrawer: () => void;
+  toggleRegisterDrawer:() => void;
+}
 
+const Login: React.FC<Props> = ({ isLoginDrawer, toggleLoginDrawer, toggleRegisterDrawer }) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const login = async () => {
+  const loginHandler = async () => {
     if (email === "" || password === "") {
       alert("Please fill in all fields.");
       return;
@@ -22,8 +34,7 @@ const Login: React.FC = () => {
         password,
       });
       localStorage.setItem("token", response.data.token);
-      alert("Login successful!");
-      navigate("/Profile");
+      toggleLoginDrawer();
     } catch (error) {
       console.error("Login error:", error);
       alert("Invalid credentials");
@@ -32,41 +43,65 @@ const Login: React.FC = () => {
 
   return (
     <>
-      <Grid container spacing={2} justifyContent="center" alignItems="center">
-        <Grid size={3}>
-          <Grid size={12}>
-            <Stack component={"h1"}>{"Login Page"}</Stack>
-          </Grid>
-          <Grid size={12}>
-            <Stack direction="row" spacing={2}>
-              <button onClick={() => navigate("/")}>Back to Home</button>
-            </Stack>
-          </Grid>
-          <Grid className="formWrapper" size={12}>
-            <Stack className="mb-2">
-              <TextField
-                label="Email ID"
-                variant="outlined"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                name="email"
-              />
-            </Stack>
-            <Stack className="mb-2">
-              <TextField
-                label="Password"
-                variant="outlined"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                name="password"
-              />
-            </Stack>
-            <Stack className="mb-2">
-              <button onClick={() => login()}>Login</button>
-            </Stack>
-          </Grid>
+      <CustomDrawer
+        anchor={RIGHT}
+        open={isLoginDrawer}
+        className={"drawer"}
+        closeBtnClass={"close"}
+        drawerTitle={"Login"}
+        titleClass={"titleClass"}
+        onClose={toggleLoginDrawer}
+        SubmitText={"Login"}
+        submitHandler={loginHandler}
+      >
+        <Grid className="formWrapper">
+          <Stack className="mb-2">
+            <TextField
+              label="Email ID"
+              variant="outlined"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+            />
+          </Stack>
+          <Stack>
+            <TextField
+              label="Password"
+              variant="outlined"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              name="password"
+              type="password"
+            />
+          </Stack>
         </Grid>
-      </Grid>
+        <Grid
+          flexDirection={"column"}
+          alignItems={"flex-end"}
+          display={"flex"}
+          spacing={3}
+        >
+          <Stack>
+            <FormControlLabel control={<Checkbox />} label="Remember Me" />
+          </Stack>
+          <Stack>
+            <CustomBtn
+              variant={"text"}
+              text={"Forgot UserName/Password ?"}
+              btnClass={"primary-btn"}
+            />
+          </Stack>
+          <Stack direction={"row"} alignItems={"center"}>
+            {"Not a member ?"}
+            <CustomBtn
+              variant={"text"}
+              text={"Register here"}
+              btnClass={"primary-btn"}
+              onClick={toggleRegisterDrawer}
+            />
+          </Stack>
+        </Grid>
+      </CustomDrawer>
     </>
   );
 };
