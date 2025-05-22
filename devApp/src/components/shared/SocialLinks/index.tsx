@@ -4,7 +4,9 @@ import {
   FaLinkedinIn,
   FaPinterestP,
 } from "react-icons/fa";
-import IconBtn from "../common/IconBtn";
+import IconBtn from "../../common/IconBtn";
+import "./styles.scss";
+
 
 const SocialLinks: React.FC = () => {
   return (

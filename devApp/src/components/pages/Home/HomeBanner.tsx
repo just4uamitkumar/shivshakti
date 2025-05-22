@@ -1,13 +1,15 @@
 import { Grid, Stack } from "@mui/material";
 import TypoGraphy from "../../common/TypoGraphy";
-import { monthArray } from "../../../utils/constants";
+import { mobile, monthArray, tablet } from "../../../utils/constants";
 import { useEffect, useState } from "react";
 import mahadevImg from "../../../styles/assets/images/web/mahadev.png"; // Assuming you have an image of Lord Shiva
+import { useViewportWidth } from "../../../utils/hooks";
 
 const HomeBanner: React.FC = () => {
   const [hours, setHours] = useState<number | string>("00");
   const [minutes, setMinutes] = useState<number | string>("00");
   const [seconds, setSeconds] = useState<number | string>("00");
+  const windowWidth = useViewportWidth();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -39,7 +41,7 @@ const HomeBanner: React.FC = () => {
           alignItems={"center"}
         >
           <Grid size={4} className="lordShiva">
-            <img src={mahadevImg} alt={'Har Har Mahadev'} />
+            <img src={mahadevImg} alt={"Har Har Mahadev"} />
           </Grid>
           <Grid size={8} className="banner-text">
             <Stack>
@@ -47,10 +49,10 @@ const HomeBanner: React.FC = () => {
             </Stack>
             <Stack
               direction={"row"}
-              spacing={2}
+              spacing={ windowWidth > tablet ? 2 : 1}
               alignItems={"center"}
               justifyContent={"center"}
-              className="pt-3 pb-3"
+              className={ windowWidth > tablet ? "pt-3 pb-3" : windowWidth > mobile ? "pt-2 pb-2" : "pt-1 pb-1"}
             >
               <Stack className="circle dateCircle">
                 <TypoGraphy variant="h2">
@@ -70,7 +72,7 @@ const HomeBanner: React.FC = () => {
             </Stack>
             <Stack
               direction={"row"}
-              spacing={2}
+              spacing={ windowWidth > tablet ? 2 : 1}
               alignItems={"center"}
               justifyContent={"center"}
             >

@@ -27,10 +27,10 @@ $green900: #e8f4ee;
 /*----| Blue |----*/
 $blue: #064163;
 $blue100: #005a8a;
-$blue200: #1565c0;
-$blue300: #1976d2; // $primary-hover
-$blue400: #1dc6df; // $rimary
-$blue500: #2196f3;
+$blue200: #1565c0; //territory-text
+$blue300: #1976d2; 
+$blue400: #1dc6df; 
+$blue500: #2196f3; //territory-text-hover
 $blue600: #42a5f5;
 $blue700: #64b5f6;
 $blue800: #90caf9;
@@ -47,25 +47,25 @@ $yellow400: #fae8b1;
 
 /*----| Orange |----*/
 $orange: #F26938;  // $secondary-text
-$orange300: #fc8f00; //tertiary
+$orange300: #eb8500; //secondary-text-hover, $primary-hover
 
 /*----| Black |----*/
-$black: #000;
+$black: #000; //$secondary
 $black100: #0d0c0c;
 $black200: #161616;
-$black300: #1e1e1e; //$primary-text-hover
-$black400: #6a6a6a; 
-$black500: #818181;
-$black600: #6a6a6a;//$primary-text
+$black300: #1e1e1e;// $secondary-hover
+$black400: #6a6a6a;//$primary-text
+$black500: #6a6a6a; 
+$black600: #818181;//$primary-text-hover
 $black700: #cecece;
 
 /*----| White |----*/
-$white: #fff;
-$white100: #dadada; //rgb(218, 218, 218);
+$white: #fff; //$territory
+$white100: #dadada; 
 $white200: #d9d9d9;
-$white300: #C2C2C2;
-$white400: #f7f3ee; //rgb(231, 231, 231);
-$white500: #f9f9f9; //rgb(249, 249, 249);
+$white300: #C2C2C2; //$territory-hover
+$white400: #f7f3ee; 
+$white500: #f9f9f9; 
 
 /*----| Grey |----*/
 $grey: #212121; 
@@ -83,16 +83,22 @@ $grey900: #fafafa;
 $brown: #645123; //$warning-text
 
 /*----| Primary |----*/
-$primary: $blue400;
-$primary-hover: $blue300;
+$primary: $orange;
+$primary-hover: $orange300;
 $primary-text: $black600;
-$primary-text-hover: $black400;
+$primary-text-hover: $black300;
 
 /*----| Secondary |----*/
-$secondary: $violet;
-$secondary-hover: $blue100;
+$secondary: $black;
+$secondary-hover: $black300;
 $secondary-text: $orange;
-$secondary-text-hover: $white200;
+$secondary-text-hover: $orange300;
+
+/* ---- | Territory |-----*/
+$territory: $white;
+$territory-hover: $white300;
+$territory-text: $blue200;
+$territory-text-hover: $blue400;
 
 /*----| Warning |----*/
 $warning: $yellow400;
@@ -105,6 +111,7 @@ $warnint-text-hover: $grey100;
 $error: $red700;
 $error-hover: $red500;
 $error-text: $red100;
+$error-text: $red500;
 
 /*----| Info |----*/
 $info-color: $blue400;
