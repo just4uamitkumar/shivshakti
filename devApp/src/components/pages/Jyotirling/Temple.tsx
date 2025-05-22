@@ -2,6 +2,8 @@ import { Grid, Stack } from "@mui/material";
 import TypoGraphy from "../../common/TypoGraphy";
 import CustomBtn from "../../common/Button";
 import { navigateUrl, truncateText } from "../../../utils/commonFunc";
+import { useViewportWidth } from "../../../utils/hooks";
+import { tablet } from "../../../utils/constants";
 
 interface Props {
   id: string;
@@ -24,13 +26,14 @@ const Temple: React.FC<Props> = ({
   latitude,
   longitude,
 }) => {
+  const windowWidth = useViewportWidth();
   return (
     <>
-      <Grid size={6} className="pb-4 pt-2" key={id}>
+      <Grid size={windowWidth > tablet ?  6 : 12} className="pb-4 pt-2" key={id}>
         <Stack className="img-wrap">
           <img src={imgPath} alt={name} />
         </Stack>
-        <Stack className="pt-2 pb-2">
+        <Stack className={windowWidth > tablet ?  "pt-2 pb-2" : "pt-1 pb-1"}>
           <TypoGraphy variant="h4">{name}</TypoGraphy>
         </Stack>
         <Stack className="secondary-text">
@@ -45,7 +48,7 @@ const Temple: React.FC<Props> = ({
             </span>
           </TypoGraphy>
         </Stack>
-        <Stack className="pt-2 pb-2">
+        <Stack className={windowWidth > tablet ?  "pt-2 pb-2" : "pt-1 pb-1"}>
           <TypoGraphy variant="body1" typeClass={"regular-font"}>
             <strong>Location :</strong>{" "}
             <CustomBtn
@@ -60,7 +63,7 @@ const Temple: React.FC<Props> = ({
             />
           </TypoGraphy>
         </Stack>
-        <Stack className={"pb-2"}>
+        <Stack className={windowWidth > tablet ?  "pb-2" : "pb-1"}>
           <TypoGraphy variant={"body1"}>
             {truncateText(description, 320)}
           </TypoGraphy>

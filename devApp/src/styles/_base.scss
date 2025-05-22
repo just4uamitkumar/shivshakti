@@ -21,110 +21,8 @@ main {
   max-width: 1280px;
 }
 
-/*-------| Courtesy |--------*/
-.curtesy {
-  background: $black;
-  color: $white300;
-  padding: $half-grid 0;
-  align-items: center;
-
-  .curtseyLinks {
-    ul {
-      list-style: none;
-
-      li {
-        display: inline-block;
-        padding-top: $half-grid;
-        position: relative;
-        &::before {
-          content: "-";
-          color: $orange;
-        }
-
-        &:first-child {
-          &::before {
-            content: "";
-          }
-        }
-        a {
-          color: $white300;
-          font-size: 0.8rem;
-          text-decoration: none;
-          padding: $grid-1x $grid-2x $half-grid;
-          &:hover {
-            color: $white100;
-          }
-        }
-      }
-    }
-  }
-}
-
-/*-------| SocialLinks |--------*/
-ul.socialLinks {
-  li {
-    list-style: none;
-    display: inline-block;
-    margin-left: $grid-1x;
-    button {
-      background-color: $black300;
-      svg {
-        fill: $white;
-        font-size: 0.8rem;
-      }
-
-      &:hover {
-        background-color: $orange;
-      }
-    }
-  }
-}
-
-/*-------| Header |--------*/
-header {
-  background-color: $white;
-  .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: $grid-1x 0;
-  }
-  .logo {
-    a {
-      img {
-        width: calc($default-grid * 18);
-      }
-    }
-  }
-
-  nav {
-    ul {
-      list-style: none;
-      display: flex;
-
-      li {
-        a {
-          color: $black300;
-          text-decoration: none;
-          font-family: $SodoSansSemiBold;
-          padding: $grid-1x $grid-2x;
-          &:hover {
-            color: $black;
-          }
-        }
-      }
-    }
-  }
-
-  .menu-anchor {
-    svg {
-      fill: $blue200;
-    }
-  }
-}
-
-/*-------| Profile menu |--------*/
-.MuiMenu-root {
+/*-------| DropDown menu |--------*/
+.dropdown-menu {
   .MuiMenu-paper {
     @include boxShadow(-1px 0px 11px rgba(0, 0, 0, 0.3));
     border-radius: 0 0 $grid-1x $grid-1x;
@@ -132,6 +30,10 @@ header {
     ul {
       li {
         font-size: 0.9rem;
+        color: $secondary-hover;
+        &:hover {
+          color: $secondary;
+        }
       }
     }
   }
@@ -150,7 +52,7 @@ footer {
     color: $white;
     font-family: $SodoSans;
   }
-  h4 {
+  h4.MuiTypography-root {
     color: $white;
     padding-bottom: $grid-1x;
   }
@@ -178,7 +80,7 @@ footer {
   position: relative;
   background: linear-gradient(90deg, #ff7e5f 0%, #feb47b 100%);
   background-repeat: no-repeat;
-  color: $white;
+  color: $territory;
   text-align: center;
 
   .lordShiva {
@@ -188,14 +90,14 @@ footer {
     }
   }
 
-  h1 {
+  h1.MuiTypography-root {
     font-family: $SodoSansSemiBold;
     font-size: 5rem;
   }
-  h2 {
+  h2.MuiTypography-root {
     font-family: $SodoSansSemiBold;
     font-size: 2rem;
-    color: $white;
+    color: $territory;
   }
   .circle {
     width: $grid-3x * 5;
@@ -204,7 +106,7 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: $white;
+    color: $territory;
   }
 
   .dateCircle {
@@ -347,7 +249,7 @@ footer {
 
 .pagination {
   .activePage {
-    color: $blue200;
+    color: $territory-text;
   }
 
   span {

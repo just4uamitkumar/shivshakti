@@ -16,7 +16,7 @@
 
     h4.MuiTypography-root {
       font-size: 1.3rem;
-      color:$white;
+      color: $white;
       font-family: $SodoSansSemiBold;
     }
 
@@ -43,6 +43,15 @@
 
     button.primary-btn {
       margin-right: $grid-1x;
+    }
+  }
+}
+
+//1024 and down
+@media only screen and (max-width: $breakpoint-sm-desktop) {
+  .drawer {
+    .MuiPaper-root {
+      width: calc(5 * $grid-7x);
     }
   }
 }

@@ -17,6 +17,7 @@ interface Props {
   children?: React.ReactNode;
   submitHandler?: () => void;
   SubmitText?: string;
+  noFooter?:boolean;
 }
 
 const CustomDrawer: React.FC<Props> = ({
@@ -30,6 +31,7 @@ const CustomDrawer: React.FC<Props> = ({
   children,
   submitHandler,
   SubmitText,
+  noFooter
 }) => {
   return (
     <Drawer anchor={anchor} open={open} onClose={onClose} className={className}>
@@ -46,7 +48,9 @@ const CustomDrawer: React.FC<Props> = ({
             </header>
           </Grid>
           <Grid size={12}>{children}</Grid>
-          <Grid size={12}>
+          {
+            !noFooter && 
+            <Grid size={12}>
             <footer className="footer">
               <Button
                 className={"primary-btn"}
@@ -62,6 +66,8 @@ const CustomDrawer: React.FC<Props> = ({
               />
             </footer>
           </Grid>
+          }
+          
         </Grid>
       </Box>
     </Drawer>

@@ -1,43 +1,28 @@
-
-import { Link } from 'react-router'
+import { Link } from "react-router";
 
 const Nav: React.FC = () => {
-
   return (
     <>
       <nav>
         <ul>
-          
           <li>
-            <Link to="/about">
-              Pages
-            </Link>
+            <Link to="/about">Pages</Link>
           </li>
           <li>
-            <Link to="/Jyotirling">
-              Jyotirlings
-            </Link>
+            <Link to="/Jyotirling">Jyotirlings</Link>
           </li>
-        
+
           <li>
-            <Link  to="/Products">
-              Products
-            </Link>
+            <Link to="/Products">Products</Link>
           </li>
           <li>
-            <Link to="/gallery">
-              Gallery
-            </Link>
+            <Link to="/gallery">Gallery</Link>
           </li>
           <li>
-            <Link to="/contact">
-              Contact
-            </Link>
+            <Link to="/contact">Contact</Link>
           </li>
           <li>
-            <Link to="/blog">
-              Blog
-            </Link>
+            <Link to="/blog">Blog</Link>
           </li>
         </ul>
       </nav>
