@@ -1,13 +1,20 @@
 export type ProductType = {
     category:string;
     id:number;
-    description:string;
+    description?:string;
     price:number;
-    images:string;
+    images?:string;
     title:string;
-    rating:number;
+    rating?:number;
     thumbnail:string;
+    availabilityStatus:string
+    brand:string;
+    discountPercentage:number
+    shippingInformation:string
+
 }
+
+//availabilityStatus, brand, category, discountPercentage, price, rating,  shippingInformation, title
 
 
 

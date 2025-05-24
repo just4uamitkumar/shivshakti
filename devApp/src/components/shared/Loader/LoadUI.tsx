@@ -1,7 +1,7 @@
 import { CircularProgress, Stack } from "@mui/material";
 import { Grid } from "@mui/material";
 import React from "react";
-import "./style.scss";
+import "./styles.scss";
 
 const LoadUI: React.FC = () => {
   return (

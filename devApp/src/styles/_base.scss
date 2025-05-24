@@ -237,13 +237,29 @@ footer {
 /*-------| Product Page |--------*/
 .ProductCard {
   padding: $grid-1x;
-  margin: $grid-3x 0;
-  border: 1px solid $black300;
+  margin: $grid-1x 0;
+  background-color: $white200;
+
+  h4.MuiTypography-root{
+    font-size: 1.2rem;
+  }
   .imgWrapper {
     img {
       width: 50%;
       margin: 0 auto;
     }
+  }
+
+  .price{
+    margin:$grid-1x 0;
+
+    .buyPrice{
+      color:$primary
+    }
+  }
+
+  .shippingInfo{
+    margin:$grid-1x 0;
   }
 }
 
