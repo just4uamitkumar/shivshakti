@@ -1,5 +1,7 @@
 import { Grid, Stack } from "@mui/material";
 import TypoGraphy from "../../common/TypoGraphy";
+import CustomBtn from "../../common/Button";
+import { getOriginalPrice, navigateUrl } from "../../../utils/commonFunc";
 
 interface Props {
   id: number;
@@ -24,11 +26,10 @@ const Product: React.FC<Props> = ({
   shippingInformation,
   availabilityStatus,
 }) => {
-  const getOriginalPrice = (
-    discountPercent: number,
-    discountedAmount: number
-  ): number => {
-    return discountedAmount / (1 - discountPercent / 100);
+  
+
+  const getProduct = async (id: number) => {
+   navigateUrl(`/Product/${id}`)
   };
 
   return (
@@ -79,6 +80,14 @@ const Product: React.FC<Props> = ({
             <strong>{"Availability : "}</strong>
             {availabilityStatus}
           </TypoGraphy>
+        </Stack>
+        <Stack justifyContent={"center"}>
+          <CustomBtn
+            text="Go to Product"
+            variant="contained"
+            className="primary"
+            onClick={() => getProduct(id)}
+          />
         </Stack>
       </Grid>
     </>
