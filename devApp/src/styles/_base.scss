@@ -278,3 +278,14 @@ footer {
     }
   }
 }
+
+
+/*-------| Product Detail Page |--------*/
+.ProductDetail{
+  margin:$grid-3x 0;
+  .img-wrap{
+    img{
+      width: 100%;
+    }
+  }
+}

@@ -3,7 +3,7 @@ export type ProductType = {
     id:number;
     description?:string;
     price:number;
-    images?:string;
+    images?:string[];
     title:string;
     rating?:number;
     thumbnail:string;
@@ -11,10 +11,4 @@ export type ProductType = {
     brand:string;
     discountPercentage:number
     shippingInformation:string
-
 }
-
-//availabilityStatus, brand, category, discountPercentage, price, rating,  shippingInformation, title
-
-
-

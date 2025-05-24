@@ -5,3 +5,10 @@ export const truncateText = (text: string, maxLength: number): string => {
 export const navigateUrl = (url: string) => {
   window.open(url, "_blank", "noopener,noreferrer");
 };
+
+export const getOriginalPrice = (
+  discountPercent: number,
+  discountedAmount: number
+): number => {
+  return discountedAmount / (1 - discountPercent / 100);
+};
