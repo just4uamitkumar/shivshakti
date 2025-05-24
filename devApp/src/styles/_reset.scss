@@ -225,8 +225,8 @@ h6.MuiTypography-root {
   color: $black;
 }
 
-.green {
-  color: $green;
+.green500 {
+  color: $green500;
 }
 .blue{
   color: $territory-text;
@@ -243,6 +243,11 @@ h6.MuiTypography-root {
 .secondary-text {
   color: $secondary-text;
 }
+
+.line-through{
+  text-decoration: line-through;
+}
+
 
 /*-------| Fonts Classes |--------*/
 .MuiTypography-root {
