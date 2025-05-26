@@ -9,7 +9,7 @@ import type { userType } from "./type";
 
 interface Props {
   logo: string;
-  userData: userType | null;
+  userData: Partial<userType> | null;
   open: boolean;
   handleDropDown: (event: React.MouseEvent<HTMLButtonElement>) => void;
   handleDropDownClose: () => void;

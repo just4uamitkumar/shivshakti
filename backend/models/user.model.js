@@ -66,16 +66,18 @@ const schema = new mongoose.Schema({
     status: String,
   },
 
-  // avatar: {
-  //   public_id: {
-  //     type: String,
-  //     required: true,
-  //   },
-  //   url: {
-  //     type: String,
-  //     required: true,
-  //   },
-  // },
+  profilePic:{
+    type:String,
+  },
+
+  avatar: {
+    public_id: {
+      type: String,
+    },
+    url: {
+      type: String,
+    },
+  },
 
   playlist: [
     {

@@ -69,7 +69,7 @@ h6.MuiTypography-root {
 }
 
 .MuiTypography-body2 {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 /*--------| Spacing |---------*/
@@ -246,6 +246,9 @@ h6.MuiTypography-root {
 
 .line-through{
   text-decoration: line-through;
+}
+.danger-text{
+  color:$red500;
 }
 
 

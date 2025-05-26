@@ -45,6 +45,7 @@ const Jyotirling: React.FC = () => {
           data.length > 0 &&
           data.map((item: JyotirliingType) => (
             <Temple
+              key={item?._id}
               id={item?._id}
               imgPath={item?.imgPath}
               name={item?.name}
