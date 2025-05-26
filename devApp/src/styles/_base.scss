@@ -240,7 +240,7 @@ footer {
   margin: $grid-1x 0;
   background-color: $white200;
 
-  h4.MuiTypography-root{
+  h4.MuiTypography-root {
     font-size: 1.2rem;
   }
   .imgWrapper {
@@ -250,16 +250,16 @@ footer {
     }
   }
 
-  .price{
-    margin:$grid-1x 0;
+  .price {
+    margin: $grid-1x 0;
 
-    .buyPrice{
-      color:$primary
+    .buyPrice {
+      color: $primary;
     }
   }
 
-  .shippingInfo{
-    margin:$grid-1x 0;
+  .shippingInfo {
+    margin: $grid-1x 0;
   }
 }
 
@@ -279,13 +279,32 @@ footer {
   }
 }
 
-
 /*-------| Product Detail Page |--------*/
-.ProductDetail{
-  margin:$grid-3x 0;
-  .img-wrap{
-    img{
+.ProductDetail {
+  margin: $grid-3x 0;
+  .img-wrap {
+    img {
       width: 100%;
     }
+  }
+}
+
+/*-------| Profile Page |--------*/
+.profile-container {
+  .left-side {
+    background-color: $white200;
+    padding: $grid-2x;
+  }
+}
+
+.profile-image {
+  svg {
+    font-size: 10rem;
+    fill: $black300;
+  }
+
+  img {
+    width: 50%;
+    border-radius: 50%;
   }
 }

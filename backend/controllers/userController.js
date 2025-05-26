@@ -81,3 +81,13 @@ export const getMyProfile = catchAsyncError(async (req, res, next) => {
     user,
   });
 });
+
+
+// API route to get all registered users
+export const getAllUsers = catchAsyncError(async (req, res, next) => {
+  const users = await User.find();
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});

@@ -3,6 +3,8 @@ import { Grid, Stack } from "@mui/material";
 import PageBanner from "../../shared/PageBanner";
 import { useEffect, useState } from "react";
 import ProgressBar from "../../shared/Footer/ProgressBar";
+import { useAppDispatch, useAppSelector } from "../../../redux/store";
+import { decrement, increment } from "../../../features/counter";
 
 const Gallery: React.FC = () => {
   const [value, setValue] = useState<number>(0);
@@ -13,6 +15,11 @@ const Gallery: React.FC = () => {
       setValue((val) => val + 0.1);
     }, 20);
   }, []);
+
+  const count = useAppSelector(
+    (state: { counter: { value: number } }) => state.counter.value
+  );
+  const dispatch = useAppDispatch();
 
   return (
     <>
@@ -25,7 +32,31 @@ const Gallery: React.FC = () => {
             {success ? "Complete!" : "Loading..."}
           </Stack>
         </Grid>
+        <Grid>
+          <Stack component={"h2"}>{`Count: ${count}`}</Stack>
+          <Stack direction="row" spacing={2}>
+            <button onClick={() => dispatch(increment())}>Increment</button>
+            <button onClick={() => dispatch(decrement())}>Decrement</button>
+          </Stack>
+        </Grid>
       </Grid>
+
+
+      
+      {/* <Snackbar
+        open={openSnack}
+        autoHideDuration={6000}
+        onClose={handleCloseSnack}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseSnack}
+          severity="success"
+          variant="filled"
+        >
+          {"Successfully Registered!"}
+        </Alert>
+      </Snackbar> */}
     </>
   );
 };

@@ -7,6 +7,8 @@ import { RIGHT } from "../../../utils/constants";
 import CustomBtn from "../../common/Button";
 import type { user } from "./type";
 import TypoGraphy from "../../common/TypoGraphy";
+import { AuthEnum } from "./enum";
+import RegisterDialog from "./RegisterDialog";
 
 interface Props {
   isRegisterDrawer?: boolean;
@@ -26,17 +28,32 @@ const Register: React.FC<Props> = ({
     password: "",
   });
   const [confirmPassword, setConfirmPasswrod] = useState<string>("");
-  const [isPasswordSame, setIsPasswordSame] = useState<boolean>(false);
+  const [allUsers, setAllUsers] = useState<string[]>([]);
+  const [message, setMessage] = useState<string>("");
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
   useEffect(() => {
     if (formData?.password.length >= 8 && confirmPassword.length > 5) {
       if (confirmPassword !== formData?.password) {
-        setIsPasswordSame(true);
+        setMessage(AuthEnum.notSamePassword);
       } else {
-        setIsPasswordSame(false);
+        setMessage("");
       }
     }
   }, [formData, confirmPassword]);
+
+  useEffect(() => {
+    if (formData.email.length > 0) {
+      getAllUsers();
+    }
+  }, [formData]);
+
+  const checkExistingEmail = () => {
+    if (allUsers.includes(formData.email)) {
+      setMessage(AuthEnum.existEmail);
+      return;
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -49,8 +66,17 @@ const Register: React.FC<Props> = ({
     setConfirmPasswrod(e.target.value);
   };
 
-  console.log(formData);
-  console.log(confirmPassword);
+  const getAllUsers = async () => {
+    try {
+      const response = await axios.get(`${server}user/allUsers`);
+      const data: string[] = response.data?.users?.map(
+        (user: user) => user.email
+      );
+      setAllUsers(data);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
 
   const submitHandler = async () => {
     if (
@@ -59,50 +85,54 @@ const Register: React.FC<Props> = ({
       !formData.email ||
       !formData.password
     ) {
-      alert("Please fill in all fields.");
+      setMessage(AuthEnum.fillAllFields);
       return;
     }
 
     if (formData.firstName.length < 3) {
-      alert("Please fill a valid first name");
+      setMessage(AuthEnum.invalidFName);
       return;
     }
 
     if (formData.lastName.length < 3) {
-      alert("Please fill a valid last name");
+      setMessage(AuthEnum.invalidLName);
       return;
     }
 
     if (formData.firstName === formData.lastName) {
-      alert("First name and last name cannot be same.");
-      return;
-    }
-
-    if (formData.firstName === formData.lastName) {
-      alert("First name and last name cannot be same.");
+      setMessage(AuthEnum.sameName);
       return;
     }
 
     const regex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!regex.test(formData.email)) {
-      alert("Please enter a valid email");
+      setMessage(AuthEnum.invalidEmail);
       return;
     }
 
     if (formData.password.length < 8) {
-      alert("Please enter a valid password");
+      setMessage(AuthEnum.invalidPassword);
       return;
     }
 
-    try {
-      const response = await axios.post(`${server}user/register`, formData);
-      console.log("Registration response:", response);
-      toggleRegisterDrawer()
-      alert("Register Successfully");
-    } catch (error) {
-      console.error("Registration error:", error);
-    }
+    setOpenModal(true);
   };
+
+  const handleRegister =  () => {
+    axios.post(`${server}user/register`, formData).then(() => {
+      toggleRegisterDrawer();
+      setOpenModal(false);
+    }).catch((error) => {
+      console.error("Registration error:", error);
+      toggleRegisterDrawer();
+      setOpenModal(false);
+    })
+  };
+
+  const closeModal = () => {
+    setOpenModal(!openModal);
+  };
+
 
   return (
     <>
@@ -118,6 +148,11 @@ const Register: React.FC<Props> = ({
         submitHandler={submitHandler}
       >
         <Grid className="formWrapper">
+          {message !== "" && (
+            <TypoGraphy variant="body2" typeClass="danger-text pb-1 pl-1">
+              {message}
+            </TypoGraphy>
+          )}
           <Stack className="mb-2">
             <TextField
               label="First Name"
@@ -148,6 +183,7 @@ const Register: React.FC<Props> = ({
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 handleChange(e)
               }
+              onBlur={checkExistingEmail}
               name="email"
             />
           </Stack>
@@ -175,13 +211,6 @@ const Register: React.FC<Props> = ({
               type="password"
             />
           </Stack>
-          {isPasswordSame && (
-            <Stack>
-              <TypoGraphy variant="body1" typeClass="secondary-text">
-                {"Password and Confirm Password must be same"}
-              </TypoGraphy>
-            </Stack>
-          )}
         </Grid>
         <Grid
           flexDirection={"column"}
@@ -200,6 +229,11 @@ const Register: React.FC<Props> = ({
           </Stack>
         </Grid>
       </CustomDrawer>
+      <RegisterDialog
+        closeModal={closeModal}
+        openModal={openModal}
+        handleRegister={handleRegister}
+      />
     </>
   );
 };

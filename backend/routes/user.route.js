@@ -1,6 +1,6 @@
 import express from "express";
 import {
-     login, logout, register, getMyProfile
+     login, logout, register, getMyProfile, getAllUsers
 } from "../controllers/userController.js";
 import { isAuthenticated } from "../middleware/auth.js";
 //import singleUpload from '../middlewares/multer.js'
@@ -18,5 +18,8 @@ router.route("/logout").get(logout);
 
 // Get my profile
 router.route("/me").get(isAuthenticated, getMyProfile);
+
+// Get my profile
+router.route("/allUsers").get(getAllUsers);
 
 export default router;

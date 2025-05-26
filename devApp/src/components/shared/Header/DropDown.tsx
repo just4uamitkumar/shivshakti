@@ -1,6 +1,7 @@
 import { Menu, MenuItem } from "@mui/material";
 import axios from "axios";
 import { server } from "../../../redux/store";
+import { useNavigate  } from "react-router";
 
 interface Props {
   handleDropDownClose: () => void;
@@ -9,6 +10,8 @@ interface Props {
 }
 
 const DropDownMenu: React.FC<Props> = ({ handleDropDownClose, anchorEl, open }) => {
+  const navigate = useNavigate();
+
   const handleLogout = async () => {
     try {
       await axios.get(`${server}user/logout`);
@@ -20,6 +23,11 @@ const DropDownMenu: React.FC<Props> = ({ handleDropDownClose, anchorEl, open }) 
       console.error(" error:", error);
     }
   };
+
+  const goToProfile = () => {
+    handleDropDownClose();
+    navigate("/Profile");
+  }
 
   return (
     <Menu
@@ -37,7 +45,7 @@ const DropDownMenu: React.FC<Props> = ({ handleDropDownClose, anchorEl, open }) 
       }}
       className="dropdown-menu"
     >
-      <MenuItem onClick={handleDropDownClose}>Profile</MenuItem>
+      <MenuItem onClick={goToProfile}>Profile</MenuItem>
       <MenuItem onClick={handleDropDownClose}>My account</MenuItem>
       <MenuItem onClick={handleLogout}>Logout</MenuItem>
     </Menu>
