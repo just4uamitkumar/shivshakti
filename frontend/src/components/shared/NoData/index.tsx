@@ -1,5 +1,4 @@
-import Grid from "@mui/material/Grid2";
-import { Stack } from "@mui/material";
+import { Stack, Grid } from "@mui/material";
 import React from "react";
 import nodataimg from "../../../styles/assets/images/system/noData.png";
 import "./style.scss";

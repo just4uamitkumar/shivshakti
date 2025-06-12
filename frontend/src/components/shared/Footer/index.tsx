@@ -1,6 +1,5 @@
-import Grid from "@mui/material/Grid2";
 import "./style.scss";
-import { Stack } from "@mui/material";
+import { Stack, Grid } from "@mui/material";
 import TypoGraphy from "../../common/Typography";
 import { Facebook, LinkedIn, Pinterest, YouTube  } from "@mui/icons-material";
 import { Link } from "react-router";
@@ -33,7 +32,7 @@ const Footer: React.FC = () => {
                 <li><Link to="/">About Us</Link></li>
                 <li><Link to="/code">Code</Link></li>
                 <li><Link to="/develop">Develop</Link></li>
-                <li><Link to="/">Contact Us</Link></li>
+                <li><Link to="/todoList">To Do List</Link></li>
                 <li><Link to="/">My Account</Link></li>
                 <li><Link to="/">Sign In</Link></li>
               </ul>

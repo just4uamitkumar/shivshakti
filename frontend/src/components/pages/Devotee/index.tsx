@@ -1,11 +1,10 @@
-import Grid from "@mui/material/Grid2";
 import PageBanner from "../../shared/PageBanner";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import LeftPanel from "./LeftPanel";
 import AddDrawer from "./AddDrawer";
 import RightPanel from "./RightPanel";
-import { Alert, Snackbar } from "@mui/material";
+import { Alert, Snackbar, Grid } from "@mui/material";
 import { TaskAlt, Warning } from "@mui/icons-material";
 import TypoGraphy from "../../common/Typography";
 import {

@@ -1,8 +1,7 @@
-import Grid from "@mui/material/Grid2";
 import PageBanner from "../../shared/PageBanner";
 import { useEffect, useState } from "react";
 import { server } from "../../../redux/store";
-import { Alert, Snackbar, Stack } from "@mui/material";
+import { Alert, Snackbar, Stack, Grid } from "@mui/material";
 import Button from "../../common/Button";
 import TypoGraphy from "../../common/Typography";
 import { templeType } from "./constants";

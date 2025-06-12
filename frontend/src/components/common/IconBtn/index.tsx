@@ -1,4 +1,5 @@
-import { IconButton, Typography, SvgIconProps } from '@mui/material/';
+import { IconButton, SvgIconProps, Typography } from "@mui/material";
+
 interface Props {
   IconComponent: React.ElementType<SvgIconProps>;
   onClick?: () => void;

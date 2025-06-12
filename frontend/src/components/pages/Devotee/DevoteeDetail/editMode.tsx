@@ -1,4 +1,3 @@
-import Grid from "@mui/material/Grid2";
 import "../style.scss";
 import {
   FormControl,
@@ -8,6 +7,7 @@ import {
   SelectChangeEvent,
   Stack,
   TextField,
+  Grid,
 } from "@mui/material";
 
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -87,7 +87,6 @@ const EditMode: React.FC<Props> = ({
       dispatch(getCities(isoCode));
     }
   }, [countryISO2, stateISO2, dispatch]);
-
 
   return (
     <>
@@ -238,7 +237,9 @@ const EditMode: React.FC<Props> = ({
                 });
               }}
             >
-              <MenuItem value={formData?.country}>{formData?.country?.name}</MenuItem>
+              <MenuItem value={formData?.country}>
+                {formData?.country?.name}
+              </MenuItem>
               {countries &&
                 countries?.map((country: countryType) => (
                   <MenuItem key={country.id} value={country}>
@@ -275,7 +276,9 @@ const EditMode: React.FC<Props> = ({
                 });
               }}
             >
-              <MenuItem value={formData?.state}>{formData?.state?.name}</MenuItem>
+              <MenuItem value={formData?.state}>
+                {formData?.state?.name}
+              </MenuItem>
               {states &&
                 states?.map((state: stateType) => (
                   <MenuItem key={state.id} value={state}>

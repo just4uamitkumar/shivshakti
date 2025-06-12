@@ -1,6 +1,5 @@
-import Grid from "@mui/material/Grid2";
 import "./style.scss";
-import { Stack } from "@mui/material";
+import { Stack, Grid } from "@mui/material";
 import CustomBtn from "../../common/Button";
 import { SkipPrevious } from "@mui/icons-material";
 

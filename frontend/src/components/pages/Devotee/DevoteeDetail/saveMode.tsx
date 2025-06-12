@@ -1,6 +1,5 @@
-import Grid from "@mui/material/Grid2";
 import "../style.scss";
-import { Stack} from "@mui/material";
+import { Stack, Grid} from "@mui/material";
 import dayjs, { Dayjs } from "dayjs";
 import { devoteeType } from "../constants";
 import TypoGraphy from "../../../common/Typography";

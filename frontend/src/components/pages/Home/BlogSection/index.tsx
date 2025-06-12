@@ -1,6 +1,5 @@
-import Grid from "@mui/material/Grid2";
 import "./style.scss";
-import { Stack } from "@mui/material";
+import { Stack, Grid } from "@mui/material";
 import temple2 from "../../../../styles/assets/images/system/temple2.png";
 import temple3 from "../../../../styles/assets/images/system/temple3.png";
 import temple4 from "../../../../styles/assets/images/system/temple4.png";

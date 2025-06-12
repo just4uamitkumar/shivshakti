@@ -1,5 +1,4 @@
-import { Box, Divider } from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import { Box, Divider, Grid } from "@mui/material";
 import TypoGraphy from "../../common/Typography";
 
 const NumberProblem2: React.FC = () => {

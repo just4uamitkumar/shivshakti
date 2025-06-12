@@ -1,5 +1,4 @@
-import { Box, Divider, Stack } from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import { Box, Divider, Stack, Grid } from "@mui/material";
 import TypoGraphy from "../../common/Typography";
 
 const Recurssion: React.FC = () => {
