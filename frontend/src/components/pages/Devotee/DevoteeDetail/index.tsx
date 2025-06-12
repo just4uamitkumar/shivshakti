@@ -1,9 +1,9 @@
-import Grid from "@mui/material/Grid2";
 import "../style.scss";
 import {
   Alert,
   SelectChangeEvent,
   Snackbar,
+  Grid
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";

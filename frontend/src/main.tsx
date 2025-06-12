@@ -17,6 +17,7 @@ import Jyotirling from "./components/pages/Jyotirling/index.tsx";
 import Code from "./components/pages/Code/index.tsx";
 import DevoteeDetails from "./components/pages/Devotee/DevoteeDetail/index.tsx";
 import Develop from "./components/pages/Develop/index.tsx";
+import ToDoList from "./components/pages/ToDoList/index.tsx";
 
 // eslint-disable-next-line react-refresh/only-export-components
 const Devotee = lazy(() => import('./components/pages/Devotee/index.tsx'))
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
       <Route path="/devotee" element={<Suspense><Devotee /></Suspense>}/>
       <Route path="/devotee/:id" element={<DevoteeDetails />}/>
       <Route path="/code" element={<Code />} />
+      <Route path="/todoList" element={<ToDoList />} />
       <Route path="/develop" element={<Develop />} />
       <Route path="*" element={<h1>404 - Page Not Found</h1>} />
     </Route>

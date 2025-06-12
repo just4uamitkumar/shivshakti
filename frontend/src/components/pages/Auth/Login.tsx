@@ -1,8 +1,7 @@
-import Grid from "@mui/material/Grid2";
 import { RIGHT } from "../../GlobalConstants";
 import CustomDrawer from "../../common/Drawer";
 import "./style.scss";
-import { Stack, TextField } from "@mui/material";
+import { Stack, TextField, Grid } from "@mui/material";
 import { useState } from "react";
 import { useAppDispatch } from "../../../redux/store";
 import { loginUser } from "../../../features/userReducer/action";

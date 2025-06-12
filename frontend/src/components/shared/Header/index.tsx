@@ -1,7 +1,6 @@
-import Grid from "@mui/material/Grid2";
 import "./style.scss";
 import logo from "../../../styles/assets/images/web/shivShakti.png";
-import { Stack } from "@mui/material";
+import { Stack, Grid } from "@mui/material";
 import Nav from "./Nav";
 import useViewportWidth from "../../../utils/useViewportWidth";
 import { smallDesktop } from "../../GlobalConstants";

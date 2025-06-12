@@ -1,7 +1,7 @@
 import { Box, Divider, Grid } from "@mui/material";
 import TypoGraphy from "../../common/Typography";
 
-const StringProblem2: React.FC = () => {
+const ToDoList2B: React.FC = () => {
  
   return (
     <>
@@ -21,4 +21,4 @@ const StringProblem2: React.FC = () => {
   );
 };
 
-export default StringProblem2;
+export default ToDoList2B;

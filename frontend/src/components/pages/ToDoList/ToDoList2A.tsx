@@ -2,7 +2,7 @@ import { Box, Divider, Stack, Grid } from "@mui/material";
 import TypoGraphy from "../../common/Typography";
 import { useEffect, useState } from "react";
 
-const StringProblem1: React.FC = () => {
+const ToDoList2A: React.FC = () => {
   const [string1, setString1] = useState<string>("");
   const [isParaDim, setIsParaDim] = useState<boolean>(false);
   const [string2, setString2] = useState<object>({
@@ -123,4 +123,4 @@ const StringProblem1: React.FC = () => {
   );
 };
 
-export default StringProblem1;
+export default ToDoList2A;

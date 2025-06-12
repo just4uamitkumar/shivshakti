@@ -1,6 +1,5 @@
-import Grid from "@mui/material/Grid2";
 import TypoGraphy from "../../common/Typography";
-import { Drawer, Stack, TextField } from "@mui/material";
+import { Drawer, Stack, TextField, Grid } from "@mui/material";
 import "./style.scss";
 import Button from "../../common/Button";
 import { useState } from "react";

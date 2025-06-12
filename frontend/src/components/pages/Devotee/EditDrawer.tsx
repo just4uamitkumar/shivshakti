@@ -1,4 +1,3 @@
-import Grid from "@mui/material/Grid2";
 import TypoGraphy from "../../common/Typography";
 import {
   Drawer,
@@ -9,6 +8,7 @@ import {
   SelectChangeEvent,
   Stack,
   TextField,
+  Grid
 } from "@mui/material";
 import "./style.scss";
 import Button from "../../common/Button";

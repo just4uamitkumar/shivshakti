@@ -1,7 +1,6 @@
-import Grid from "@mui/material/Grid2";
 import PageBanner from "../../shared/PageBanner";
 import { useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import TypoGraphy from "../../common/Typography";
 import ArrayProblem1 from "./ArrayProblem1";
 import ArrayProblem2 from "./ArrayProblem2";

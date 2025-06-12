@@ -1,5 +1,4 @@
-import { CircularProgress, Stack } from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import { CircularProgress, Stack, Grid } from "@mui/material";
 import React from "react";
 import "./style.scss";
 

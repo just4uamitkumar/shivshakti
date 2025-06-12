@@ -1,4 +1,4 @@
-import Grid from "@mui/material/Grid2";
+import { Grid } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import NoData from "../../shared/NoData";
 import { DataGrid } from "@mui/x-data-grid";

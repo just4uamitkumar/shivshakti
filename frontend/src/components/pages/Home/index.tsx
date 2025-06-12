@@ -1,4 +1,4 @@
-import Grid from "@mui/material/Grid2";
+import { Grid } from "@mui/material";
 import HomeBanner from "./HomeBanner";
 import EventSection from "./EventSection";
 import ContentSection from "./ContentSection";

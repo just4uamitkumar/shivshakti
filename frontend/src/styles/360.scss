@@ -51,6 +51,11 @@ html {
     @include roundCorner(0);
     @include boxShadow(none);
 
+    &.sm-btn {
+      padding: calc($half-grid + 2px) $grid-1x;
+      font-size: 0.875rem;
+    }
+
     &:hover {
       @include boxShadow(none);
     }

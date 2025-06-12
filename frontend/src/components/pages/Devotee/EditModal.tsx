@@ -1,5 +1,4 @@
-import { Stack } from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import { Stack, Grid } from "@mui/material";
 import CustomDialog from "../../common/Dialog";
 
 interface Props {
