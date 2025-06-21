@@ -1,4 +1,4 @@
-import { Grid, Stack } from "@mui/material";
+import { Grid, Stack  } from "@mui/material";
 import { useEffect, useState } from "react";
 import { server } from "../../../redux/store";
 import axios from "axios";
@@ -6,7 +6,9 @@ import PageBanner from "../../shared/PageBanner";
 import type { userType } from "../../shared/Header/type";
 import { FaUserCircle } from "react-icons/fa";
 import TypoGraphy from "../../common/TypoGraphy";
-import { Email, Phone, SportsEsports, Home } from "@mui/icons-material";
+import Email from "@mui/icons-material/Email";
+import PersonIcon from "@mui/icons-material/Person";
+import Mobile from "./Mobile";
 
 const Profile: React.FC = () => {
   const token = localStorage.getItem("token");
@@ -24,7 +26,6 @@ const Profile: React.FC = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(response.data?.user);
-        console.log(response);
       }
     } catch (err) {
       console.error(err);
@@ -63,30 +64,24 @@ const Profile: React.FC = () => {
               {user?.email ?? "Not Available"}
             </TypoGraphy>
           </Stack>
-          <Stack direction="row" alignItems="center" spacing={1}>
-            <Phone />
-            <TypoGraphy variant="body1">
-              {user?.mobile ?? "Not Available"}
-            </TypoGraphy>
-          </Stack>
           <Stack
             direction="row"
             alignItems="center"
             spacing={1}
             className="mb-2 mt-2"
           >
-            <SportsEsports />
-            <TypoGraphy variant="body1">{user?.role}</TypoGraphy>
-          </Stack>
-          <Stack direction="row" alignItems="center" spacing={1}>
-            <Home />
+            <PersonIcon />
             <TypoGraphy variant="body1">
-              {typeof user?.address === "string"
-                ? user.address
-                : user?.address
-                ? JSON.stringify(user.address)
-                : "Not Available"}
+              {user?.firstName} {user?.lastName}
             </TypoGraphy>
+          </Stack>
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent={"space-between"}
+            spacing={1}
+          >
+            <Mobile user={user} onUpdate={fetchProfile}/>
           </Stack>
         </Grid>
       </Grid>

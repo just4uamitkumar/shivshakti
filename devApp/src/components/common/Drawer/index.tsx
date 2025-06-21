@@ -1,6 +1,6 @@
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import { CloseRounded } from "@mui/icons-material";
+import  CloseRounded  from "@mui/icons-material/CloseRounded";
 import { Box, Grid } from "@mui/material";
 import "./styles.scss";
 import Button from "../Button";

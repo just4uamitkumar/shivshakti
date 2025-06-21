@@ -5,9 +5,9 @@ import Footer from "./components/shared/Footer";
 function App() {
   return (
     <>
-      <Header/>
+      <Header />
       <Outlet />
-      <Footer/>
+      <Footer />
     </>
   );
 }
