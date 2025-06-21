@@ -7,7 +7,7 @@ import {
   Stack,
 } from "@mui/material";
 import CustomIconBtn from "../IconBtn";
-import { CloseRounded } from "@mui/icons-material";
+import  CloseRounded  from "@mui/icons-material/CloseRounded";
 import "./styles.scss";
 import CustomBtn from "../Button";
 

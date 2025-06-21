@@ -298,9 +298,11 @@ footer {
 }
 
 .profile-image {
+  justify-content: center;
   svg {
     font-size: 10rem;
     fill: $black300;
+    width: 100%;
   }
 
   img {

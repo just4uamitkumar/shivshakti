@@ -91,3 +91,19 @@ export const getAllUsers = catchAsyncError(async (req, res, next) => {
     users,
   });
 });
+
+
+// update Mobile Number
+export const addMobileNumber = catchAsyncError(async (req, res, next) => {
+  // const user = await User.findById(req?.user?._id);
+    const { id } = req.params;
+    const { mobile } = req.body;
+    const user = await User.findById(id);
+    if (mobile) user.mobile = mobile;
+
+    await user.save();
+    res.status(200).json({
+        success: true,
+        message: "Mobile added Successfully",
+    });
+});

@@ -1,7 +1,7 @@
 import "./styles.scss";
 import { Stack, Grid } from "@mui/material";
 import CustomBtn from "../../common/Button";
-import { SkipPrevious } from "@mui/icons-material";
+import SkipPrevious from "@mui/icons-material/SkipPrevious";
 
 interface Props {
   title?: string;
