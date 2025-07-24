@@ -1,10 +1,10 @@
-import '@testing-library/jest-dom/vitest';
-import { afterEach, beforeEach } from 'vitest';
-import { cleanup } from '@testing-library/react';
+import '@testing-library/jest-dom/vitest'; 
 
-afterEach(() => {
-  cleanup();
+Object.defineProperty(globalThis, "global", {
+  value: globalThis,
+  writable: true,
 });
-beforeEach(() => {
-  // Any setup code can go here
-});
+
+
+
+
