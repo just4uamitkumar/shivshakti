@@ -2,7 +2,7 @@ import { Grid, Stack } from "@mui/material";
 
 import PageBanner from "../../shared/PageBanner";
 import { useEffect, useState } from "react";
-import ProgressBar from "../../shared/Footer/ProgressBar";
+import ProgressBar from "../../shared/ProgressBar";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import { decrement, increment } from "../../../features/counter";
 

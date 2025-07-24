@@ -7,7 +7,6 @@ import {
 import IconBtn from "../../common/IconBtn";
 import "./styles.scss";
 
-
 const SocialLinks: React.FC = () => {
   return (
     <>

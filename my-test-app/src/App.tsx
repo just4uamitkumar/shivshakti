@@ -1,20 +1,16 @@
-import { useState } from 'react'
-import './App.css'
-import ToDoList from './Components/Pages/ToDoList'
+import "./App.scss";
+import Header from "./Components/shared/Header";
+import Footer from "./Components/shared/Footer";
+import { Outlet } from "react-router";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
-      <ToDoList/>
+      <Header />
+      <Outlet />
+      <Footer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
