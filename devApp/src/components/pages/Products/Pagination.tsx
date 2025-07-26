@@ -6,6 +6,7 @@ import {
   FaRegArrowAltCircleRight,
 } from "react-icons/fa";
 import IconBtn from "../../common/IconBtn";
+import React from "react";
 
 interface Props {
   ProductsList: ProductType[];
@@ -27,6 +28,12 @@ const Pagination: React.FC<Props> = ({
       setPageLength(pageItem);
     }
   }, [ProductsList]);
+
+  console.log("Pagination Component Rendered", {
+    ProductsList,
+    pageLength,
+    page,
+  });
 
   return (
     <Stack
@@ -63,4 +70,4 @@ const Pagination: React.FC<Props> = ({
   );
 };
 
-export default Pagination;
+export default React.memo(Pagination);

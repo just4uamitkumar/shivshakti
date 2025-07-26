@@ -1,7 +1,7 @@
 import { Grid, TextField } from "@mui/material";
 
 import PageBanner from "../../shared/PageBanner";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import type { ProductType } from "./type";
 import Loader from "../../shared/Loader";
@@ -119,15 +119,18 @@ const Products: React.FC = () => {
     setLoading(false);
   };
 
-  const selectPageHandler = (selectedPage: number) => {
-    if (
-      selectedPage >= 1 &&
-      selectedPage <= ProductsList?.length / 10 &&
-      selectedPage !== page
-    ) {
-      setPage(selectedPage);
-    }
-  };
+  const selectPageHandler = useCallback(
+    (selectedPage: number) => {
+      if (
+        selectedPage >= 1 &&
+        selectedPage <= ProductsList?.length / 10 &&
+        selectedPage !== page
+      ) {
+        setPage(selectedPage);
+      }
+    },
+    [ProductsList?.length, page]
+  );
 
   return (
     <>
