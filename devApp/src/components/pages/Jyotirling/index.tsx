@@ -35,7 +35,11 @@ const Jyotirling: React.FC = () => {
     <>
       <PageBanner title={"Jyotirling"} />
 
-      <Grid className="container pb-4 pt-4" spacing={windowWidth >smallDesktop ?  4 : 2} container>
+      <Grid
+        className="container pb-4 pt-4"
+        spacing={windowWidth > smallDesktop ? 4 : 2}
+        container
+      >
         {loading ? (
           <Grid size={12} className="text-center">
             <Loader />

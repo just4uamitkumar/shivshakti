@@ -7,6 +7,7 @@ import PageBanner from "../../shared/PageBanner";
 import TypoGraphy from "../../common/TypoGraphy";
 import { getOriginalPrice } from "../../../utils/commonFunc";
 import Loader from "../../shared/Loader";
+import React from "react";
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams();
@@ -106,4 +107,4 @@ const ProductDetail: React.FC = () => {
   );
 };
 
-export default ProductDetail;
+export default React.memo(ProductDetail);

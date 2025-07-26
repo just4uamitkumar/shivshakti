@@ -2,6 +2,7 @@ import { Grid, Stack } from "@mui/material";
 import TypoGraphy from "../../common/TypoGraphy";
 import CustomBtn from "../../common/Button";
 import { getOriginalPrice, navigateUrl } from "../../../utils/commonFunc";
+import React from "react";
 
 interface Props {
   id: number;
@@ -26,10 +27,8 @@ const Product: React.FC<Props> = ({
   shippingInformation,
   availabilityStatus,
 }) => {
-  
-
   const getProduct = async (id: number) => {
-   navigateUrl(`/Product/${id}`)
+    navigateUrl(`/Product/${id}`);
   };
 
   return (
@@ -94,4 +93,4 @@ const Product: React.FC<Props> = ({
   );
 };
 
-export default Product;
+export default React.memo(Product);
